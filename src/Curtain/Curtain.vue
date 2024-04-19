@@ -311,8 +311,8 @@ async function calculateColumnSuper(index: number) {
     saturation = Math.floor(saturation/multiplierSum)
     lightness = Math.floor(lightness/multiplierSum)
 
-    color.saturation = saturation
-    color.lightness = lightness
+    color.saturation = saturation*0
+    color.lightness = lightness*0
   }
 
   column.push(
@@ -619,8 +619,12 @@ const HSLToRGB = (h, s, l) => {
 
 function base9Gradient(): ColorOffset {
     return {
-      saturation: Math.random()*80 - 40,
+      saturation: Math.random()*80 + 40,
       lightness: Math.random()*100 - 50,
+      /*
+      saturation: Math.random()*10 + 90,
+      lightness: Math.random()*30 - 50,
+      */
     }
   }
 
@@ -712,7 +716,6 @@ function jganttsSaturation(offset: number, positionalPercentage: number, colorBa
   return colorBase.saturation/1.2 + offset
 }
 function jganttsLightness(offset: number, positionalPercentage: number, colorBase: Color): number {
-  let positionalLightness = (1-positionalPercentage)*0.2 + 0.8
   return (colorBase.lightness + offset)// * positionalLightness
 }
 
