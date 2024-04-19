@@ -87,9 +87,6 @@ onMounted(() => {
               </VStack>
               <div id="text06">
                 <p>
-                  Expert Web Developer
-                </p>
-                <p>
                   Hi, I'm Jacob, a professional web developer. 
                   I create tailored websites that specifically
                   cater to improving your company&#039;s
