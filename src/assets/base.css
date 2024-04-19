@@ -198,7 +198,7 @@ h1 span.p, h2 span.p, h3 span.p, p span.p {
 }
 
 html {
-  font-size: 15pt;
+  font-size: 18pt;
 }
 #text01 {
   letter-spacing: 0rem;
@@ -246,7 +246,7 @@ html {
 
 @media (min-width: 481px) {
   html {
-    font-size: 18pt;
+    font-size: 20pt;
   }
 
   #text01 {
@@ -292,7 +292,7 @@ html {
     display: contents;
   }
   html {
-    font-size: 21pt;
+    font-size: 24pt;
   }
 }
 
