@@ -85,13 +85,23 @@ onMounted(() => {
                 <p id="text04">Jacob Gantt</p>
                 <Links />
               </VStack>
-              <p id="text06">
-                Looking for clients and collaborators.<br />
-                I&#039;m a developer with years of professional and personal
-                experience; from improving enterprise solutions to fuzz testing
-                code parsers; game mods, websites; APIs and UX; C#, JavaScript;
-                Swift, Node; I love it all!
-              </p>
+              <div id="text06">
+                <p>
+                  Expert Web Developer
+                </p>
+                <p>
+                  A professional web developer
+                  specializing in creating tailored websites
+                  that specifically cater to improving
+                  your company&#039;s efficiency and visibility.
+                </p>
+                <p>
+                  I handle the technical details,
+                  ensuring that the websites I build
+                  not only elevate your online presence
+                  but also improve customer interactions.
+                </p>
+              </div>
             </DStack>
           </Island>
           <!-- <NavBar /> -->
@@ -219,8 +229,12 @@ onMounted(() => {
   max-width: 320px;
 }
 
-#text06::first-line {
-  line-height: 2.25;
+#text06>p {
+  padding-bottom: 0.25em;
+}
+
+#text06>p:first-child {
+  padding-bottom: 0.75em;
 }
 
 #text07 {
