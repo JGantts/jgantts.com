@@ -90,10 +90,10 @@ onMounted(() => {
                   Expert Web Developer
                 </p>
                 <p>
-                  A professional web developer
-                  specializing in creating tailored websites
-                  that specifically cater to improving
-                  your company&#039;s efficiency and visibility.
+                  Hi, I'm Jacob, a professional web developer. 
+                  I create tailored websites that specifically
+                  cater to improving your company&#039;s
+                  efficiency and visibility.
                 </p>
                 <p>
                   I handle the technical details,
