@@ -6,7 +6,7 @@
     "src/types/**/*.d.ts",
   ],
   "compilerOptions": {
-    "outDir": "../dist/app",
+    "outDir": "./dist/",
     "tsBuildInfoFile": "../dist/app/app.tsbuildinfo",
     "composite": true,
     "baseUrl": ".",
