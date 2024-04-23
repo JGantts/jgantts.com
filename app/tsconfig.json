@@ -3,6 +3,7 @@
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
     "outDir": "../dist/app",
+    "tsBuildInfoFile": "../dist/app/app.tsbuildinfo",
     "composite": true,
     "baseUrl": ".",
     "paths": {
