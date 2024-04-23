@@ -21,13 +21,14 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     }
   }
   let outDir: string
-  if (command === 'serve' ) {
+  /*if (command === 'serve' ) {
     // dev
     outDir = 'dist'
   } else { // command === build
     // prod
     outDir = './dist/'
-  }
+  }*/
+  outDir = '../dist/app/'
 
   return {
     server,
