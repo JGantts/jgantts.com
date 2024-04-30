@@ -86,7 +86,7 @@ onMounted(() => {
               <component :is="Component" :ket="$route.path" /> 
             </transition>
           </router-view>
-          <div id="replay-holder">
+          <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="0.25rem">
             <div style="width: 2rem" />
             <Island id="replay-sibling" cornerRadius="0.5rem">
               <VStack padding="0.25rem 0.75rem" spacing="0.3rem">
@@ -105,7 +105,7 @@ onMounted(() => {
             <div style="width: 2rem">
               <ReplayButton class="replay-button" @click="pausePlay" :state="BackgroundState.First" ref="replayButtonRef"/>
             </div>
-          </div>
+          </DStack>
         </VStack>
       </div>
       <Background ref="backgroundRef" @first-run-done="firstRunDone"/>
