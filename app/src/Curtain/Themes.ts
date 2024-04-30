@@ -94,8 +94,8 @@ const theme_BlueDark_slate__Tomato_mauve: Theme = {
   accent11: hslToComponents(tomatoDark.tomato11),
   accent12: hslToComponents(tomatoDark.tomato12),
 
-  textGrayOnBaseLowContrast: hslToComponents(slateDark.slate11),
-  textGrayOnBase: hslToComponents(slateDark.slate12),
+  textGrayOnBaseLowContrast: hslToComponents(mauve.mauve1),
+  textGrayOnBase: hslToComponents(mauve.mauve2),
 
   textGrayOnAccentLowContrast: hslToComponents(mauveDark.mauve11),
   textGrayOnAccent: hslToComponents(mauveDark.mauve12),
@@ -105,6 +105,52 @@ const theme_BlueDark_slate__Tomato_mauve: Theme = {
 
   textBaseOnAccentLowContrast: hslToComponents(blueDark.blue11),
   textBaseOnAccent: hslToComponents(blueDark.blue12),
+
+  textAccentOnBaseLowContrast: hslToComponents(tomatoDark.tomato11),
+  textAccentOnBase: hslToComponents(tomatoDark.tomato10),
+
+  textAccentOnAccentLowContrast: hslToComponents(tomatoDark.tomato11),
+  textAccentOnAccent: hslToComponents(tomatoDark.tomato12),
+}
+
+const theme_PlumDark_mauve__Tomato_mauve: Theme = {
+  base1: hslToComponents(plumDark.plum1),
+  base2: hslToComponents(plumDark.plum2),
+  base3: hslToComponents(plumDark.plum3),
+  base4: hslToComponents(plumDark.plum4),
+  base5: hslToComponents(plumDark.plum5),
+  base6: hslToComponents(plumDark.plum6),
+  base7: hslToComponents(plumDark.plum7),
+  base8: hslToComponents(plumDark.plum8),
+  base9: hslToComponents(plumDark.plum9),
+  base10: hslToComponents(plumDark.plum10),
+  base11: hslToComponents(plumDark.plum11),
+  base12: hslToComponents(plumDark.plum12),
+
+  accent1: hslToComponents(tomatoDark.tomato1),
+  accent2: hslToComponents(tomatoDark.tomato2),
+  accent3: hslToComponents(tomatoDark.tomato3),
+  accent4: hslToComponents(tomatoDark.tomato4),
+  accent5: hslToComponents(tomatoDark.tomato5),
+  accent6: hslToComponents(tomatoDark.tomato6),
+  accent7: hslToComponents(tomatoDark.tomato7),
+  accent8: hslToComponents(tomatoDark.tomato8),
+  accent9: hslToComponents(tomatoDark.tomato9),
+  accent10: hslToComponents(tomatoDark.tomato10),
+  accent11: hslToComponents(tomatoDark.tomato11),
+  accent12: hslToComponents(tomatoDark.tomato12),
+
+  textGrayOnBaseLowContrast: hslToComponents(mauve.mauve1),
+  textGrayOnBase: hslToComponents(mauve.mauve2),
+
+  textGrayOnAccentLowContrast: hslToComponents(mauveDark.mauve11),
+  textGrayOnAccent: hslToComponents(mauveDark.mauve12),
+
+  textBaseOnBaseLowContrast: hslToComponents(plumDark.plum11),
+  textBaseOnBase: hslToComponents(plumDark.plum12),
+
+  textBaseOnAccentLowContrast: hslToComponents(plumDark.plum11),
+  textBaseOnAccent: hslToComponents(plumDark.plum12),
 
   textAccentOnBaseLowContrast: hslToComponents(tomatoDark.tomato11),
   textAccentOnBase: hslToComponents(tomatoDark.tomato10),
@@ -183,6 +229,9 @@ function hslToComponents(hsl: string): Color {
 }
 
 export {
-  theme_BlueDark_slate__Tomato_mauve,
-  theme_Blue_slate__Orange_sand,
+  theme_BlueDark_slate__Tomato_mauve as theme_dark
+  //theme_PlumDark_mauve__Tomato_mauve as theme_dark
+  ,
+  theme_Blue_slate__Orange_sand as theme_light
+  ,
 }

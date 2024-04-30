@@ -1,46 +1,74 @@
 <script setup lang="ts">
+import { Breakpoint } from '@/common/Breakpoint';
+
+import Island from "../components/Island.vue"
+import DStack from "../library-jgantts/DStack.vue";
+import HStack from "../library-jgantts/HStack.vue";
+import VStack from "../library-jgantts/VStack.vue";
+import ReplayButton from "../components/ReplayButton.vue"
+import Links from "../components/Links.vue"
+import ExpandedView from "../library-jgantts/ExpandedView.vue"
+import Background from "../components/Background.vue"
+import NavBar from '../components/NavBar.vue';
 
 </script>
 
 <template>
-  <div id="main02" class="main">
-    <div class="inner">
-      <div id="container02" class="container columns full">
-        <div class="wrapper">
-          <div class="inner">
-            <div>
-              <p id="text03">Contact me about software:</p>
-              <p id="text04">Jacob Gantt</p>
-              <ul id="links01" class="links">
-                <li class="n01">
-                  <a href="mailto:contact@jgantts.com"><span class="link"><i class="fa-solid fa-envelope" />&nbsp;&nbsp;<span class="underline">contact@jgantts.com</span><span></span></span></a>
-                </li><li class="n02">
-                  <a href="https://github.com/JGantts"><span class="link"><i class="fa-brands fa-github" />&nbsp;&nbsp;<span class="underline">github.com/JGantts</span></span></a>
-                </li><li class="n03">
-                  <a href="/resume/GanttJ-Resume.pdf"><span class="link"><i class="fa-solid fa-file-pdf" />&nbsp;&nbsp;<span class="underline">GanttJ-Resume.pdf</span></span></a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <p id="text06"><span class="p">
-                Looking for clients and collaborators.<br />
-                I&#039;m a developer with years of professional and personal experience;
-                from improving enterprise solutions to fuzz testing code parsers;
-                game mods, websites;
-                APIs and UX;
-                C#, JavaScript;
-                Swift, Node;
-                I love it all!
-              </span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<Island cornerRadius="1.5rem">
+  <DStack
+    :breakpoint="Breakpoint._2_M"
+    padding="1rem"
+    hSpacing="1rem"
+    vSpacing="1rem"
+  >
+    <HStack spacing="1.0rem" style="width: 20rem;">
+      <p style="max-width: 10rem; padding-bottom: 100%;">
+        My Services 
+      </p>
+      <VStack style="width: 20rem;" id="text06" spacing="0.3rem" class="highlight">
+        <p>
+          From single pages to full websites and apps with customized features made to your requirements.
+        </p>
+        <p>
+          <span class="medium">A single page includes:</span><br/>
+          - Design (what the page looks like)<br/>
+          - Hosting (making the page available)<br/>
+          - Domain Name (like amazon.com)
+        </p>
+        <p>
+          <span class="medium">A website or app also includes:</span><br/>
+          - Additional pages<br/>
+          - Release on the App Store and Google Play Store
+        </p>
+        <p>
+          <span class="medium">Customized features may be:</span><br/>
+          - Let customers make orders<br/>
+          - Updating event calendar<br/>
+          - Rewards system
+          - And more
+        </p>
+        <p>
+          Handling the technical details is what I do, ensuring
+          your site improves
+          customer interactions.
+        </p>
+      </VStack>
+    </HStack>
+  </DStack>
+</Island>
 </template>
 
 <style scoped>
+#text06 {
+  max-width: 320px;
+}
+
+@media (min-width: 1025px) {
+  #text06 {
+    max-width: 530px;
+  }
+}
+
 #main02 {
   --alignment: center;
   --flex-alignment: center;

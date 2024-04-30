@@ -1,5 +1,5 @@
 body {
---backgroundAppBase: var(--base3);
+--backgroundAppBase: var(--base5);
 --backgroundAppAccent: var(--accent1);
 --backgroundSubtleBase: var(--base2);
 --backgroundSubtleAccent: var(--accent2);
@@ -230,6 +230,7 @@ html {
   width: 100%;
   font-size: 0.625em;
   line-height: 1.5;
+  max-width: 320px;
 }
 #text05 {
   letter-spacing: 0rem;
@@ -278,6 +279,7 @@ html {
   }
 }
 
+
 @media (min-width: 769px) {
   #text03 {
     display: none;
@@ -291,8 +293,11 @@ html {
   #text03 {
     display: contents;
   }
+  #text06 {
+    max-width: 530px;
+  }
   html {
-    font-size: 24pt;
+    font-size: 2.5rem;
   }
 }
 

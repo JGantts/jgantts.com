@@ -23,6 +23,7 @@ const props = defineProps({
 .router-link-active > .main > .inner {
   color: var(--textAccentOnAccent);
   background-color: var(--backgroundSolidAccent);
+  transition: color 0.25s, background-color 0.25s;
 }
 
 #container-nav > .wrapper > .inner > ul {

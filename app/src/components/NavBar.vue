@@ -9,11 +9,14 @@ import NavBarItem from './NavBarItem.vue';
       <div class="inner">
         <ul>
           <li>
-            <NavBarItem :name="'home'" :title="'Home'" />
+            <NavBarItem :name="'welcome'" :title="'Welcome'" />
           </li>
           <li>
-            <NavBarItem :name="'background'" :title="'Background Project'" />
+            <NavBarItem :name="'getting-started'" :title="'Getting Started'" />
           </li>
+          <!--<li>
+            <NavBarItem :name="'services'" :title="'Services'" />
+          </li>-->
         </ul>
       </div>
     </div>

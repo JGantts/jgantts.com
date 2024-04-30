@@ -1,21 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import BackgorundDescriptionPage from '../views/BackgorundDescriptionPage.vue'
 import NotFound from '../views/NotFound.vue'
+
+import WelcomePageVue from '@/views/WelcomePage.vue'
+import GettingStartedPageVue from '@/views/GettingStartedPage.vue'
+import ServicesPageVue from '@/views/ServicesPage.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      alias: "/home/",
-      name: "home",
-      component: Home
+      alias: "/welcome/",
+      name: "welcome",
+      component: WelcomePageVue
     },
     {
-      path: "/jganttscom-background/",
-      name: "background",
-      component: BackgorundDescriptionPage
+      path: "/services/",
+      name: "services",
+      component: ServicesPageVue
+    },
+    {
+      path: "/getting-started/",
+      name: "getting-started",
+      component: GettingStartedPageVue
     },
     {
       path: "/:pathMatch(.*)*",

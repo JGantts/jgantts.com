@@ -10,14 +10,18 @@ import ReplayButton from "./components/ReplayButton.vue"
 import Links from "./components/Links.vue"
 import ExpandedView from "./library-jgantts/ExpandedView.vue"
 import Background from "./components/Background.vue"
+import NavBar from './components/NavBar.vue';
 
 import { setCSSColors } from './Curtain/ThemeHandler'
 import { Breakpoint } from "./common/Breakpoint"
 import {
-  theme_BlueDark_slate__Tomato_mauve,
-  theme_Blue_slate__Orange_sand,
+  theme_dark,
+  theme_light,
 } from './Curtain/Themes'
 import { BackgroundState } from './Curtain/Types';
+
+
+  import EnvelopeIcon from './assets/icons/envelope.svg'
 
 const sleep = (ms: number|undefined) => {
   return new Promise(resolve => setTimeout(resolve, ms || 2000));
@@ -36,7 +40,7 @@ function checkDarkMode(mediaMatch: any) {
   } else {
     document.body.classList.remove("dark-theme");
   }
-  setCSSColors(mediaMatch.matches ? theme_BlueDark_slate__Tomato_mauve : theme_Blue_slate__Orange_sand)
+  setCSSColors(mediaMatch.matches ? theme_dark : theme_light)
 }
 
 async function pausePlay() {
@@ -73,40 +77,28 @@ onMounted(() => {
               <p id="text02">Welcome, all.</p>
             </VStack>
           </Island>
-          <Island cornerRadius="1.5rem">
-            <DStack
-              :breakpoint="Breakpoint._2_M"
-              padding="1rem"
-              hSpacing="1rem"
-              vSpacing="1rem"
+          <NavBar />
+          <router-view v-slot="{ Component }">
+            <transition
+              name="fade"
+              mode="out-in"
             >
-              <VStack>
-                <p id="text03">Contact me about<br />software:</p>
-                <p id="text04">Jacob Gantt</p>
-                <Links />
-              </VStack>
-              <div id="text06">
-                <p>
-                  Hi, I'm Jacob, a professional web
-                  developer. I create tailored websites
-                  that specifically cater to improving your
-                  company&#039;s efficiency and visibility.
-                </p>
-                <p>
-                  I handle the technical details, ensuring
-                  that the websites I build not only elevate
-                  your online presence but also improve
-                  customer interactions.
-                </p>
-              </div>
-            </DStack>
-          </Island>
-          <!-- <NavBar /> -->
+              <component :is="Component" :ket="$route.path" /> 
+            </transition>
+          </router-view>
           <div id="replay-holder">
             <div style="width: 2rem" />
             <Island id="replay-sibling" cornerRadius="0.5rem">
-              <VStack padding="0.25rem 0.75rem">
-                <p class="text05 highlight" :class="{ mellow: runningSecondary }">I write software!</p>
+              <VStack padding="0.25rem 0.75rem" spacing="0.3rem">
+                <a href="mailto:contact@jgantts.com" class="link">
+                  <span class="line">
+                    <div class="link-icon" :class="{ mellow: runningSecondary }" >
+                      <EnvelopeIcon class="fa-icon" />
+                    </div>
+                    &nbsp;&nbsp;
+                    <span class="underline link">contact@jgantts.com</span>
+                  </span>
+                </a>
                 <p id="text07">© 2024 Jacob Gantt</p>
               </VStack>
             </Island>
@@ -219,19 +211,14 @@ onMounted(() => {
 }
 
 #text06 {
-  text-align: justify;
+  text-align: start;
   font-size: 0.625em;
   line-height: 1.5;
   font-weight: 400;
-  max-width: 320px;
 }
 
 #text06>p {
   padding-bottom: 0.25em;
-}
-
-#text06>p:first-child {
-  padding-bottom: 0.75em;
 }
 
 #text07 {
@@ -246,16 +233,86 @@ onMounted(() => {
   font-weight: 400;
 }
 
-</style>
 
-<style scoped>
 .highlight {
   color: var(--textAccentOnBase);
 }
 
-/* Apply the animation to the text element */
+.heavy {
+  font-weight: 800;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.light {
+  font-weight: 100;
+}
+
+.large {
+  font-size: 0.9rem;
+}
+
+.medium {
+  font-size: 0.8rem;
+}
+</style>
+
+<style scoped>
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+  max-height: 100vh;
+}
+
+.fade-leave-active {
+  transition: opacity 0.2s ease-in 0s, max-height 0.4s ease-out;
+  color: rgba(0, 0, 0, 0);
+}
+.fade-enter-active {
+  transition: opacity 0.2s ease-out calc(0.4s - 0.2s), max-height 0.4s ease-in;
+  color: rgba(0, 0, 0, 0);
+}
+</style>
+
+<style>
 .mellow {
   color: var(--textBaseOnAccentLowContrast);
   transition: color 3s ease-in-out 1.5s;
+}
+
+.line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.link-icon {
+  color: var(--textAccentOnBase);
+}
+
+.link {
+  cursor: pointer;
+  white-space: nowrap;
+}
+</style>
+
+<style scoped>
+a {
+  text-decoration: none;
+}
+a .underline {
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: none;
+}
+a:hover .link, a:hover .link-icon {
+  color: var(--textAccentOnBase);
 }
 </style>
