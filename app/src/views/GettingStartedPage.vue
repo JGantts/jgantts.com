@@ -21,7 +21,7 @@ import NavBar from '../components/NavBar.vue';
     hSpacing="1rem"
     vSpacing="1rem"
   >
-    <HStack spacing="1.0rem">
+    <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
       <p style="max-width: 6rem;" class="highlight">
         Ready to <span class="">establish</span> your <span class="highlight">online</span> presence?
       </p>
@@ -36,7 +36,7 @@ import NavBar from '../components/NavBar.vue';
           </a>
         </p>
       </VStack>
-    </HStack>
+    </DStack>
   </DStack>
 </Island>
 </template>
