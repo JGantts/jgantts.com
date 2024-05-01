@@ -30,14 +30,10 @@ import NavBar from '../components/NavBar.vue';
       </p>
       <VStack id="text06" spacing="0.5rem" class="highlight">
         <p>
-          I create websites that specifically
-          cater to you and your audience,
-          improving your online presence.
+          I create websites tailored just for you, helping you form connections with your online community.
         </p>
         <p>
-          Handling the technical details is what I do, ensuring
-          your site improves
-          customer interactions.
+          Handling the technical details is what I do, ensuring your site improves interactions.
         </p>
       </VStack>
     </DStack>
