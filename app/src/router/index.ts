@@ -9,7 +9,7 @@ import NotFound from '../views/NotFound.vue'
 import WelcomePageVue from '@/views/WelcomePage.vue'
 import GettingStartedPageVue from '@/views/GettingStartedPage.vue'
 import ServicesPageVue from '@/views/ServicesPage.vue'
-import AboutMePage from '@/views/AboutMePage.vue'
+import AboutMePage from '@/views/about-me/AboutMePage.vue'
 
 
 const router = createRouter({
