@@ -1,27 +1,58 @@
 <script setup lang="ts">
+import { Breakpoint } from '@/common/Breakpoint';
+
+import Island from "../components/Island.vue"
+import DStack from "../library-jgantts/DStack.vue";
+import HStack from "../library-jgantts/HStack.vue";
+import VStack from "../library-jgantts/VStack.vue";
+import ReplayButton from "../components/ReplayButton.vue"
+import Links from "../components/Links.vue"
+import ExpandedView from "../library-jgantts/ExpandedView.vue"
+import Background from "../components/Background.vue"
+import NavBar from '../components/NavBar.vue';
 
 </script>
 
 <template>
-  <div id="main02" class="main">
-    <div class="inner">
-      <div id="container02" class="container columns full">
-        <div class="wrapper">
-      <div class="inner">
-        <div>
-          <p id="text03">I undertook this project to...</p>
-        </div>
-        <div>
-          <p id="text06"><span class="p">Background Description</span></p>
-        </div>
-      </div>
-    </div>
-      </div>
-    </div>
-  </div>
+<Island cornerRadius="1.5rem">
+  <DStack
+    :breakpoint="Breakpoint._2_M"
+    padding="1rem"
+    hSpacing="1rem"
+    vSpacing="1rem"
+  >
+    <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
+      <p style="max-width: 10rem;">
+        Hi, I'm<br />
+        Jacob, a<br />
+        professional<br />
+        <span class="highlight heavy">web</span> developer.
+      </p>
+      <VStack id="text06" spacing="0.5rem" class="highlight">
+        <p>
+          I create websites tailored just for you, helping you form connections with your online community.
+        </p>
+        <p>
+          Handling the technical details is what I do, ensuring your site improves interactions.
+        </p>
+      </VStack>
+    </DStack>
+  </DStack>
+</Island>
 </template>
 
 <style scoped>
+#text06 {
+  max-width: 320px;
+}
+
+@media (min-width: 1025px) {
+  #text06 {
+    max-width: 320px;
+  }
+}
+
+
 #main02 {
   --alignment: center;
   --flex-alignment: center;
