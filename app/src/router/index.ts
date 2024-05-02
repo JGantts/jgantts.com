@@ -1,9 +1,15 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  type RouteLocationNormalized,
+  type ScrollBehaviorNormalized,
+} from 'vue-router'
 import NotFound from '../views/NotFound.vue'
 
 import WelcomePageVue from '@/views/WelcomePage.vue'
 import GettingStartedPageVue from '@/views/GettingStartedPage.vue'
 import ServicesPageVue from '@/views/ServicesPage.vue'
+import AboutMePage from '@/views/AboutMePage.vue'
 
 
 const router = createRouter({
@@ -26,9 +32,9 @@ const router = createRouter({
       component: GettingStartedPageVue
     },
     {
-      path: "about-me/",
-      name: "getting-started",
-      component: GettingStartedPageVue
+      path: "/about-me/",
+      name: "about-me",
+      component: AboutMePage
     },
 
 
@@ -36,7 +42,19 @@ const router = createRouter({
       path: "/:pathMatch(.*)*",
       component: NotFound
     },
-  ]
+  ],
+  scrollBehavior(
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    savedPosition: ScrollBehaviorNormalized
+  ) {
+    // always scroll to top
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
 })
 
 export default router

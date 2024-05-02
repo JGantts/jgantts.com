@@ -14,6 +14,9 @@ import NavBarItem from './NavBarItem.vue';
           <li>
             <NavBarItem :name="'getting-started'" :title="'Getting Started'" />
           </li>
+          <li>
+            <NavBarItem :name="'about-me'" :title="'About Me'" />
+          </li>
           <!--<li>
             <NavBarItem :name="'services'" :title="'Services'" />
           </li>-->

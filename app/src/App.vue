@@ -256,6 +256,10 @@ onMounted(() => {
 .medium {
   font-size: 0.8rem;
 }
+
+.italicized {
+  font-style: italic;
+}
 </style>
 
 <style scoped>
