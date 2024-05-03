@@ -215,6 +215,62 @@ const theme_Blue_slate__Orange_sand: Theme = {
   ],*/
 }
 
+const theme_Plum_mauve_Orange_sand: Theme = {
+  base1: hslToComponents(plum.plum1),
+  base2: hslToComponents(plum.plum2),
+  base3: hslToComponents(plum.plum3),
+  base4: hslToComponents(plum.plum4),
+  base5: hslToComponents(plum.plum5),
+  base6: hslToComponents(plum.plum6),
+  base7: hslToComponents(plum.plum7),
+  base8: hslToComponents(plum.plum8),
+  base9: hslToComponents(plum.plum9),
+  base10: hslToComponents(plum.plum10),
+  base11: hslToComponents(plum.plum11),
+  base12: hslToComponents(plum.plum12),
+
+  accent1: hslToComponents(mauve.mauve1),
+  accent2: hslToComponents(mauve.mauve2),
+  accent3: hslToComponents(mauve.mauve3),
+  accent4: hslToComponents(mauve.mauve4),
+  accent5: hslToComponents(mauve.mauve5),
+  accent6: hslToComponents(mauve.mauve6),
+  accent7: hslToComponents(mauve.mauve7),
+  accent8: hslToComponents(mauve.mauve8),
+  accent9: hslToComponents(mauve.mauve9),
+  accent10: hslToComponents(mauve.mauve10),
+  accent11: hslToComponents(mauve.mauve11),
+  accent12: hslToComponents(mauve.mauve12),
+
+  textGrayOnBaseLowContrast: hslToComponents(slate.slate11),
+  textGrayOnBase: hslToComponents(slate.slate12),
+
+  textGrayOnAccentLowContrast: hslToComponents(sandDark.sand11),
+  textGrayOnAccent: hslToComponents(sandDark.sand12),
+
+  textBaseOnBaseLowContrast: hslToComponents(plumDark.plum11),
+  textBaseOnBase: hslToComponents(plumDark.plum12),
+
+  textBaseOnAccentLowContrast: hslToComponents(plum.plum11),
+  textBaseOnAccent: hslToComponents(plum.plum12),
+
+  textAccentOnBaseLowContrast: hslToComponents(mauve.mauve11),
+  textAccentOnBase: hslToComponents(mauve.mauve10),
+
+  textAccentOnAccentLowContrast: hslToComponents(mauveDark.mauve11),
+  textAccentOnAccent: hslToComponents(mauveDark.mauve12),
+
+  /*backgroundColors: [
+    { stop: 0/6, color: hslToComponents(red.red9) },
+    { stop: 1/6, color: hslToComponents(orange.orange9) },
+    { stop: 2/6, color: hslToComponents(yellow.yellow9) },
+    { stop: 3/6, color: hslToComponents(green.green9) },
+    { stop: 4/6, color: hslToComponents(blue.blue9) },
+    { stop: 5/6, color: hslToComponents(indigo.indigo9) },
+    { stop: 6/6, color: hslToComponents(violet.violet9) },
+  ],*/
+}
+
 function hslToComponents(hsl: string): Color {
   const splitA = hsl.split(',')
   const hue = splitA[0].split('(')[1]
@@ -229,9 +285,10 @@ function hslToComponents(hsl: string): Color {
 }
 
 export {
-  theme_BlueDark_slate__Tomato_mauve as theme_dark
-  //theme_PlumDark_mauve__Tomato_mauve as theme_dark
+  //theme_BlueDark_slate__Tomato_mauve as theme_dark
+  theme_PlumDark_mauve__Tomato_mauve as theme_dark
   ,
-  theme_Blue_slate__Orange_sand as theme_light
+  //theme_Blue_slate__Orange_sand as theme_light
+  theme_Plum_mauve_Orange_sand as theme_light
   ,
 }
