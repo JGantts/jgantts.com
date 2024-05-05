@@ -10,6 +10,7 @@ import WelcomePageVue from '@/views/WelcomePage.vue'
 import GettingStartedPageVue from '@/views/GettingStartedPage.vue'
 import ServicesPageVue from '@/views/ServicesPage.vue'
 import AboutMePage from '@/views/about-me/AboutMePage.vue'
+import AboutMe2Page from '@/views/about-me/AboutMe2Page.vue'
 
 
 const router = createRouter({
@@ -35,6 +36,11 @@ const router = createRouter({
       path: "/about-me/",
       name: "about-me",
       component: AboutMePage
+    },
+    {
+      path: "/about-me2/",
+      name: "about-me2",
+      component: AboutMe2Page
     },
 
 

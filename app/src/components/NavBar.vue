@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavBarItem from './NavBarItem.vue';
+import VStack from '@/library-jgantts/VStack.vue';
 
 </script>
 
@@ -16,6 +17,9 @@ import NavBarItem from './NavBarItem.vue';
           </li>
           <li>
             <NavBarItem :name="'about-me'" :title="'About Me'" />
+          </li>
+          <li>
+            <NavBarItem :name="'about-me2'" :title="'About Me 2'" />
           </li>
           <!--<li>
             <NavBarItem :name="'services'" :title="'Services'" />
