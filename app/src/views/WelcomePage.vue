@@ -14,7 +14,7 @@ import NavBar from '../components/NavBar.vue';
 </script>
 
 <template>
-<Island cornerRadius="1.5rem">
+<Island cornerRadius="3rem">
   <DStack
     :breakpoint="Breakpoint._2_M"
     padding="1rem"
@@ -22,13 +22,13 @@ import NavBar from '../components/NavBar.vue';
     vSpacing="1rem"
   >
     <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
-      <p style="max-width: 10rem;">
+      <p class="text-h5" style="max-width: 10rem;">
         Hi, I'm<br />
         Jacob, a<br />
         professional<br />
         <span class="highlight heavy">web</span> developer.
       </p>
-      <VStack id="text06" spacing="0.5rem" class="highlight">
+      <VStack class="text-h6 highlight" id="text06" spacing="0.5rem">
         <p>
           I create websites tailored just for you, helping you form connections with your online community.
         </p>

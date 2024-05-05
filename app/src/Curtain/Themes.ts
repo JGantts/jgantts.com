@@ -36,6 +36,8 @@ import {
   sage,
   sageDark,
 
+  mint,
+  mintDark,
   teal,
   tealDark,
   green,
@@ -113,52 +115,6 @@ const theme_BlueDark_slate__Tomato_mauve: Theme = {
   textAccentOnAccent: hslToComponents(tomatoDark.tomato12),
 }
 
-const theme_PlumDark_mauve__Tomato_mauve: Theme = {
-  base1: hslToComponents(plumDark.plum1),
-  base2: hslToComponents(plumDark.plum2),
-  base3: hslToComponents(plumDark.plum3),
-  base4: hslToComponents(plumDark.plum4),
-  base5: hslToComponents(plumDark.plum5),
-  base6: hslToComponents(plumDark.plum6),
-  base7: hslToComponents(plumDark.plum7),
-  base8: hslToComponents(plumDark.plum8),
-  base9: hslToComponents(plumDark.plum9),
-  base10: hslToComponents(plumDark.plum10),
-  base11: hslToComponents(plumDark.plum11),
-  base12: hslToComponents(plumDark.plum12),
-
-  accent1: hslToComponents(tomatoDark.tomato1),
-  accent2: hslToComponents(tomatoDark.tomato2),
-  accent3: hslToComponents(tomatoDark.tomato3),
-  accent4: hslToComponents(tomatoDark.tomato4),
-  accent5: hslToComponents(tomatoDark.tomato5),
-  accent6: hslToComponents(tomatoDark.tomato6),
-  accent7: hslToComponents(tomatoDark.tomato7),
-  accent8: hslToComponents(tomatoDark.tomato8),
-  accent9: hslToComponents(tomatoDark.tomato9),
-  accent10: hslToComponents(tomatoDark.tomato10),
-  accent11: hslToComponents(tomatoDark.tomato11),
-  accent12: hslToComponents(tomatoDark.tomato12),
-
-  textGrayOnBaseLowContrast: hslToComponents(mauve.mauve1),
-  textGrayOnBase: hslToComponents(mauve.mauve2),
-
-  textGrayOnAccentLowContrast: hslToComponents(mauveDark.mauve11),
-  textGrayOnAccent: hslToComponents(mauveDark.mauve12),
-
-  textBaseOnBaseLowContrast: hslToComponents(plumDark.plum11),
-  textBaseOnBase: hslToComponents(plumDark.plum12),
-
-  textBaseOnAccentLowContrast: hslToComponents(plumDark.plum11),
-  textBaseOnAccent: hslToComponents(plumDark.plum12),
-
-  textAccentOnBaseLowContrast: hslToComponents(tomatoDark.tomato11),
-  textAccentOnBase: hslToComponents(tomatoDark.tomato10),
-
-  textAccentOnAccentLowContrast: hslToComponents(tomatoDark.tomato11),
-  textAccentOnAccent: hslToComponents(tomatoDark.tomato12),
-}
-
 const theme_Blue_slate__Orange_sand: Theme = {
   base1: hslToComponents(blue.blue1),
   base2: hslToComponents(blue.blue2),
@@ -213,6 +169,52 @@ const theme_Blue_slate__Orange_sand: Theme = {
     { stop: 5/6, color: hslToComponents(indigo.indigo9) },
     { stop: 6/6, color: hslToComponents(violet.violet9) },
   ],*/
+}
+
+const theme_PlumDark_mauve__Tomato_mauve: Theme = {
+  base1: hslToComponents(plumDark.plum1),
+  base2: hslToComponents(plumDark.plum2),
+  base3: hslToComponents(plumDark.plum3),
+  base4: hslToComponents(plumDark.plum4),
+  base5: hslToComponents(plumDark.plum5),
+  base6: hslToComponents(plumDark.plum6),
+  base7: hslToComponents(plumDark.plum7),
+  base8: hslToComponents(plumDark.plum8),
+  base9: hslToComponents(plumDark.plum9),
+  base10: hslToComponents(plumDark.plum10),
+  base11: hslToComponents(plumDark.plum11),
+  base12: hslToComponents(plumDark.plum12),
+
+  accent1: hslToComponents(tomatoDark.tomato1),
+  accent2: hslToComponents(tomatoDark.tomato2),
+  accent3: hslToComponents(tomatoDark.tomato3),
+  accent4: hslToComponents(tomatoDark.tomato4),
+  accent5: hslToComponents(tomatoDark.tomato5),
+  accent6: hslToComponents(tomatoDark.tomato6),
+  accent7: hslToComponents(tomatoDark.tomato7),
+  accent8: hslToComponents(tomatoDark.tomato8),
+  accent9: hslToComponents(tomatoDark.tomato9),
+  accent10: hslToComponents(tomatoDark.tomato10),
+  accent11: hslToComponents(tomatoDark.tomato11),
+  accent12: hslToComponents(tomatoDark.tomato12),
+
+  textGrayOnBaseLowContrast: hslToComponents(mauve.mauve1),
+  textGrayOnBase: hslToComponents(mauve.mauve2),
+
+  textGrayOnAccentLowContrast: hslToComponents(mauveDark.mauve11),
+  textGrayOnAccent: hslToComponents(mauveDark.mauve12),
+
+  textBaseOnBaseLowContrast: hslToComponents(plumDark.plum11),
+  textBaseOnBase: hslToComponents(plumDark.plum12),
+
+  textBaseOnAccentLowContrast: hslToComponents(plumDark.plum11),
+  textBaseOnAccent: hslToComponents(plumDark.plum12),
+
+  textAccentOnBaseLowContrast: hslToComponents(tomatoDark.tomato11),
+  textAccentOnBase: hslToComponents(tomatoDark.tomato10),
+
+  textAccentOnAccentLowContrast: hslToComponents(tomatoDark.tomato11),
+  textAccentOnAccent: hslToComponents(tomatoDark.tomato12),
 }
 
 const theme_Plum_mauve_Orange_sand: Theme = {
@@ -271,6 +273,108 @@ const theme_Plum_mauve_Orange_sand: Theme = {
   ],*/
 }
 
+const theme_GreenDark_sage__orange_sand: Theme = {
+  base1: hslToComponents(greenDark.green1),
+  base2: hslToComponents(greenDark.green2),
+  base3: hslToComponents(greenDark.green3),
+  base4: hslToComponents(greenDark.green4),
+  base5: hslToComponents(greenDark.green5),
+  base6: hslToComponents(greenDark.green6),
+  base7: hslToComponents(greenDark.green7),
+  base8: hslToComponents(greenDark.green8),
+  base9: hslToComponents(greenDark.green9),
+  base10: hslToComponents(greenDark.green10),
+  base11: hslToComponents(greenDark.green11),
+  base12: hslToComponents(greenDark.green12),
+
+  accent1: hslToComponents(orangeDark.orange1),
+  accent2: hslToComponents(orangeDark.orange2),
+  accent3: hslToComponents(orangeDark.orange3),
+  accent4: hslToComponents(orangeDark.orange4),
+  accent5: hslToComponents(orangeDark.orange5),
+  accent6: hslToComponents(orangeDark.orange6),
+  accent7: hslToComponents(orangeDark.orange7),
+  accent8: hslToComponents(orangeDark.orange8),
+  accent9: hslToComponents(orangeDark.orange9),
+  accent10: hslToComponents(orangeDark.orange10),
+  accent11: hslToComponents(orangeDark.orange11),
+  accent12: hslToComponents(orangeDark.orange12),
+
+  textGrayOnBaseLowContrast: hslToComponents(mauve.mauve1),
+  textGrayOnBase: hslToComponents(mauve.mauve2),
+
+  textGrayOnAccentLowContrast: hslToComponents(mauveDark.mauve11),
+  textGrayOnAccent: hslToComponents(mauveDark.mauve12),
+
+  textBaseOnBaseLowContrast: hslToComponents(greenDark.green11),
+  textBaseOnBase: hslToComponents(greenDark.green12),
+
+  textBaseOnAccentLowContrast: hslToComponents(greenDark.green11),
+  textBaseOnAccent: hslToComponents(greenDark.green12),
+
+  textAccentOnBaseLowContrast: hslToComponents(orangeDark.orange12),
+  textAccentOnBase: hslToComponents(orangeDark.orange10),
+
+  textAccentOnAccentLowContrast: hslToComponents(orangeDark.orange12),
+  textAccentOnAccent: hslToComponents(orangeDark.orange12),
+}
+
+const theme_Green_sage__orange_sand: Theme = {
+  base1: hslToComponents(green.green1),
+  base2: hslToComponents(green.green2),
+  base3: hslToComponents(green.green3),
+  base4: hslToComponents(green.green4),
+  base5: hslToComponents(green.green5),
+  base6: hslToComponents(green.green6),
+  base7: hslToComponents(green.green7),
+  base8: hslToComponents(green.green8),
+  base9: hslToComponents(green.green9),
+  base10: hslToComponents(green.green10),
+  base11: hslToComponents(green.green11),
+  base12: hslToComponents(green.green12),
+
+  accent1: hslToComponents(orange.orange1),
+  accent2: hslToComponents(orange.orange2),
+  accent3: hslToComponents(orange.orange3),
+  accent4: hslToComponents(orange.orange4),
+  accent5: hslToComponents(orange.orange5),
+  accent6: hslToComponents(orange.orange6),
+  accent7: hslToComponents(orange.orange7),
+  accent8: hslToComponents(orange.orange8),
+  accent9: hslToComponents(orange.orange9),
+  accent10: hslToComponents(orange.orange10),
+  accent11: hslToComponents(orange.orange11),
+  accent12: hslToComponents(orange.orange12),
+
+  textGrayOnBaseLowContrast: hslToComponents(slate.slate11),
+  textGrayOnBase: hslToComponents(slate.slate12),
+
+  textGrayOnAccentLowContrast: hslToComponents(sandDark.sand11),
+  textGrayOnAccent: hslToComponents(sandDark.sand12),
+
+  textBaseOnBaseLowContrast: hslToComponents(greenDark.green11),
+  textBaseOnBase: hslToComponents(greenDark.green12),
+
+  textBaseOnAccentLowContrast: hslToComponents(green.green11),
+  textBaseOnAccent: hslToComponents(green.green12),
+
+  textAccentOnBaseLowContrast: hslToComponents(orange.orange11),
+  textAccentOnBase: hslToComponents(orange.orange10),
+
+  textAccentOnAccentLowContrast: hslToComponents(orangeDark.orange11),
+  textAccentOnAccent: hslToComponents(orangeDark.orange12),
+
+  /*backgroundColors: [
+    { stop: 0/6, color: hslToComponents(red.red9) },
+    { stop: 1/6, color: hslToComponents(orange.orange9) },
+    { stop: 2/6, color: hslToComponents(yellow.yellow9) },
+    { stop: 3/6, color: hslToComponents(green.green9) },
+    { stop: 4/6, color: hslToComponents(blue.blue9) },
+    { stop: 5/6, color: hslToComponents(indigo.indigo9) },
+    { stop: 6/6, color: hslToComponents(orange.orange9) },
+  ],*/
+}
+
 function hslToComponents(hsl: string): Color {
   const splitA = hsl.split(',')
   const hue = splitA[0].split('(')[1]
@@ -285,10 +389,12 @@ function hslToComponents(hsl: string): Color {
 }
 
 export {
-  //theme_BlueDark_slate__Tomato_mauve as theme_dark
-  theme_PlumDark_mauve__Tomato_mauve as theme_dark
+  theme_BlueDark_slate__Tomato_mauve as theme_dark
+  //theme_PlumDark_mauve__Tomato_mauve as theme_dark
+  //theme_GreenDark_sage__orange_sand as theme_dark
   ,
-  //theme_Blue_slate__Orange_sand as theme_light
-  theme_Plum_mauve_Orange_sand as theme_light
+  theme_Blue_slate__Orange_sand as theme_light
+  //theme_Plum_mauve_Orange_sand as theme_light
+  //theme_Green_sage__orange_sand as theme_light
   ,
 }

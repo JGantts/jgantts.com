@@ -1,2 +1,6 @@
 @import './base.css';
+@import '@mdi/font/css/materialdesignicons.min.css';
 
+html {
+  font-size: 2rem;
+}

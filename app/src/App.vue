@@ -68,8 +68,8 @@ onMounted(() => {
     <div id="box">
       <div id="content">
         <VStack padding="1.25rem" spacing="0.5rem">          
-          <Island id="welcome-island" cornerRadius="1.5rem">
-            <VStack padding="0.75rem 1.25rem" spacing="0">
+          <Island id="welcome-island" cornerRadius="2.5rem">
+            <VStack class="text-h3" padding="0.75rem 1.25rem" spacing="0">
               <h1>
                 <span class="text01 highlight" :class="{ mellow: runningSecondary }">JGantts</span>
                 <span class="text01">.com</span>
@@ -87,8 +87,8 @@ onMounted(() => {
           </router-view>
           <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="0.25rem">
             <div style="width: 2rem" />
-            <Island id="replay-sibling" cornerRadius="0.5rem">
-              <VStack padding="0.25rem 0.75rem" spacing="0.3rem">
+            <Island id="replay-sibling" cornerRadius="2rem">
+              <VStack class="text-h4" padding="0.5rem 1rem" spacing="0.3rem">
                 <a href="mailto:contact@jgantts.com" class="link">
                   <span class="line">
                     <div class="link-icon" :class="{ mellow: runningSecondary }" >
@@ -98,11 +98,11 @@ onMounted(() => {
                     <span class="underline link">contact@jgantts.com</span>
                   </span>
                 </a>
-                <p id="text07">© 2024 Jacob Gantt</p>
+                <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
               </VStack>
             </Island>
             <div style="width: 2rem">
-              <ReplayButton class="replay-button" @click="pausePlay" :state="BackgroundState.First" ref="replayButtonRef"/>
+              <ReplayButton class="text-h4 replay-button" @click="pausePlay" :state="BackgroundState.First" ref="replayButtonRef"/>
             </div>
           </DStack>
         </VStack>
@@ -130,6 +130,7 @@ onMounted(() => {
   position: relative;
   width: 100%;
   max-width: 100vw;
+  min-height: 100vh;
   z-index: 2;
   overflow: visible;
 }

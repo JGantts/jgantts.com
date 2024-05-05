@@ -13,7 +13,7 @@ const props = defineProps({
   <router-link :to="{ name }">
     <div class="main main-nav">
       <div class="inner">
-        <p id="text05">{{ title }}</p>
+        <p class="text-h5">{{ title }}</p>
       </div>
     </div>
   </router-link>
@@ -135,9 +135,9 @@ const props = defineProps({
 
 .main-nav > .inner {
   --padding-horizontal: 0;
-  --padding-vertical: 0;
+  --padding-vertical: 0.75rem;
   --spacing: 0rem;
-  --width: 6rem;
+  --width: 9rem;
 }
 
 @media (max-width: 736px) {
