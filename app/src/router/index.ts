@@ -2,6 +2,7 @@ import {
   createRouter,
   createWebHistory,
   type RouteLocationNormalized,
+  //@ts-expect-error
   type ScrollBehaviorNormalized,
 } from 'vue-router'
 import NotFound from '../views/NotFound.vue'
