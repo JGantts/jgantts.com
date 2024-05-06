@@ -35,8 +35,7 @@ const props = defineProps({
 
 #container-nav > .wrapper > .inner > ul > li {
   display: inline;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0.5rem;
 }
 
 #container-nav a {
@@ -137,32 +136,7 @@ const props = defineProps({
 .main-nav > .inner {
   --padding-horizontal: 1rem;
   --padding-vertical: 1rem;
-  --spacing: 0rem;
+  --spacing: 1rem;
   --width: 12rem;
-}
-
-@media (max-width: 736px) {
-  .main-nav > .inner {
-    --padding-horizontal: 0;
-    --padding-vertical: 0;
-    --spacing: 0rem;
-    --width: 6rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-nav > .inner {
-    --spacing: 0rem;
-    --width: 6rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .main-nav > .inner {
-    --padding-horizontal: 0;
-    --padding-vertical: 0;
-    --spacing: 0rem;
-    --width: 6rem;
-  }
 }
 </style>

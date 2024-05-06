@@ -71,8 +71,8 @@ onMounted(() => {
           <Island id="welcome-island" cornerRadius="2.5rem">
             <VStack class="text-h3" padding="0.75rem 1.25rem" spacing="0">
               <h1>
-                <span class="text01 highlight" :class="{ mellow: runningSecondary }">JGantts</span>
-                <span class="text01">.com</span>
+                <span class="highlight" :class="{ mellow: runningSecondary }">JGantts</span>
+                <span>.com</span>
               </h1>
             </VStack>
           </Island>
@@ -94,7 +94,7 @@ onMounted(() => {
                     <div class="link-icon" :class="{ mellow: runningSecondary }" >
                       <EnvelopeIcon class="fa-icon" />
                     </div>
-                    &nbsp;&nbsp;
+                    <span class="link-space">&nbsp;&nbsp;</span>
                     <span class="underline link">contact@jgantts.com</span>
                   </span>
                 </a>
@@ -294,6 +294,20 @@ onMounted(() => {
 
 .link-icon {
   color: var(--textAccentOnBase);
+}
+
+@media (max-width: 450px) {
+  .link-icon {
+    display: none;
+  }
+
+  .link-space {
+    display: none;
+  }
+
+  .link {
+  color: var(--textAccentOnBase);
+  }
 }
 
 .link {
