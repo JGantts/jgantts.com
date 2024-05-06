@@ -67,7 +67,7 @@ onMounted(() => {
   <div id="app">
     <div id="box">
       <div id="content">
-        <VStack padding="1.25rem" spacing="0.5rem">          
+        <VStack padding="1.25rem" spacing="1.5rem">          
           <Island id="welcome-island" cornerRadius="2.5rem">
             <VStack class="text-h3" padding="0.75rem 1.25rem" spacing="0">
               <h1>
@@ -85,7 +85,7 @@ onMounted(() => {
               <component :is="Component" :ket="$route.path" /> 
             </transition>
           </router-view>
-          <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="0.25rem">
+          <DStack :breakpoint="Breakpoint._2_M" vSpacing="1rem" hSpacing="1rem">
             <div style="width: 2rem" />
             <Island id="replay-sibling" cornerRadius="2rem">
               <VStack class="text-h4" padding="0.5rem 1rem" spacing="0.3rem">

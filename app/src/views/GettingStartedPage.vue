@@ -14,7 +14,7 @@ import NavBar from '../components/NavBar.vue';
 </script>
 
 <template>
-<Island cornerRadius="1.5rem">
+<Island cornerRadius="3rem">
   <DStack
     :breakpoint="Breakpoint._2_M"
     padding="1rem"
@@ -22,15 +22,15 @@ import NavBar from '../components/NavBar.vue';
     vSpacing="1rem"
   >
     <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
-      <p style="max-width: 6rem;" class="highlight">
+      <p style="max-width: 15rem;" class="text-h4 highlight">
         Ready to <span class="">establish</span> your <span class="highlight">online</span> presence?
       </p>
-      <VStack id="text06" spacing="0.25rem" style="text-align: center;">
-        <p class="light medium"><a href="mailto:contact@jgantts.com"><span class="underline link01">Contact me</span></a> and we can<br/>set up a free meeting.</p>
+      <VStack class="text-h5" spacing="0.25rem" style="max-width: 20rem;text-align: center;">
+        <p class="light"><a href="mailto:contact@jgantts.com"><span class="underline link01">Contact me</span></a> and we can<br/>set up a free meeting.</p>
         <p>Explore the benefits of a tailored website for your business. We&#x2019;ll review your unique needs and discuss strategies.</p>
         <p style="text-align: center;">
           <a href="mailto:contact@jgantts.com">
-            <span class="bold highlight large"><span class="underline-hover link02">Email</span> for a chat</span>
+            <span class="bold highlight text-h4"><span class="underline-hover link02">Email</span> for a chat</span>
             <br/>
             <span class="highlight light">No Commitment</span>
           </a>

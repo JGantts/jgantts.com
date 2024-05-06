@@ -13,7 +13,7 @@ const props = defineProps({
   <router-link :to="{ name }">
     <div class="main main-nav">
       <div class="inner">
-        <p class="text-h5">{{ title }}</p>
+        <p class="text-h4">{{ title }}</p>
       </div>
     </div>
   </router-link>
@@ -35,7 +35,8 @@ const props = defineProps({
 
 #container-nav > .wrapper > .inner > ul > li {
   display: inline;
-  padding: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 #container-nav a {
@@ -65,10 +66,10 @@ const props = defineProps({
   --flex-alignment: center;
   --indent-left: 1;
   --indent-right: 1;
-  --border-radius-tl: 0.5rem;
-  --border-radius-tr: 0.5rem;
-  --border-radius-br: 0.5rem;
-  --border-radius-bl: 0.5rem;
+  --border-radius-tl: 1.75rem;
+  --border-radius-tr: 1.75rem;
+  --border-radius-br: 1.75rem;
+  --border-radius-bl: 1.75rem;
   align-items: center;
   display: flex;
   flex-grow: 0;
@@ -134,10 +135,10 @@ const props = defineProps({
 }
 
 .main-nav > .inner {
-  --padding-horizontal: 0;
-  --padding-vertical: 0.75rem;
+  --padding-horizontal: 1rem;
+  --padding-vertical: 1rem;
   --spacing: 0rem;
-  --width: 9rem;
+  --width: 12rem;
 }
 
 @media (max-width: 736px) {

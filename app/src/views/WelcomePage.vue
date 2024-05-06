@@ -22,18 +22,18 @@ import NavBar from '../components/NavBar.vue';
     vSpacing="1rem"
   >
     <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
-      <p class="text-h5" style="max-width: 10rem;">
+      <p class="text-h4" style="max-width: 15rem;">
         Hi, I'm<br />
         Jacob, a<br />
         professional<br />
-        <span class="highlight heavy">web</span> developer.
+        <span class="highlight">web</span> developer.
       </p>
-      <VStack class="text-h6 highlight" id="text06" spacing="0.5rem">
+      <VStack class="text-h5" id="text06" spacing="0.5rem">
         <p>
-          I create websites tailored just for you, helping you form connections with your online community.
+          I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
         </p>
         <p>
-          Handling the technical details is what I do, ensuring your site improves interactions.
+          Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
         </p>
       </VStack>
     </DStack>
