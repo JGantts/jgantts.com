@@ -35,6 +35,9 @@ import NavBar from '../components/NavBar.vue';
         <p>
           Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
         </p>
+        <router-link :to="{ name: 'getting-started' }">
+          Getting Started
+        </router-link>
       </VStack>
     </DStack>
   </DStack>
