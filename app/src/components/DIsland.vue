@@ -135,7 +135,7 @@ onMounted(() => {
   padding: var(--padding_parent_0_XS);
   background-color: var(--background_parent_0_XS);
 }
-.stack-panel > * {
+.stack-panel :deep(*) {
   padding: var(--padding_child_0_XS);
   background-color: var(--background_child_0_XS);
 }
@@ -147,7 +147,7 @@ onMounted(() => {
     padding: var(--padding_parent_1_S);
     background-color: var(--background_parent_1_S);
   }
-  .stack-panel > * {
+  .stack-panel :deep(*) {
     padding: var(--padding_child_1_S);
     background-color: var(--background_child_1_S);
   }
@@ -160,7 +160,7 @@ onMounted(() => {
     padding: var(--padding_parent_2_M);
     background-color: var(--background_parent_2_M);
   }
-  .stack-panel > * {
+  .stack-panel :deep(*) {
     padding: var(--padding_child_2_M);
     background-color: var(--background_child_2_M);
   }
@@ -171,13 +171,9 @@ onMounted(() => {
     flex-direction: var(--layoutDir_3_L);
     gap: var(--spacing_3_L);
   }
-  .stack-panel > * {
+  .stack-panel :deep(*) {
     padding: var(--padding_parent_3_L);
     background-color: var(--background_parent_3_L);
-  }
-  .stack-panel > * {
-    padding: var(--padding_child_3_L);
-    background-color: var(--background_child_3_L);
   }
 }
 
@@ -188,7 +184,7 @@ onMounted(() => {
     padding: var(--padding_parent_4_XL);
     background-color: var(--background_parent_4_XL);
   }
-  .stack-panel > * {
+  .stack-panel :deep(*) {
     padding: var(--padding_child_4_XL);
     background-color: var(--background_child_4_XL);
   }
