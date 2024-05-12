@@ -10,38 +10,36 @@ import Links from "../components/Links.vue"
 import ExpandedView from "../library-jgantts/ExpandedView.vue"
 import Background from "../components/Background.vue"
 import NavBar from '../components/NavBar.vue';
+import DIsland from '../components/DIsland.vue'
 
 </script>
 
 <template>
-<Island cornerRadius="3rem">
-  <DStack
+  <DIsland
     :breakpoint="Breakpoint._2_M"
-    padding="1rem"
+    padding="0rem"
     hSpacing="1rem"
     vSpacing="1rem"
+    cornerRadius="3rem"
   >
-    <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
-      <p class="text-h4" style="max-width: 15rem;">
-        Hi, I'm<br />
-        Jacob, a<br />
-        professional<br />
-        <span class="highlight">web</span> developer.
+    <p class="text-h4" style="max-width: 20rem;">
+      Hi, I'm<br />
+      Jacob, a<br />
+      professional<br />
+      <span class="highlight">web</span> developer.
+    </p>
+    <VStack class="text-h5" id="text06" spacing="0.5rem">
+      <p>
+        I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
       </p>
-      <VStack class="text-h5" id="text06" spacing="0.5rem">
-        <p>
-          I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
-        </p>
-        <p>
-          Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
-        </p>
-        <router-link :to="{ name: 'getting-started' }">
-          Getting Started
-        </router-link>
-      </VStack>
-    </DStack>
-  </DStack>
-</Island>
+      <p>
+        Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
+      </p>
+      <router-link :to="{ name: 'getting-started' }">
+        Getting Started
+      </router-link>
+    </VStack>
+  </DIsland>
 </template>
 
 <style scoped>

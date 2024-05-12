@@ -95,7 +95,9 @@ const items = ref
       >
         <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-        <v-toolbar-title class="text-h3">
+        <v-toolbar-title
+          v-if="$vuetify.display.xs"
+          class="text-h3">
           <span class="highlight" :class="{ mellow: runningSecondary }">JGantts</span>
           <span>.com</span>
         </v-toolbar-title>
@@ -115,15 +117,18 @@ const items = ref
         <div id="content">
           <VStack padding="1.25rem" spacing="1.5rem">
             <Island
+              v-if="$vuetify.display.smAndUp"
               class="text-h1"
               cornerRadius="2.5rem"
             >
-              <div style="padding: 0.75rem 1.25rem;">
+              <div style="padding: 0.75rem 1.25rem; font-size: 5rem;">
                 <span class="highlight" :class="{ mellow: runningSecondary }">JGantts</span>
                 <span>.com</span>
               </div>
             </Island>
-            <NavBar />
+            <NavBar
+              v-if="$vuetify.display.lgAndUp"
+            />
             <router-view v-slot="{ Component }">
               <transition
                 name="fade"
@@ -303,6 +308,10 @@ const items = ref
 
 .medium {
   font-size: 0.8rem;
+}
+
+.text-h1 {
+  font-size: 1rem;
 }
 </style>
 
