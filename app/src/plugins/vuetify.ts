@@ -1,6 +1,5 @@
 // Import Vue and Vuetify components
 import { createVuetify } from 'vuetify'
-import { VApp, VAppBar, VAppBarNavIcon, VBtn, VCardText, VList, VMain, VNavigationDrawer, VSpacer, VToolbarTitle } from 'vuetify/lib/components/index.mjs'
 import 'vuetify/styles'  // Import Vuetify styles
 
 import {
@@ -70,20 +69,13 @@ import {
 
 } from '@radix-ui/colors';
 
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import 'vuetify/styles';
 
 export default createVuetify({
-  components: {
-    VApp,
-    VAppBarNavIcon,
-    VToolbarTitle,
-    VSpacer,
-    VBtn,
-    VAppBar,
-    VList,
-    VNavigationDrawer,
-    VCardText,
-    VMain,
-  },
+  components,
+  directives,
   theme: {
     themes: {
       light: {

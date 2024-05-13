@@ -29,18 +29,16 @@ const sleep = (ms: number|undefined) => {
 const backgroundRef = ref(null)
 const replayButtonRef = ref(null)
 
+let checkDarkMode = (mediaMatch: any) => {
+  let matches = mediaMatch.matches
+  //vuetify.theme.dark = matches;
+  document.body.classList.toggle("dark-theme", matches);
+  setCSSColors(matches ? theme_dark : theme_light)
+}
+
 const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)")
 darkModePreference.addEventListener("change", checkDarkMode)
 checkDarkMode(darkModePreference)
-
-function checkDarkMode(mediaMatch: any) {
-  if (mediaMatch.matches){
-    document.body.classList.add("dark-theme");
-  } else {
-    document.body.classList.remove("dark-theme");
-  }
-  setCSSColors(mediaMatch.matches ? theme_dark : theme_light)
-}
 
 async function pausePlay() {
   runningSecondary.value = true

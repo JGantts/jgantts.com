@@ -17,7 +17,7 @@ import DIsland from '../components/DIsland.vue'
 <template>
   <DIsland
     :breakpoint="Breakpoint._2_M"
-    padding="0rem"
+    padding="2rem"
     hSpacing="1rem"
     vSpacing="1rem"
     cornerRadius="3rem"

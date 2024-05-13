@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig, type ServerOptions } from "vite";
 import vue from "@vitejs/plugin-vue";
 import svgLoader from 'vite-svg-loader'
+import vuetify from 'vite-plugin-vuetify'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode, ssrBuild }) => {
@@ -39,6 +40,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     plugins: [
       vue(),
       svgLoader(),
+      vuetify({
+        autoImport: true,
+      })
     ],
     resolve: {
       alias: {

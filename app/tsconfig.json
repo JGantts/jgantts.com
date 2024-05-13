@@ -12,6 +12,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": [
+      "vuetify"
+    ],
+    "typeRoots": [
+      "./types",
+    ]
   }
 }
+
