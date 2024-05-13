@@ -19,9 +19,6 @@ const props = defineProps({
   align-items: center;
   justify-content: flex-start;
   gap: v-bind(spacing);
-}
-
-.stack-panel :deep(> *) {
   padding: v-bind(padding);
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 import Island from "./components/Island.vue"
 import DStack from "./library-jgantts/DStack.vue";
@@ -82,6 +82,18 @@ const items = ref
   ]
 )
 
+const windowWidth = ref(window.innerWidth);
+function handleResize() {
+  windowWidth.value = window.innerWidth;
+}
+onMounted(() => {
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+});
+
 </script>
 
 <template>
@@ -137,11 +149,17 @@ const items = ref
             </router-view>
             <DStack :breakpoint="Breakpoint._2_M" vSpacing="1rem" hSpacing="1rem">
               <div style="width: 2rem" />
-              <Island id="replay-sibling" cornerRadius="2rem">
-                <VStack class="text-h4" padding="0.5rem 1rem" spacing="0.3rem">
-                  <a href="mailto:contact@jgantts.com" class="link">
+              <Island
+                id="replay-sibling" cornerRadius="2rem"
+              >
+                <VStack class="display" padding="0.5rem 1rem" spacing="0.3rem">
+                  <a
+                    href="mailto:contact@jgantts.com"
+                    class="link text-h5 text-md-h4"
+                  >
                     <span class="line">
-                      <div class="link-icon" :class="{ mellow: runningSecondary }" >
+                      <div
+                        class="link-icon" :class="{ mellow: runningSecondary }" >
                         <EnvelopeIcon class="fa-icon" />
                       </div>
                       <span class="link-space">&nbsp;&nbsp;</span>
@@ -213,48 +231,52 @@ const items = ref
 }
 
 #replay-sibling {
+  font-size: 1em;
+
   flex-grow: 1; /* Allow the sibling to grow and take up available space */
   text-align: center; /* Center the content of the sibling */
+  max-width: calc(100vw - 8px);
+  overflow: clip;
 }
 
 .replay-button {
-  width: 1em;
+  width: 1rem;
 }
 
 .text01-accent {
   color: var(--textAccentOnBase);
-  font-size: 2em;
+  font-size: 2rem;
   line-height: 1.5;
   font-weight: 500;
 }
 
 .text01 {
-  font-size: 2em;
+  font-size: 2rem;
   line-height: 1.5;
   font-weight: 500;
 }
 
 #text02 {
-  font-size: 1em;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: 300;
 }
 
 #text03 {
   color: var(--textGrayOnBaseLowContrast);
-  font-size: 0.625em;
+  font-size: 0.625rem;
   line-height: 1.5;
   font-weight: 300;
 }
 
 #text04 {
-  font-size: 1em;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: 400;
 }
 
 .text05 {
-  font-size: 1em;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: 500;
 
@@ -262,23 +284,23 @@ const items = ref
 
 #text06 {
   text-align: start;
-  font-size: 0.625em;
+  font-size: 0.625rem;
   line-height: 1.5;
   font-weight: 400;
 }
 
 #text06>p {
-  padding-bottom: 0.25em;
+  padding-bottom: 0.25rem;
 }
 
 #text07 {
-  font-size: 0.5em;
+  font-size: 0.5rem;
   line-height: 1.5;
   font-weight: 300;
 }
 
 #text07-accent {
-  font-size: 0.5em;
+  font-size: 0.5rem;
   line-height: 1.5;
   font-weight: 400;
 }

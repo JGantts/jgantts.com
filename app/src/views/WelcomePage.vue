@@ -22,7 +22,7 @@ import DIsland from '../components/DIsland.vue'
     vSpacing="1rem"
     cornerRadius="3rem"
   >
-    <p class="text-h4" style="max-width: 20rem;">
+    <p class="text-h4" style="text-align: center; max-width: 20rem;">
       Hi, I'm<br />
       Jacob, a<br />
       professional<br />
