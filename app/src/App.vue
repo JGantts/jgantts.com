@@ -59,28 +59,7 @@ function firstRunDone() {
 onMounted(() => {
 })
 
-const drawer = ref(false)
-const items = ref
-(
-  [
-    {
-      title: 'Welcome',
-      value: 'welcome',
-    },
-    {
-      title: 'Bar',
-      value: 'bar',
-    },
-    {
-      title: 'Fizz',
-      value: 'fizz',
-    },
-    {
-      title: 'Buzz',
-      value: 'buzz',
-    },
-  ]
-)
+const drawer = ref(true)
 
 const windowWidth = ref(window.innerWidth);
 function handleResize() {
@@ -88,12 +67,12 @@ function handleResize() {
 }
 onMounted(() => {
   window.addEventListener('resize', handleResize);
+  handleResize()
 });
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
 });
-
 </script>
 
 <template>
@@ -115,12 +94,26 @@ onUnmounted(() => {
 
       <v-navigation-drawer
         v-model="drawer"
-        :location="$vuetify.display.mobile ? 'bottom' : undefined"
+        :location="$vuetify.display.smAndDown ? 'top' : undefined"
+        :permanent="$vuetify.display.mdAndUp"
         temporary
+        class="custom-drawer"
       >
-        <v-list
-          :items="items"
-        ></v-list>
+      <v-list dense>
+        <v-list-item link :to="{ name: 'welcome' }">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link :to="{ name: 'getting-started' }">
+          <v-list-item-content>
+            <v-list-item-title>Getting Started</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list> 
       </v-navigation-drawer>
 
       <v-main>
@@ -137,7 +130,7 @@ onUnmounted(() => {
               </div>
             </Island>
             <NavBar
-              v-if="$vuetify.display.lgAndUp"
+              v-if="$vuetify.display.mdAndUp"
             />
             <router-view v-slot="{ Component }">
               <transition
@@ -182,6 +175,10 @@ onUnmounted(() => {
 </template>
 
 <style>
+.v-navigation-drawer.custom-drawer {
+  background-color: var(--backgroundAppBase); /* Deep purple */
+}
+
 #app {
   top: 0;
   left: 0;
