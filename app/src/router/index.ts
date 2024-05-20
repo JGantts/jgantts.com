@@ -21,32 +21,38 @@ const router = createRouter({
       path: "/",
       alias: "/welcome/",
       name: "welcome",
+      meta: { title: 'Welcome' },
       component: WelcomePageVue
     },
     {
       path: "/services/",
       name: "services",
+      meta: { title: 'Services' },
       component: ServicesPageVue
     },
     {
       path: "/getting-started/",
       name: "getting-started",
+      meta: { title: 'Getting Started' },
       component: GettingStartedPageVue
     },
     {
       path: "/about-me/",
       name: "about-me",
+      meta: { title: 'About Me' },
       component: AboutMePage
     },
     {
       path: "/about-me2/",
       name: "about-me2",
+      meta: { title: 'About Me 2' },
       component: AboutMe2Page
     },
 
 
     {
       path: "/:pathMatch(.*)*",
+      meta: { title: 'Our Bad (Error 404)' },
       component: NotFound
     },
   ],

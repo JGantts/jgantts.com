@@ -1,6 +1,6 @@
 <template>
   <div
-    class="stack-panel"
+    class="stack-panel bg-primary"
     ref="stackPanelRef"
     :style=dynamicStyles
   >
@@ -18,7 +18,7 @@ const props = defineProps({
   padding: { type: String, default: "0" },
   hSpacing: { type: String, default: "0" },
   vSpacing: { type: String, default: "0" },
-  cornerRadius: String,
+  cornerRadius: Number,
 })
 
 const stackPanelRef = ref(null)
@@ -52,6 +52,9 @@ const dynamicStyles = computed<StyleValue>(() =>
   {
     toReturn = columnStyle
   }
+
+  toReturn['borderRadius'] = props.cornerRadius + 'rem'
+  toReturn['padding'] = (props.cornerRadius ?? 0)/2 + 'rem'
 
   return toReturn
 })

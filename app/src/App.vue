@@ -21,6 +21,7 @@ import {
 import { BackgroundState } from './Curtain/Types';
 
 import EnvelopeIcon from './assets/icons/envelope.svg'
+import vuetify from './plugins/vuetify';
 
 const sleep = (ms: number|undefined) => {
   return new Promise(resolve => setTimeout(resolve, ms || 2000));
@@ -33,6 +34,7 @@ let checkDarkMode = (mediaMatch: any) => {
   let matches = mediaMatch.matches
   //vuetify.theme.dark = matches;
   document.body.classList.toggle("dark-theme", matches);
+  vuetify.theme.dark = matches
   setCSSColors(matches ? theme_dark : theme_light)
 }
 
@@ -56,10 +58,8 @@ function firstRunDone() {
   replayButtonRef.value?.firstRunDone()
 }
 
-onMounted(() => {
-})
-
 const drawer = ref(true)
+const rail = ref(false)
 
 const windowWidth = ref(window.innerWidth);
 function handleResize() {
@@ -73,37 +73,51 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
 });
+
 </script>
 
 <template>
   <v-app>
     <div id="box">
       <v-app-bar
+        v-if="$vuetify.display.smAndDown"
         color="primary"
         prominent
       >
-        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title
-          v-if="$vuetify.display.xs"
-          class="text-h3">
+          class="text-h3" color="green">
           <span class="highlight" :class="{ mellow: runningSecondary }">JGantts</span>
           <span>.com</span>
         </v-toolbar-title>
       </v-app-bar>
-
+      
       <v-navigation-drawer
         v-model="drawer"
-        :location="$vuetify.display.smAndDown ? 'top' : undefined"
+        :location="$vuetify.display.smAndDown ? 'top' : 'start'"
         :permanent="$vuetify.display.mdAndUp"
+        :rail="rail"
         temporary
-        class="custom-drawer"
+        class="bg-primary"
       >
-      <v-list dense>
-        <v-list-item link :to="{ name: 'welcome' }">
-          <v-list-item-icon>
+      <v-list >
+        <v-list-item
+          v-if="$vuetify.display.mdAndUp"
+          variant="text"
+          @click.stop="rail = !rail"
+        >
+          <prepend-icon>
+              <v-icon v-if="rail">mdi-menu-close</v-icon>
+              <v-icon v-if="!rail">mdi-menu-open</v-icon>
+          </prepend-icon>
+        </v-list-item>
+        <v-list-item
+          link :to="{ name: 'welcome' }"
+        >
+          <collapse-icon>
             <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
+          </collapse-icon>
           <v-list-item-content>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
@@ -122,16 +136,21 @@ onUnmounted(() => {
             <Island
               v-if="$vuetify.display.smAndUp"
               class="text-h1"
-              cornerRadius="2.5rem"
+              cornerRadius=2.5
             >
               <div style="padding: 0.75rem 1.25rem; font-size: 5rem;">
-                <span class="highlight" :class="{ mellow: runningSecondary }">JGantts</span>
+                <span class="text-deep-orange" :class="{ mellow: runningSecondary }">JGantts</span>
                 <span>.com</span>
               </div>
             </Island>
-            <NavBar
-              v-if="$vuetify.display.mdAndUp"
-            />
+
+            <Island
+              cornerRadius=2.5
+            >
+              <p class="text-h4">
+                {{ $route.meta.title }}
+              </p>
+            </Island>
             <router-view v-slot="{ Component }">
               <transition
                 name="fade"
@@ -143,7 +162,7 @@ onUnmounted(() => {
             <DStack :breakpoint="Breakpoint._2_M" vSpacing="1rem" hSpacing="1rem">
               <div style="width: 2rem" />
               <Island
-                id="replay-sibling" cornerRadius="2rem"
+                id="replay-sibling" cornerRadius=2
               >
                 <VStack class="display" padding="0.5rem 1rem" spacing="0.3rem">
                   <a
@@ -190,6 +209,7 @@ onUnmounted(() => {
   align-items: center;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+  color: 
 }
 
 #box {
@@ -213,6 +233,48 @@ onUnmounted(() => {
 
 .link {
   text-decoration: none;
+}
+
+.title {
+  color: var(--textAccentOnAccent);
+  background-color: var(--backgroundSolidAccent);
+  transition: color 0.25s, background-color 0.25s;
+
+  justify-content: center;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  border-radius: 1.75rem;
+  padding: var(--padding-horizontal) var(--padding-vertical);
+}
+
+.title {
+  --padding-horizontal: 1rem;
+  --padding-vertical: 1rem;
+  --width: 12rem;
+}
+
+@media (max-width: 736px) {
+  .title {
+    --padding-horizontal: 1rem;
+    --padding-vertical: 1rem;
+    --width: 6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    --width: 6rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    --padding-horizontal: 1rem;
+    --padding-vertical: 1rem;
+    --width: 6rem;
+  }
 }
 
 .main-holder {
@@ -333,21 +395,30 @@ onUnmounted(() => {
 </style>
 
 <style scoped>
+.slide-enter-from, .slide-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.slide-enter-to, .slide-leave-from {
+  transform: translateX(0);
+  opacity: 1;
+}
+.slide-leave-active, .slide-enter-active {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+ 
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
-  max-height: 0;
 }
 .fade-enter-to, .fade-leave-from {
   opacity: 1;
-  max-height: 100vh;
 }
-
 .fade-leave-active {
-  transition: opacity 0.2s ease-in 0s, max-height 0.4s ease-out;
+  transition: opacity 0.2s ease-in 0s;
   color: rgba(0, 0, 0, 0);
 }
 .fade-enter-active {
-  transition: opacity 0.2s ease-out calc(0.4s - 0.2s), max-height 0.4s ease-in;
+  transition: opacity 0.2s ease-out calc(0.4s - 0.2s);
   color: rgba(0, 0, 0, 0);
 }
 </style>
