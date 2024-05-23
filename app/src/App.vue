@@ -23,6 +23,8 @@ import { BackgroundState } from './Curtain/Types';
 import EnvelopeIcon from './assets/icons/envelope.svg'
 import vuetify from './plugins/vuetify';
 
+import { useTheme } from 'vuetify'
+
 const sleep = (ms: number|undefined) => {
   return new Promise(resolve => setTimeout(resolve, ms || 2000));
 }
@@ -30,17 +32,18 @@ const sleep = (ms: number|undefined) => {
 const backgroundRef = ref(null)
 const replayButtonRef = ref(null)
 
-let checkDarkMode = (mediaMatch: any) => {
+let checkDarkMode = (mediaMatch: MediaQueryListEvent | MediaQueryList) => {
+  console.log("here")
   let matches = mediaMatch.matches
   //vuetify.theme.dark = matches;
   document.body.classList.toggle("dark-theme", matches);
-  vuetify.theme.dark = matches
+  vuetify.theme.global.name.value =
+    matches
+    ? "themeDark"
+    : "themeLight"
+  console.log(vuetify.theme)
   setCSSColors(matches ? theme_dark : theme_light)
 }
-
-const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)")
-darkModePreference.addEventListener("change", checkDarkMode)
-checkDarkMode(darkModePreference)
 
 async function pausePlay() {
   runningSecondary.value = true
@@ -68,6 +71,9 @@ function handleResize() {
 onMounted(() => {
   window.addEventListener('resize', handleResize);
   handleResize()
+  const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)")
+  darkModePreference.addEventListener("change", checkDarkMode)
+  checkDarkMode(darkModePreference)
 });
 
 onUnmounted(() => {
@@ -147,6 +153,12 @@ onUnmounted(() => {
             <Island
               cornerRadius=2.5
             >
+              {{ $vuetify.theme.dark }}
+            </Island>
+
+            <Island
+              cornerRadius=2.5
+            >
               <p class="text-h4">
                 {{ $route.meta.title }}
               </p>
@@ -156,7 +168,7 @@ onUnmounted(() => {
                 name="fade"
                 mode="out-in"
               >
-                <component :is="Component" :ket="$route.path" /> 
+                <component :is="Component" :key="$route.path" /> 
               </transition>
             </router-view>
             <DStack :breakpoint="Breakpoint._2_M" vSpacing="1rem" hSpacing="1rem">
