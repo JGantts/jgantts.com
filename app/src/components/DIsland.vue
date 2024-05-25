@@ -1,6 +1,6 @@
 <template>
   <div
-    class="stack-panel bg-primary"
+    class="stack-panel"
     ref="stackPanelRef"
     :style=dynamicStyles
   >
@@ -12,6 +12,7 @@
 import { ref, onMounted, computed, type StyleValue, type CSSProperties, onUnmounted, } from 'vue';
 
 import { Breakpoint } from "../common/Breakpoint"
+import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const props = defineProps({
   breakpoint: { type: Number, default: Breakpoint._2_M },
@@ -23,6 +24,8 @@ const props = defineProps({
 
 const stackPanelRef = ref(null)
 
+const theme = useTheme()
+
 const dynamicStyles = computed<StyleValue>(() =>
 {
   let toReturn: StyleValue
@@ -31,7 +34,7 @@ const dynamicStyles = computed<StyleValue>(() =>
   {
     '--layoutDir': "row",
     '--spacing':  props.hSpacing,
-    '--background_parent':  "var(--backgroundAppBase)",
+    '--background_parent':  theme.current.value.colors.background,
     '--background_child':  "clear",
     '--padding_parent':  props.padding,
     '--padding_child':  0,
@@ -41,20 +44,23 @@ const dynamicStyles = computed<StyleValue>(() =>
     '--layoutDir': "column",
     '--spacing':  props.vSpacing,
     '--background_parent':  "clear",
-    '--background_child':  "var(--backgroundAppBase)",
+    '--background_child':  theme.current.value.colors.background,
     '--padding_parent':  0,
     '--padding_child':  props.padding,
   }
 
-  toReturn = rowStyle
-
   if (windowWidth.value < props.breakpoint)
   {
     toReturn = columnStyle
+  } else {
+    toReturn = rowStyle
   }
 
   toReturn['borderRadius'] = props.cornerRadius + 'rem'
   toReturn['padding'] = (props.cornerRadius ?? 0)/2 + 'rem'
+  toReturn['--corner_radius'] = `${props.cornerRadius}rem`
+
+  console.log(toReturn)
 
   return toReturn
 })
@@ -77,10 +83,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border-radius: v-bind(cornerRadius);
+  border-radius: var(--corner_radius);
 }
 .stack-panel > * {
-  border-radius: v-bind(cornerRadius);
+  border-radius: var(--corner_radius);
 }
 
 .stack-panel {

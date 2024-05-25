@@ -105,7 +105,6 @@ onUnmounted(() => {
         :permanent="$vuetify.display.mdAndUp"
         :rail="rail"
         temporary
-        class="bg-primary"
       >
       <v-list >
         <v-list-item
@@ -140,7 +139,7 @@ onUnmounted(() => {
         <div id="content">
           <VStack padding="1.25rem" spacing="1.5rem">
             <Island
-              v-if="$vuetify.display.smAndUp"
+              v-if="$vuetify.display.mdAndUp"
               class="text-h1"
               cornerRadius=2.5
             >
@@ -148,12 +147,6 @@ onUnmounted(() => {
                 <span class="text-deep-orange" :class="{ mellow: runningSecondary }">JGantts</span>
                 <span>.com</span>
               </div>
-            </Island>
-
-            <Island
-              cornerRadius=2.5
-            >
-              {{ $vuetify.theme.dark }}
             </Island>
 
             <Island
