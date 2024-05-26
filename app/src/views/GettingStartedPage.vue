@@ -16,12 +16,12 @@ import NavBar from '../components/NavBar.vue';
 <template>
 <Island cornerRadius="3rem">
   <DStack
-    :breakpoint="Breakpoint._2_M"
+    :breakpoint="Breakpoint._3_M"
     padding="1rem"
     hSpacing="1rem"
     vSpacing="1rem"
   >
-    <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
+    <DStack :breakpoint="Breakpoint._3_M" vSpacing="1.0rem" hSpacing="1.0rem">
       <p style="max-width: 15rem;" class="text-h4 highlight">
         Ready to <span class="">establish</span> your <span class="highlight">online</span> presence?
       </p>

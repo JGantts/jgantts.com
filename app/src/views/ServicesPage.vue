@@ -16,7 +16,7 @@ import NavBar from '../components/NavBar.vue';
 <template>
 <Island cornerRadius="1.5rem">
   <DStack
-    :breakpoint="Breakpoint._2_M"
+    :breakpoint="Breakpoint._3_M"
     padding="1rem"
     hSpacing="1rem"
     vSpacing="1rem"

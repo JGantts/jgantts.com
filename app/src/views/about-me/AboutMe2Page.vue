@@ -19,12 +19,12 @@ import chuNew from './chuNew.png'
 <template>
 <Island cornerRadius="1.5rem">
   <DStack
-    :breakpoint="Breakpoint._2_M"
+    :breakpoint="Breakpoint._3_M"
     padding="1rem"
     hSpacing="1rem"
     vSpacing="1rem"
   >
-    <DStack :breakpoint="Breakpoint._2_M" vSpacing="1.0rem" hSpacing="1.0rem">
+    <DStack :breakpoint="Breakpoint._3_M" vSpacing="1.0rem" hSpacing="1.0rem">
       <VStack style="max-width: 6rem;" spacing="0.75rem">
         <p style="max-width: 6rem;">
           I'm Jacob, a

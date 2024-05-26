@@ -19,7 +19,7 @@ import { ref, onMounted, } from 'vue';
 import { Breakpoint } from "../common/Breakpoint"
 
 const props = defineProps({
-  breakpoint: { type: Number, default: Breakpoint._2_M },
+  breakpoint: { type: Number, default: Breakpoint._3_M },
   padding: { type: String, default: "0" },
   hSpacing: { type: String, default: "0" },
   vSpacing: { type: String, default: "0" },
@@ -33,19 +33,19 @@ onMounted(() => {
   if (!style) {
     return;
   }
-  style.setProperty('--layoutDir_0_XS',  props.breakpoint <= Breakpoint._0_XS  ? "row" : "column" )
-  style.setProperty('--layoutDir_1_S',   props.breakpoint <= Breakpoint._1_S   ? "row" : "column" )
-  style.setProperty('--layoutDir_2_M',   props.breakpoint <= Breakpoint._2_M   ? "row" : "column" )
-  style.setProperty('--layoutDir_3_L',   props.breakpoint <= Breakpoint._3_L   ? "row" : "column" )
-  style.setProperty('--layoutDir_4_XL',  props.breakpoint <= Breakpoint._4_XL  ? "row" : "column" )
-  style.setProperty('--layoutDir_5_XXL', props.breakpoint <= Breakpoint._5_XXL ? "row" : "column" )
+  style.setProperty('--layoutDir_1_XS',  props.breakpoint <= Breakpoint._1_XS  ? "row" : "column" )
+  style.setProperty('--layoutDir_2_S',   props.breakpoint <= Breakpoint._2_S   ? "row" : "column" )
+  style.setProperty('--layoutDir_3_M',   props.breakpoint <= Breakpoint._3_M   ? "row" : "column" )
+  style.setProperty('--layoutDir_4_L',   props.breakpoint <= Breakpoint._4_L   ? "row" : "column" )
+  style.setProperty('--layoutDir_5_XL',  props.breakpoint <= Breakpoint._5_XL  ? "row" : "column" )
+  style.setProperty('--layoutDir_6_XXL', props.breakpoint <= Breakpoint._6_XXL ? "row" : "column" )
 
-  style.setProperty('--spacing_0_XS',  props.breakpoint <= Breakpoint._0_XS ?  props.hSpacing : props.vSpacing )
-  style.setProperty('--spacing_1_S',   props.breakpoint <= Breakpoint._1_S  ?  props.hSpacing : props.vSpacing )
-  style.setProperty('--spacing_2_M',   props.breakpoint <= Breakpoint._2_M  ?  props.hSpacing : props.vSpacing )
-  style.setProperty('--spacing_3_L',   props.breakpoint <= Breakpoint._3_L  ?  props.hSpacing : props.vSpacing )
-  style.setProperty('--spacing_4_XL',  props.breakpoint <= Breakpoint._4_XL ?  props.hSpacing : props.vSpacing )
-  style.setProperty('--spacing_5_XXL', props.breakpoint <= Breakpoint._5_XXL ? props.hSpacing : props.vSpacing )
+  style.setProperty('--spacing_1_XS',  props.breakpoint <= Breakpoint._1_XS ?  props.hSpacing : props.vSpacing )
+  style.setProperty('--spacing_2_S',   props.breakpoint <= Breakpoint._2_S  ?  props.hSpacing : props.vSpacing )
+  style.setProperty('--spacing_3_M',   props.breakpoint <= Breakpoint._3_M  ?  props.hSpacing : props.vSpacing )
+  style.setProperty('--spacing_4_L',   props.breakpoint <= Breakpoint._4_L  ?  props.hSpacing : props.vSpacing )
+  style.setProperty('--spacing_5_XL',  props.breakpoint <= Breakpoint._5_XL ?  props.hSpacing : props.vSpacing )
+  style.setProperty('--spacing_6_XXL', props.breakpoint <= Breakpoint._6_XXL ? props.hSpacing : props.vSpacing )
 })
 </script>
 
@@ -57,42 +57,42 @@ onMounted(() => {
 }
 
 .stack-panel {
-  flex-direction: var(--layoutDir_0_XS);
-  gap: var(--spacing_0_XS);
+  flex-direction: var(--layoutDir_1_XS);
+  gap: var(--spacing_1_XS);
 }
 
 @media (min-width: 481px) {
   .stack-panel {
-    flex-direction: var(--layoutDir_1_S);
-    gap: var(--spacing_1_S);
+    flex-direction: var(--layoutDir_2_S);
+    gap: var(--spacing_2_S);
   }
 }
 
 @media (min-width: 769px) {
   .stack-panel {
-    flex-direction: var(--layoutDir_2_M);
-    gap: var(--spacing_2_M);
+    flex-direction: var(--layoutDir_3_M);
+    gap: var(--spacing_3_M);
   }
 }
 
 @media (min-width: 1025px) {
   .stack-panel {
-    flex-direction: var(--layoutDir_3_L);
-    gap: var(--spacing_3_L);
+    flex-direction: var(--layoutDir_4_L);
+    gap: var(--spacing_4_L);
   }
 }
 
 @media (min-width: 1201px) {
   .stack-panel {
-    flex-direction: var(--layoutDir_4_XL);
-    gap: var(--spacing_4_XL);
+    flex-direction: var(--layoutDir_5_XL);
+    gap: var(--spacing_5_XL);
   }
 }
 
 @media (min-width: 2560px) {
   .stack-panel {
-    flex-direction: var(--layoutDir_5_XXL);
-    gap: var(--spacing_5_XXL);
+    flex-direction: var(--layoutDir_6_XXL);
+    gap: var(--spacing_6_XXL);
   }
 }
 </style>

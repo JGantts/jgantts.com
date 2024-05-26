@@ -15,36 +15,65 @@ import DIsland from '../components/DIsland.vue'
 </script>
 
 <template>
-  <DIsland
-    :breakpoint="Breakpoint._2_M"
-    padding="2rem"
-    hSpacing="1rem"
-    vSpacing="1rem"
-    cornerRadius="3"
-  >
-    <p class="text-h4" style="text-align: center; max-width: 20rem;">
-      Hi, I'm<br />
-      Jacob, a<br />
-      professional<br />
-      <span class="highlight">web</span> developer.
-    </p>
-    <VStack class="text-h5" id="text06" spacing="0.5rem">
-      <p>
-        I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
-      </p>
-      <p>
-        Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
-      </p>
-      <router-link :to="{ name: 'getting-started' }">
-        Getting Started
-      </router-link>
-    </VStack>
-  </DIsland>
+<v-container>
+  <v-row
+          v-if="$vuetify.display.smAndUp">
+    <v-spacer />
+    <v-col cols="6">
+      <v-card
+        color="background"
+        rounded="xl"
+        variant="flat"
+      >
+        <v-card-text>
+          <p class="text-h4 text-center">
+            Hi, I'm<br />
+            Jacob, a<br />
+            professional<br />
+            <span class="highlight">web</span> developer.
+          </p>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-spacer />
+  </v-row>
+  <v-row>
+    <v-col>
+      <v-card
+        color="background"
+        rounded="xl"
+          class="text-center"
+          variant="flat"
+      >
+        <v-card-text class="text-h4 text-center">
+          <p>
+            I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
+          </p>
+          <p>
+            Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
+          </p>
+
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            append-icon="mdi-chevron-right"
+            color="accent"
+            text="Getting Started"
+            variant="elevated"
+            size="x-large"
+            :to="{ name: 'getting-started' }"
+        />
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
+</v-container>
 </template>
 
 <style scoped>
-#text06 {
-  max-width: 320px;
+.router-link {
+  text-decoration: none;
 }
 
 @media (min-width: 1025px) {

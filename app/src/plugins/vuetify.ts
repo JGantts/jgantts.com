@@ -1,5 +1,7 @@
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 
+import { md3 } from 'vuetify/blueprints'
+
 import * as radixColors from '@radix-ui/colors';
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
@@ -9,32 +11,33 @@ import 'vuetify/styles';
 const themeDark: ThemeDefinition = {
   dark: true,
   colors: {
-    primary: radixColors.blueDark.blue1,
-    secondary: radixColors.blueDark.blue1,
-    accent: radixColors.blueDark.blue1,
-    error: radixColors.blueDark.blue1,
-    info: radixColors.blueDark.blue1,
-    success: radixColors.blueDark.blue1,
-    warning: radixColors.blueDark.blue1,
-    background: radixColors.blueDark.blue1,
+    primary: radixColors.purpleDark.purple8,
+    secondary: radixColors.purpleDark.purple8,
+    accent: radixColors.orangeDark.orange5,
+    error: radixColors.purpleDark.purple8,
+    info: radixColors.purpleDark.purple8,
+    success: radixColors.purpleDark.purple8,
+    warning: radixColors.purpleDark.purple8,
+    background: radixColors.blueDark.blue5,
   }
 }
 
 const themeLight: ThemeDefinition = {
   dark: false,
     colors: {
-    primary: radixColors.blue.blue12,
-    secondary: radixColors.blue.blue12,
-    accent: radixColors.blue.blue12,
-    error: radixColors.blue.blue12,
-    info: radixColors.blue.blue12,
-    success: radixColors.blue.blue12,
-    warning: radixColors.blue.blue12,
-    background: radixColors.blue.blue12,
+      primary: radixColors.purple.purple8,
+      secondary: radixColors.purple.purple8,
+      accent: radixColors.orangeDark.orange5,
+      error: radixColors.purple.purple8,
+      info: radixColors.purple.purple8,
+      success: radixColors.purple.purple8,
+      warning: radixColors.purple.purple8,
+      background: radixColors.blue.blue5,
   }
 }
 
 export default createVuetify({
+  blueprint: md3,
   components,
   directives,
   theme: {

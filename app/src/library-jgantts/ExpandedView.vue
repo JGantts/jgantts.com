@@ -13,7 +13,7 @@ import { ref, onMounted, defineProps, computed, } from 'vue';
 import { Breakpoint } from "../common/Breakpoint"
 
 const props = defineProps({
-  breakpoint: { type: Number, default: Breakpoint._2_M },
+  breakpoint: { type: Number, default: Breakpoint._3_M },
 })
 
 const stackPanelRef = ref(null)
@@ -24,40 +24,40 @@ onMounted(() => {
   if (!style) {
     return;
   }
-  style.setProperty('--display_0_XS', props.breakpoint <= Breakpoint._0_XS ? "contents" : "none" )
-  style.setProperty('--display_1_S',  props.breakpoint <= Breakpoint._1_S  ? "contents" : "none" )
-  style.setProperty('--display_2_M',  props.breakpoint <= Breakpoint._2_M  ? "contents" : "none" )
-  style.setProperty('--display_3_L',  props.breakpoint <= Breakpoint._3_L  ? "contents" : "none" )
-  style.setProperty('--display_4_XL', props.breakpoint <= Breakpoint._4_XL ? "contents" : "none" )
+  style.setProperty('--display_1_XS', props.breakpoint <= Breakpoint._1_XS ? "contents" : "none" )
+  style.setProperty('--display_2_S',  props.breakpoint <= Breakpoint._2_S  ? "contents" : "none" )
+  style.setProperty('--display_3_M',  props.breakpoint <= Breakpoint._3_M  ? "contents" : "none" )
+  style.setProperty('--display_4_L',  props.breakpoint <= Breakpoint._4_L  ? "contents" : "none" )
+  style.setProperty('--display_5_XL', props.breakpoint <= Breakpoint._5_XL ? "contents" : "none" )
 })
 </script>
 
 <style scoped>
 .component-main {
-  display: var(--display_0_XS);
+  display: var(--display_1_XS);
 }
 
 @media (min-width: 481px) {
   .component-main {
-    display: var(--display_1_S);
+    display: var(--display_2_S);
   }
 }
 
 @media (min-width: 769px) {
   .component-main {
-    display: var(--display_2_M);
+    display: var(--display_3_M);
   }
 }
 
 @media (min-width: 1025px) {
   .component-main {
-    display: var(--display_3_L);
+    display: var(--display_4_L);
   }
 }
 
 @media (min-width: 1201px) {
   .component-main {
-    display: var(--display_4_XL);
+    display: var(--display_5_XL);
   }
 }
 </style>

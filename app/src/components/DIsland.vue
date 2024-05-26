@@ -15,7 +15,7 @@ import { Breakpoint } from "../common/Breakpoint"
 import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const props = defineProps({
-  breakpoint: { type: Number, default: Breakpoint._2_M },
+  breakpoint: { type: Number, default: Breakpoint._3_M },
   padding: { type: String, default: "0" },
   hSpacing: { type: String, default: "0" },
   vSpacing: { type: String, default: "0" },
@@ -59,8 +59,6 @@ const dynamicStyles = computed<StyleValue>(() =>
   toReturn['borderRadius'] = props.cornerRadius + 'rem'
   toReturn['padding'] = (props.cornerRadius ?? 0)/2 + 'rem'
   toReturn['--corner_radius'] = `${props.cornerRadius}rem`
-
-  console.log(toReturn)
 
   return toReturn
 })

@@ -33,7 +33,6 @@ const backgroundRef = ref(null)
 const replayButtonRef = ref(null)
 
 let checkDarkMode = (mediaMatch: MediaQueryListEvent | MediaQueryList) => {
-  console.log("here")
   let matches = mediaMatch.matches
   //vuetify.theme.dark = matches;
   document.body.classList.toggle("dark-theme", matches);
@@ -41,7 +40,6 @@ let checkDarkMode = (mediaMatch: MediaQueryListEvent | MediaQueryList) => {
     matches
     ? "themeDark"
     : "themeLight"
-  console.log(vuetify.theme)
   setCSSColors(matches ? theme_dark : theme_light)
 }
 
@@ -87,7 +85,7 @@ onUnmounted(() => {
     <div id="box">
       <v-app-bar
         v-if="$vuetify.display.smAndDown"
-        color="primary"
+        color="background"
         prominent
       >
           <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -104,6 +102,7 @@ onUnmounted(() => {
         :location="$vuetify.display.smAndDown ? 'top' : 'start'"
         :permanent="$vuetify.display.mdAndUp"
         :rail="rail"
+        color="background"
         temporary
       >
       <v-list >
@@ -136,62 +135,103 @@ onUnmounted(() => {
       </v-navigation-drawer>
 
       <v-main>
-        <div id="content">
-          <VStack padding="1.25rem" spacing="1.5rem">
-            <Island
-              v-if="$vuetify.display.mdAndUp"
-              class="text-h1"
-              cornerRadius=2.5
+        <v-container>
+          <v-row>
+            <v-spacer />
+            <v-col
+              cols="auto"
             >
-              <div style="padding: 0.75rem 1.25rem; font-size: 5rem;">
-                <span class="text-deep-orange" :class="{ mellow: runningSecondary }">JGantts</span>
+              <v-card
+                v-if="$vuetify.display.mdAndUp"
+                color="background"
+                rounded="pill"
+                variant="flat"
+                class="pa-3"
+              >
+                <v-card-text>
+                  <p class="text-h1 text-center">
+                    <span class="text-deep-orange" :class="{ mellow: runningSecondary }">JGantts</span>
                 <span>.com</span>
-              </div>
-            </Island>
-
-            <Island
-              cornerRadius=2.5
+                  </p>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-spacer />
+          </v-row>
+          <v-row>
+            <v-spacer />
+            <v-col
+              cols="auto"
             >
-              <p class="text-h4">
-                {{ $route.meta.title }}
-              </p>
-            </Island>
-            <router-view v-slot="{ Component }">
-              <transition
-                name="fade"
-                mode="out-in"
+              <v-card
+                color="background"
+                rounded="pill"
+                variant="flat"
+                class="pa-2"
               >
-                <component :is="Component" :key="$route.path" /> 
-              </transition>
-            </router-view>
-            <DStack :breakpoint="Breakpoint._2_M" vSpacing="1rem" hSpacing="1rem">
-              <div style="width: 2rem" />
-              <Island
-                id="replay-sibling" cornerRadius=2
+                <v-card-text>
+                  <p class="text-h4">
+                    {{ $route.meta.title }}
+                  </p>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-spacer />
+          </v-row>
+
+          <router-view v-slot="{ Component }">
+            <transition
+              name="fade"
+              mode="out-in"
+            >
+              <component :is="Component" :key="$route.path" /> 
+            </transition>
+          </router-view>
+
+          <v-row>
+            <v-spacer />
+            <v-col
+              cols="auto"
+            >
+              <v-card
+                color="background"
+                rounded="xl"
+                variant="flat"
               >
-                <VStack class="display" padding="0.5rem 1rem" spacing="0.3rem">
-                  <a
-                    href="mailto:contact@jgantts.com"
-                    class="link text-h5 text-md-h4"
-                  >
-                    <span class="line">
-                      <div
-                        class="link-icon" :class="{ mellow: runningSecondary }" >
-                        <EnvelopeIcon class="fa-icon" />
-                      </div>
-                      <span class="link-space">&nbsp;&nbsp;</span>
-                      <span class="underline link">contact@jgantts.com</span>
-                    </span>
-                  </a>
-                  <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
-                </VStack>
-              </Island>
-              <div style="width: 2rem">
-                <ReplayButton class="text-h4 replay-button" @click="pausePlay" :state="BackgroundState.First" ref="replayButtonRef"/>
-              </div>
-            </DStack>
-          </VStack>
-        </div>
+                <v-card-text>
+                  <v-row>
+
+                    <v-col
+                      cols="auto"
+                    >
+                      <a
+                        href="mailto:contact@jgantts.com"
+                        class="link text-h5 text-md-h4"
+                      >
+                        <span class="line">
+                          <div
+                            class="link-icon" :class="{ mellow: runningSecondary }" >
+                            <EnvelopeIcon class="fa-icon" />
+                          </div>
+                          <span class="link-space">&nbsp;&nbsp;</span>
+                          <span class="underline link">contact@jgantts.com</span>
+                        </span>
+                      </a>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-spacer />
+                    <v-col cols="auto">
+                      <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
+                    </v-col>
+                    <v-spacer />
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-spacer />
+          </v-row>
+        </v-container>
       </v-main>
       <Background ref="backgroundRef" @first-run-done="firstRunDone"/>
     </div>
