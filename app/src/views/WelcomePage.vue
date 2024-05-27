@@ -17,33 +17,48 @@ import DIsland from '../components/DIsland.vue'
 <template>
 <v-container>
   <v-row
-          v-if="$vuetify.display.smAndUp">
-    <v-spacer />
-    <v-col cols="6">
-      <v-card
-        color="background"
-        rounded="xl"
-        variant="flat"
+      class="d-flex flex-row align-center"
+      style="height:100%;"
+    >
+    <v-col
+      cols="12"
+      md="6"
+      v-if="$vuetify.display.smAndUp"
+      style="height:100%;"
+    >
+      <v-row
+        style="height:100%;"
+        class="d-flex flex-row align-center"
       >
-        <v-card-text>
-          <p class="text-h4 text-center">
-            Hi, I'm<br />
-            Jacob, a<br />
-            professional<br />
-            <span class="highlight">web</span> developer.
-          </p>
-        </v-card-text>
-      </v-card>
+        <v-col
+          class="d-flex flex-column justify-center align-center align-md-end"
+          style="height:100%;"
+        >
+          <v-card
+            color="background"
+            rounded="xl"
+            variant="flat"
+            style="width: 20rem"
+          >
+            <v-card-text>
+              <p class="text-h4 text-center">
+                Hi, I'm<br />
+                Jacob, a<br />
+                professional<br />
+                <span class="highlight">web</span> developer.
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-col>
-    <v-spacer />
-  </v-row>
-  <v-row>
     <v-col>
       <v-card
         color="background"
         rounded="xl"
-          class="text-center"
-          variant="flat"
+        class="text-center"
+        variant="flat"
+        :class="{'max-width-mdAndUp': $vuetify.display.mdAndUp}"
       >
         <v-card-text class="text-h4 text-center">
           <p>
@@ -52,7 +67,6 @@ import DIsland from '../components/DIsland.vue'
           <p>
             Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
           </p>
-
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -72,6 +86,13 @@ import DIsland from '../components/DIsland.vue'
 </template>
 
 <style scoped>
+
+
+.max-width-mdAndUp {
+  max-width: calc(1.681 * 20rem)
+}
+
+
 .router-link {
   text-decoration: none;
 }
