@@ -17,7 +17,7 @@ import chuNew from './chuNew.png'
 </script>
 
 <template>
-<Island cornerRadius="1.5rem">
+<Island cornerRadius="1.5">
   <DStack
     :breakpoint="Breakpoint._3_M"
     padding="1rem"
