@@ -17,48 +17,47 @@ import DIsland from '../components/DIsland.vue'
 <template>
 <v-container>
   <v-row
-      class="d-flex flex-row align-center"
+      class="align-center d-flex"
+      justify="center"
       style="height:100%;"
     >
     <v-col
-      cols="12"
-      md="6"
       v-if="$vuetify.display.smAndUp"
-      style="height:100%;"
+      style="height:100%; flex: 0 0 20rem;"
+      align="center"
+      cols="12"
+      sm="12"
+      md="auto"
     >
-      <v-row
-        style="height:100%;"
-        class="d-flex flex-row align-center"
+      <v-card
+        color="background"
+        rounded="xl"
+        variant="flat"
+        style="width: 20rem;"
       >
-        <v-col
-          class="d-flex flex-column justify-center align-center align-md-end"
-          style="height:100%;"
-        >
-          <v-card
-            color="background"
-            rounded="xl"
-            variant="flat"
-            style="width: 20rem"
-          >
-            <v-card-text>
-              <p class="text-h4 text-center">
-                Hi, I'm<br />
-                Jacob, a<br />
-                professional<br />
-                <span class="highlight">web</span> developer.
-              </p>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+        <v-card-text>
+          <p class="text-h4 text-center">
+            Hi, I'm<br />
+            Jacob, a<br />
+            professional<br />
+            <span class="highlight">web</span> developer.
+          </p>
+        </v-card-text>
+      </v-card>
     </v-col>
-    <v-col>
+    <v-col
+      class="flex-md-0-0"
+      cols="12"
+      sm="12"
+      md="auto"
+      style="flex: 0 0 auto;"
+    >
       <v-card
         color="background"
         rounded="xl"
         class="text-center"
         variant="flat"
-        :class="{'max-width-mdAndUp': $vuetify.display.mdAndUp}"
+        
       >
         <v-card-text class="text-h4 text-center">
           <p>
@@ -89,7 +88,7 @@ import DIsland from '../components/DIsland.vue'
 
 
 .max-width-mdAndUp {
-  max-width: calc(1.681 * 20rem)
+  max-width: 30rem
 }
 
 
