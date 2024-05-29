@@ -15,14 +15,17 @@ import DIsland from '../components/DIsland.vue'
 import { ref, onMounted, computed, type StyleValue, type CSSProperties, onUnmounted, } from 'vue';
 
 import vuetify from '@/plugins/vuetify';
+import colors from 'vuetify/util/colors'
 
 const bgColorStyle = computed<StyleValue>(() =>
 {
-  if ($vuetify.breakpoint.mdAndUp) {
-    return { backgroundColor: '#00bcd4' }; // Teal for medium and up
-  } else if ($vuetify.breakpoint.lgAndUp) {
+  if (vuetify.display.mdAndUp) {
+    console.log(vuetify.theme.global.current.value)
+    console.log(vuetify.theme.global.current.value.colors)
+    return { backgroundColor:  vuetify.theme.global.current.value.colors.background}; // Teal for medium and up
+  } else if (vuetify.display.lgAndUp) {
     return { backgroundColor: '#3f51b5' }; // Indigo for large and up
-  } else if ($vuetify.breakpoint.xlAndUp) {
+  } else if (vuetify.display.xlAndUp) {
     return { backgroundColor: '#9c27b0' }; // Purple for extra-large and up
   } else {
     return { backgroundColor: '#ffffff' }; // White for others
@@ -68,10 +71,10 @@ const bgColorStyle = computed<StyleValue>(() =>
       "
     >
       <v-card
-        color="background"
         rounded="xl"
         class="text-center"
         variant="flat"
+        :style="bgColorStyle"
       >
         <v-card-text class="text-h4 text-center d-flex ga-3 flex-column">
           <p>
