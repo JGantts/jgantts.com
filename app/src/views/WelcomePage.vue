@@ -19,16 +19,13 @@ import colors from 'vuetify/util/colors'
 
 const bgColorStyle = computed<StyleValue>(() =>
 {
-  if (vuetify.display.mdAndUp) {
-    console.log(vuetify.theme.global.current.value)
-    console.log(vuetify.theme.global.current.value.colors)
-    return { backgroundColor:  vuetify.theme.global.current.value.colors.background}; // Teal for medium and up
-  } else if (vuetify.display.lgAndUp) {
-    return { backgroundColor: '#3f51b5' }; // Indigo for large and up
-  } else if (vuetify.display.xlAndUp) {
-    return { backgroundColor: '#9c27b0' }; // Purple for extra-large and up
+  let colors = vuetify.theme.global.current.value.colors
+  console.log(colors)
+  console.log(vuetify.display)
+  if (vuetify.display.smAndUp.value) {
+    return { backgroundColor:  colors.background};
   } else {
-    return { backgroundColor: '#ffffff' }; // White for others
+    return { backgroundColor: 'rgba(0,0,0,0)' };
   }
 })
 
@@ -77,10 +74,16 @@ const bgColorStyle = computed<StyleValue>(() =>
         :style="bgColorStyle"
       >
         <v-card-text class="text-h4 text-center d-flex ga-3 flex-column">
-          <p>
+          <p 
+            class="bg-background"
+            rounded="xl"
+          >
             I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
           </p>
-          <p>
+          <p 
+            class="bg-background"
+            rounded="xl"
+          >
             Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
           </p>
         </v-card-text>
