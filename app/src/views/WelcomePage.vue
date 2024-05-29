@@ -12,12 +12,29 @@ import Background from "../components/Background.vue"
 import NavBar from '../components/NavBar.vue';
 import DIsland from '../components/DIsland.vue'
 
+import { ref, onMounted, computed, type StyleValue, type CSSProperties, onUnmounted, } from 'vue';
+
+import vuetify from '@/plugins/vuetify';
+
+const bgColorStyle = computed<StyleValue>(() =>
+{
+  if ($vuetify.breakpoint.mdAndUp) {
+    return { backgroundColor: '#00bcd4' }; // Teal for medium and up
+  } else if ($vuetify.breakpoint.lgAndUp) {
+    return { backgroundColor: '#3f51b5' }; // Indigo for large and up
+  } else if ($vuetify.breakpoint.xlAndUp) {
+    return { backgroundColor: '#9c27b0' }; // Purple for extra-large and up
+  } else {
+    return { backgroundColor: '#ffffff' }; // White for others
+  }
+})
+
 </script>
 
 <template>
 <v-container>
   <v-row
-      class="align-center d-flex"
+      class="align-center d-flex ga-0"
       justify="center"
       style="height:100%;"
     >
@@ -25,9 +42,7 @@ import DIsland from '../components/DIsland.vue'
       v-if="$vuetify.display.smAndUp"
       style="height:100%; flex: 0 0 20rem;"
       align="center"
-      cols="12"
-      sm="12"
-      md="auto"
+      class=""
     >
       <v-card
         color="background"
@@ -46,20 +61,19 @@ import DIsland from '../components/DIsland.vue'
       </v-card>
     </v-col>
     <v-col
-      class="flex-md-0-0"
-      cols="12"
-      sm="12"
-      md="auto"
-      style="flex: 0 0 auto;"
+      class="flex-0-0-100 flex-lg-0-0"
+      style="
+        flex: 0 0 auto;
+        max-width: calc(24rem * 1.618);
+      "
     >
       <v-card
         color="background"
         rounded="xl"
         class="text-center"
         variant="flat"
-        
       >
-        <v-card-text class="text-h4 text-center">
+        <v-card-text class="text-h4 text-center d-flex ga-3 flex-column">
           <p>
             I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
           </p>

@@ -200,7 +200,6 @@ onUnmounted(() => {
               >
                 <v-card-text>
                   <v-row>
-
                     <v-col
                       cols="auto"
                     >
@@ -214,7 +213,7 @@ onUnmounted(() => {
                             <EnvelopeIcon class="fa-icon" />
                           </div>
                           <span class="link-space">&nbsp;&nbsp;</span>
-                          <span class="underline link">contact@jgantts.com</span>
+                          <span class="underline link text-h5">contact@jgantts.com</span>
                         </span>
                       </a>
                     </v-col>
