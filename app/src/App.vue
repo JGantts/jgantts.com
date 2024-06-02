@@ -21,7 +21,6 @@ import {
 import { BackgroundState } from './Curtain/Types';
 
 import EnvelopeIcon from './assets/icons/envelope.svg'
-import vuetify from './plugins/vuetify';
 
 import { useTheme } from 'vuetify'
 
@@ -36,10 +35,6 @@ let checkDarkMode = (mediaMatch: MediaQueryListEvent | MediaQueryList) => {
   let matches = mediaMatch.matches
   //vuetify.theme.dark = matches;
   document.body.classList.toggle("dark-theme", matches);
-  vuetify.theme.global.name.value =
-    matches
-    ? "themeDark"
-    : "themeLight"
   setCSSColors(matches ? theme_dark : theme_light)
 }
 
@@ -58,9 +53,6 @@ function firstRunDone() {
   //@ts-expect-error
   replayButtonRef.value?.firstRunDone()
 }
-
-const drawer = ref(true)
-const rail = ref(false)
 
 const windowWidth = ref(window.innerWidth);
 function handleResize() {
@@ -81,162 +73,50 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <v-app>
     <div id="box">
-      <v-app-bar
-        v-if="$vuetify.display.smAndDown"
-        color="background"
-        prominent
+      <p
+        class=""
       >
-          <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
-        <v-toolbar-title
-          class="text-h3" color="green">
-          <span class="highlight" :class="{ mellow: runningSecondary }">JGantts</span>
-          <span>.com</span>
-        </v-toolbar-title>
-      </v-app-bar>
-      
-      <v-navigation-drawer
-        v-model="drawer"
-        :location="$vuetify.display.smAndDown ? 'top' : 'start'"
-        :permanent="$vuetify.display.mdAndUp"
-        :rail="rail"
-        color="background"
-        temporary
+        <span
+          class="text-deep-orange"
+          :class="{ mellow: runningSecondary }"
+        >
+          JGantts
+        </span>
+        <span>.com</span>
+      </p>
+      <p
+        class=""
       >
-      <v-list >
-        <v-list-item
-          v-if="$vuetify.display.mdAndUp"
-          variant="text"
-          @click.stop="rail = !rail"
+        {{ $route.meta.title }}
+      </p>
+      <router-view v-slot="{ Component }">
+        <transition
+          name="fade"
+          mode="out-in"
         >
-          <prepend-icon>
-              <v-icon v-if="rail">mdi-menu-close</v-icon>
-              <v-icon v-if="!rail">mdi-menu-open</v-icon>
-          </prepend-icon>
-        </v-list-item>
-        <v-list-item
-          link :to="{ name: 'welcome' }"
+          <component :is="Component" :key="$route.path" /> 
+        </transition>
+      </router-view>
+        <a
+          href="mailto:contact@jgantts.com"
+          class="link"
         >
-          <collapse-icon>
-            <v-icon>mdi-home</v-icon>
-          </collapse-icon>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link :to="{ name: 'getting-started' }">
-          <v-list-item-content>
-            <v-list-item-title>Getting Started</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list> 
-      </v-navigation-drawer>
+          <span class="line">
+            <div
+              class="link-icon" :class="{ mellow: runningSecondary }" >
+              <EnvelopeIcon class="fa-icon" />
+            </div>
+            <span class="link-space">&nbsp;&nbsp;</span>
+            <span class="underline link text-h5">contact@jgantts.com</span>
+          </span>
+        </a>
 
-      <v-main>
-        <v-container>
-          <v-row>
-            <v-spacer />
-            <v-col
-              cols="auto"
-            >
-              <v-card
-                v-if="$vuetify.display.mdAndUp"
-                color="background"
-                rounded="pill"
-                variant="flat"
-                class="pa-3"
-              >
-                <v-card-text>
-                  <p class="text-h1 text-center">
-                    <span class="text-deep-orange" :class="{ mellow: runningSecondary }">JGantts</span>
-                <span>.com</span>
-                  </p>
-                </v-card-text>
-              </v-card>
-            </v-col>
-            <v-spacer />
-          </v-row>
-          <v-row>
-            <v-spacer />
-            <v-col
-              cols="auto"
-            >
-              <v-card
-                color="background"
-                rounded="pill"
-                variant="flat"
-                class="pa-2"
-              >
-                <v-card-text>
-                  <p class="text-h4">
-                    {{ $route.meta.title }}
-                  </p>
-                </v-card-text>
-              </v-card>
-            </v-col>
-            <v-spacer />
-          </v-row>
-
-          <router-view v-slot="{ Component }">
-            <transition
-              name="fade"
-              mode="out-in"
-            >
-              <component :is="Component" :key="$route.path" /> 
-            </transition>
-          </router-view>
-
-          <v-row>
-            <v-spacer />
-            <v-col
-              cols="auto"
-            >
-              <v-card
-                color="background"
-                rounded="xl"
-                variant="flat"
-              >
-                <v-card-text>
-                  <v-row>
-                    <v-col
-                      cols="auto"
-                    >
-                      <a
-                        href="mailto:contact@jgantts.com"
-                        class="link text-h5 text-md-h4"
-                      >
-                        <span class="line">
-                          <div
-                            class="link-icon" :class="{ mellow: runningSecondary }" >
-                            <EnvelopeIcon class="fa-icon" />
-                          </div>
-                          <span class="link-space">&nbsp;&nbsp;</span>
-                          <span class="underline link text-h5">contact@jgantts.com</span>
-                        </span>
-                      </a>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-spacer />
-                    <v-col cols="auto">
-                      <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
-                    </v-col>
-                    <v-spacer />
-                  </v-row>
-                </v-card-text>
-              </v-card>
-            </v-col>
-            <v-spacer />
-          </v-row>
-        </v-container>
-      </v-main>
+        <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
       <Background ref="backgroundRef" @first-run-done="firstRunDone"/>
     </div>
-  </v-app>
 </template>
-
+<!--
 <style>
 .v-navigation-drawer.custom-drawer {
   background-color: var(--backgroundAppBase); /* Deep purple */
@@ -253,7 +133,6 @@ onUnmounted(() => {
   align-items: center;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  color: 
 }
 
 #box {
@@ -437,7 +316,6 @@ onUnmounted(() => {
   font-size: 1rem;
 }
 </style>
-
 <style scoped>
 .slide-enter-from, .slide-leave-to {
   transform: translateX(100%);
@@ -504,3 +382,4 @@ a:hover .link, a:hover .link-icon {
   color: var(--textAccentOnBase);
 }
 </style>
+-->

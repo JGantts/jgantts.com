@@ -14,105 +14,29 @@ import DIsland from '../components/DIsland.vue'
 
 import { ref, onMounted, computed, type StyleValue, type CSSProperties, onUnmounted, } from 'vue';
 
-import vuetify from '@/plugins/vuetify';
 import colors from 'vuetify/util/colors'
 
-const styleCol = computed<StyleValue>(() =>
-{
-  let toReturn: StyleValue = {}
 
-  //toReturn["max-width"] = "1500px";
-
-  toReturn["flex"] = "0 1 800px"
-
-  return toReturn
-})
-
-const styleCard = computed<StyleValue>(() =>
-{
-  let colors = vuetify.theme.global.current.value.colors
-  console.log(colors)
-  console.log(vuetify.display)
-  if (vuetify.display.smAndUp.value) {
-    return { backgroundColor:  colors.background};
-  } else {
-    return { backgroundColor: 'rgba(0,0,0,0)' };
-  }
-})
 
 </script>
 
 <template>
-<v-container>
-  <v-row
-    class="align-center d-flex ga-0 rounded-xl"
-    justify="center"
-  >
-    <v-col
-      v-if="$vuetify.display.smAndUp"
-      class="d-flex justify-center align-center"
-      style="height:100%; flex: 0 0 17rem;"
-      align="center"
-    >
-      <v-card
-        color="background"
-        rounded="xl"
-        variant="flat"
-        style="width: 17rem;"
-      >
-        <v-card-text
-          class="ma-auto"
-        >
-          <p class="text-h4 text-center">
-            Hi, I'm<br />
-            Jacob, a<br />
-            professional<br />
-            <span class="highlight">web</span> developer.
-          </p>
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col
-      class="flex-0-0-100 flex-lg-0-0"
-      style="
-        flex: 0 0 auto;
-        max-width: calc(17rem * 1.618);
-      "
-    >
-      <v-card
-        rounded="xl"
-        class="text-center pa-0 ma-0"
-        variant="flat"
-        :style="styleCard"
-      >
-        <v-card-text class="text-h4 text-center d-flex pa-0 ma-0 flex-column">
-          <p 
-            class="bg-background pa-4 rounded-xl"
-          >
-            I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
-          </p>
-          <div v-if="$vuetify.display.xs" class="pa-2" />
-          <p 
-            class="bg-background pa-4 rounded-xl"
-          >
-            Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
-          </p>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            append-icon="mdi-chevron-right"
-            color="accent"
-            text="Getting Started"
-            variant="elevated"
-            size="x-large"
-            :to="{ name: 'getting-started' }"
-        />
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
-</v-container>
+  <div class="bg-blue-500 text-white p-5 text-center">
+  Hi, I'm<br />
+  Jacob, a<br />
+  professional<br />
+  <span class="highlight">web</span> developer.
+  </div>
+<p
+  class=""
+>
+  I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
+</p>
+<p
+  class=""
+>
+  Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
+</p>
 </template>
 
 <style scoped>
