@@ -22,7 +22,9 @@ import colors from 'vuetify/util/colors'
 
 <template>
 <div>
-  <div class="bg-amber-12 hover:bg-silver">
+  <div class="
+    bg-amber-3       dark:bg-amber-dark-3
+    hover:bg-blue-3  dark:hover:bg-blue-dark-3">
     Hi, I'm<br />
     Jacob, a<br />
     professional<br />

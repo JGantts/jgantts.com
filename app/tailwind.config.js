@@ -11,9 +11,8 @@ function flattenRadixColors(colors) {
 
       for (let numberNumber of [...Array(13).keys()].slice(1)) {
         let numberString = numberNumber.toString()
-        //console.log(numberString)
         if (oldKey.endsWith(numberString)) {
-          newKey = oldKey.slice(0, -1 * numberString.length) + '-' + numberString
+          newKey = `${oldKey.slice(0, -1 * numberString.length)}${key.includes('Dark') ? '-dark' : ''}-${numberString}`
         }
       }
 
@@ -24,7 +23,11 @@ function flattenRadixColors(colors) {
   }, {});
 }
 
+console.log(radix)
+
 const colors = flattenRadixColors(radix)
+
+//console.log(colors)
 
 module.exports = {
   content: [
