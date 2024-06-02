@@ -74,17 +74,34 @@ onUnmounted(() => {
 
 <template>
     <div id="box">
-      <p
-        class=""
-      >
-        <span
-          class="text-deep-orange"
-          :class="{ mellow: runningSecondary }"
+      <div class="navbar bg-base-100">
+        <div class="flex-1">
+        <a class="btn btn-ghost text-xl gap-0">
+          <span
+            class="text-primary"
+            :class="{ mellow: runningSecondary }"
+          >
+            JGantts
+          </span>
+          <span>.com</span>
+        </a>
+      </div>
+      <VStack>
+
+      </VStack>
+
+        <p
+          class=""
         >
-          JGantts
-        </span>
-        <span>.com</span>
-      </p>
+          <span
+            class="text-primary"
+            :class="{ mellow: runningSecondary }"
+          >
+            JGantts
+          </span>
+          <span>.com</span>
+        </p>
+      </div>
       <p
         class=""
       >
@@ -98,21 +115,31 @@ onUnmounted(() => {
           <component :is="Component" :key="$route.path" /> 
         </transition>
       </router-view>
+      <div 
+      class="
+      
+      bg-base-100
+      rounded-lg
+      w-44
+      ">
         <a
           href="mailto:contact@jgantts.com"
-          class="link"
+          class="text-primary"
         >
           <span class="line">
             <div
-              class="link-icon" :class="{ mellow: runningSecondary }" >
+              class="link-icon text-neutral"
+              :class="{ mellow: runningSecondary }" 
+            >
               <EnvelopeIcon class="fa-icon" />
             </div>
             <span class="link-space">&nbsp;&nbsp;</span>
-            <span class="underline link text-h5">contact@jgantts.com</span>
+            <span class="">contact@jgantts.com</span>
           </span>
         </a>
 
         <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
+      </div>
       <Background ref="backgroundRef" @first-run-done="firstRunDone"/>
     </div>
 </template>

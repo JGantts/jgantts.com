@@ -21,14 +21,20 @@ import colors from 'vuetify/util/colors'
 </script>
 
 <template>
-<div>
-  <div class="
-    bg-amber-3       dark:bg-amber-dark-3
-    hover:bg-blue-3  dark:hover:bg-blue-dark-3">
+<div
+  class="prose"
+>
+  <div
+    class="
+      bg-base-100
+      rounded-lg
+      hover:bg-blue-3
+    "
+  >
     Hi, I'm<br />
     Jacob, a<br />
     professional<br />
-    <span class="highlight">web</span> developer.
+    <span class="text-primary">web</span> developer.
   </div>
   <p
     class=""
