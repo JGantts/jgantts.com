@@ -21,22 +21,24 @@ import colors from 'vuetify/util/colors'
 </script>
 
 <template>
-  <div class="bg-blue-500 text-white p-5 text-center">
-  Hi, I'm<br />
-  Jacob, a<br />
-  professional<br />
-  <span class="highlight">web</span> developer.
+<div>
+  <div class="bg-amber12 hover:bg-silver">
+    Hi, I'm<br />
+    Jacob, a<br />
+    professional<br />
+    <span class="highlight">web</span> developer.
   </div>
-<p
-  class=""
->
-  I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
-</p>
-<p
-  class=""
->
-  Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
-</p>
+  <p
+    class=""
+  >
+    I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
+  </p>
+  <p
+    class=""
+  >
+    Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
+  </p>
+</div>
 </template>
 
 <style scoped>
