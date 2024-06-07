@@ -156,8 +156,6 @@ console.log(breakpoint)
         class="
           bg-base-100
           rounded-lg
-          wmin-11/12
-          sm:wmax-9/12
           md:w-96
           p-2
           text-center
