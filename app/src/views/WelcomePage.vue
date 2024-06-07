@@ -28,8 +28,9 @@ import colors from 'vuetify/util/colors'
       bg-base-100
       rounded-lg
       p-2
-      w-44
+      w-48
       text-center
+      text-2xl
     "
   >
     Hi, I'm<br />
@@ -41,7 +42,7 @@ import colors from 'vuetify/util/colors'
   class="
     bg-base-100
     rounded-lg
-    p-2
+    p-3
     w-72
     text-center
     flex

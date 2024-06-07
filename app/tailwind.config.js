@@ -56,7 +56,7 @@ let lightTheme = {
 }
 
 let darkTheme = {
-  "primary":            dark.tomato._11,
+  "primary":            dark.tomato._9,
   "primary-content":    dark.tomato._1,
   "secondary":          dark.purple._3,
   "secondary-content":  dark.purple._12,
