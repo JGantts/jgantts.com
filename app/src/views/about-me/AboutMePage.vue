@@ -11,15 +11,7 @@ import chuNew from './chuNew.png'
 </script>
 
 <template>
-<Island :cornerRadius=1.5>
-  <DStack
-    :breakpoint="Breakpoint._3_M"
-    padding="1rem"
-    hSpacing="1rem"
-    vSpacing="1rem"
-  >
-    <DStack :breakpoint="Breakpoint._3_M" vSpacing="1.0rem" hSpacing="1.0rem">
-      <VStack style="max-width: 6rem;" spacing="0.75rem">
+      <div>
         <p style="max-width: 6rem;">
           I'm Jacob, a
           <span class="highlight">programmer</span> who loves
@@ -28,8 +20,8 @@ import chuNew from './chuNew.png'
         <p>
           I'm from <span class="highlight">northeast Tennessee</span>, USA.
         </p>
-      </VStack>
-      <VStack id="text06" spacing="0.5rem">
+        </div>
+        <div>
         <p>
           I've written         
           <span class="highlight">software</span>
@@ -51,10 +43,7 @@ import chuNew from './chuNew.png'
           <img :src="chuNew" style="float: right; height: 3.5rem;" class="inline-img"/>
           The upgrade took the simple list of past life events and added more info and photos.
         </p>
-      </VStack>
-    </DStack>
-  </DStack>
-</Island>
+      </div>
 </template>
 
 <style scoped>
