@@ -8,18 +8,11 @@ import Background from "../components/Background.vue"
 </script>
 
 <template>
-<Island :cornerRadius=3>
-  <DStack
-    :breakpoint="Breakpoint._3_M"
-    padding="1rem"
-    hSpacing="1rem"
-    vSpacing="1rem"
-  >
-    <DStack :breakpoint="Breakpoint._3_M" vSpacing="1.0rem" hSpacing="1.0rem">
+
       <p style="max-width: 15rem;" class="text-h4 highlight">
         Ready to <span class="">establish</span> your <span class="highlight">online</span> presence?
       </p>
-      <VStack class="text-h5" spacing="0.25rem" style="max-width: 20rem;text-align: center;">
+      <div>
         <p class="light"><a href="mailto:contact@jgantts.com"><span class="underline link01">Contact me</span></a> and we can<br/>set up a free meeting.</p>
         <p>Explore the benefits of a tailored website for your business. We&#x2019;ll review your unique needs and discuss strategies.</p>
         <p style="text-align: center;">
@@ -29,10 +22,8 @@ import Background from "../components/Background.vue"
             <span class="highlight light">No Commitment</span>
           </a>
         </p>
-      </VStack>
-    </DStack>
-  </DStack>
-</Island>
+      </div>
+
 </template>
 
 <style scoped>

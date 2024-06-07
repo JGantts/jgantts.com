@@ -8,18 +8,11 @@ import Background from "../components/Background.vue"
 </script>
 
 <template>
-<Island :cornerRadius=1.5>
-  <DStack
-    :breakpoint="Breakpoint._3_M"
-    padding="1rem"
-    hSpacing="1rem"
-    vSpacing="1rem"
-  >
-    <HStack spacing="1.0rem" style="width: 20rem;">
+<div>
       <p style="max-width: 10rem; padding-bottom: 100%;">
         My Services 
       </p>
-      <VStack style="width: 20rem;" id="text06" spacing="0.3rem" class="highlight">
+      <div>
         <p>
           From single pages to full websites and apps with customized features made to your requirements.
         </p>
@@ -46,10 +39,8 @@ import Background from "../components/Background.vue"
           your site improves
           customer interactions.
         </p>
-      </VStack>
-    </HStack>
-  </DStack>
-</Island>
+      </div>
+</div>
 </template>
 
 <style scoped>

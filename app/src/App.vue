@@ -67,8 +67,6 @@ onUnmounted(() => {
 });
 
 const breakpoint = useBreakpoint();
-
-console.log(breakpoint)
 </script>
 
 <template>
