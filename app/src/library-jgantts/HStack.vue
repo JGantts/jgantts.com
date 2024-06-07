@@ -1,6 +1,10 @@
 <template>
 <div
   class="stack-panel"
+  :style="{
+    '--padding-rem': $props.padding ?? '0' + 'rem',
+    '--spacing-rem': $props.spacing ?? '0' + 'rem',
+  }"
 >
   <slot />
 </div>
@@ -19,10 +23,10 @@ const props = defineProps({
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--spacing);
+  gap: var(--spacing-rem);
 }
 
 .stack-panel :deep(> *) {
-  padding: v-bind(padding);
+  padding: var(--padding-rem);
 }
 </style>

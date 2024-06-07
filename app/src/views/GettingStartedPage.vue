@@ -7,7 +7,6 @@ import HStack from "../library-jgantts/HStack.vue";
 import VStack from "../library-jgantts/VStack.vue";
 import ReplayButton from "../components/ReplayButton.vue"
 import Links from "../components/Links.vue"
-import ExpandedView from "../library-jgantts/ExpandedView.vue"
 import Background from "../components/Background.vue"
 import NavBar from '../components/NavBar.vue';
 

@@ -33,7 +33,7 @@ let dark = colors.dark
 
 let lightTheme = {
   "primary":            light.orange._10,
-  //"primary-content":    light.orange._11,
+  "primary-content":    light.orange._1,
   "secondary":          light.purple._6,
   "secondary-content":  light.purple._12,
   "accent":             light.purple._3,
@@ -56,7 +56,7 @@ let lightTheme = {
 
 let darkTheme = {
   "primary":            dark.tomato._11,
-  //"primary-content":    dark.tomato._11,
+  "primary-content":    dark.tomato._1,
   "secondary":          dark.purple._3,
   "secondary-content":  dark.purple._12,
   "accent":             dark.purple._3,

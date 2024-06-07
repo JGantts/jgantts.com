@@ -7,7 +7,6 @@ import HStack from "../library-jgantts/HStack.vue";
 import VStack from "../library-jgantts/VStack.vue";
 import ReplayButton from "../components/ReplayButton.vue"
 import Links from "../components/Links.vue"
-import ExpandedView from "../library-jgantts/ExpandedView.vue"
 import Background from "../components/Background.vue"
 import NavBar from '../components/NavBar.vue';
 import DIsland from '../components/DIsland.vue'
@@ -22,13 +21,20 @@ import colors from 'vuetify/util/colors'
 
 <template>
 <div
-  class="prose"
+  class="
+    flex
+    flex-col
+    justify-center
+    items-center
+    gap-3
+  "
 >
   <div
     class="
       bg-base-100
       rounded-lg
-      hover:bg-blue-3
+      w-32
+      text-center
     "
   >
     Hi, I'm<br />

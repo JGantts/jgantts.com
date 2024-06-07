@@ -8,12 +8,12 @@ import HStack from "./library-jgantts/HStack.vue";
 import VStack from "./library-jgantts/VStack.vue";
 import ReplayButton from "./components/ReplayButton.vue"
 import Links from "./components/Links.vue"
-import ExpandedView from "./library-jgantts/ExpandedView.vue"
 import Background from "./components/Background.vue"
 import NavBar from './components/NavBar.vue';
 
 import { setCSSColors } from './Curtain/ThemeHandler'
 import { Breakpoint } from "./common/Breakpoint"
+import { Rounded } from "./tailwindEnums/Rounded"
 import {
   theme_dark,
   theme_light,
@@ -76,69 +76,101 @@ onUnmounted(() => {
     <div id="box">
       <div class="navbar bg-base-100">
         <div class="flex-1">
-        <a class="btn btn-ghost text-xl gap-0">
-          <span
-            class="text-primary"
-            :class="{ mellow: runningSecondary }"
-          >
-            JGantts
-          </span>
-          <span>.com</span>
-        </a>
-      </div>
-      <VStack>
+          <a class="btn btn-ghost text-xl gap-0">
+            <span
+              class="text-primary"
+              :class="{ mellow: runningSecondary }"
+            >
+              JGantts
+            </span>
+            <span>.com</span>
+          </a>
+        </div>
+     </div>
 
-      </VStack>
 
-        <p
-          class=""
-        >
-          <span
-            class="text-primary"
-            :class="{ mellow: runningSecondary }"
-          >
-            JGantts
-          </span>
-          <span>.com</span>
-        </p>
-      </div>
-      <p
-        class=""
+      <div
+        padding="1rem 0"
+        spacing="1rem"
+        class="
+          flex
+          flex-col
+          justify-center
+          items-center
+          gap-3
+          p-3
+        "
       >
-        {{ $route.meta.title }}
-      </p>
-      <router-view v-slot="{ Component }">
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-          <component :is="Component" :key="$route.path" /> 
-        </transition>
-      </router-view>
-      <div 
-      class="
-      
-      bg-base-100
-      rounded-lg
-      w-44
-      ">
+        <div>
+          <p
+            class="
+              bg-base-100
+              rounded-xl
+              p-2
+            "
+          >
+            <span
+              class="text-primary"
+              :class="{ mellow: runningSecondary }"
+            >
+              JGantts
+            </span>
+            <span>.com</span>
+          </p>
+        </div>
+        <div class="
+          rounded-xl
+          bg-primary
+          text-primary-content
+          p-2
+        ">
+          <p
+            class=""
+          >
+            {{ $route.meta.title }}
+          </p>
+        </div>
+        <router-view v-slot="{ Component }">
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <component :is="Component" :key="$route.path" /> 
+          </transition>
+        </router-view>
+        <div 
+        class="
+        
+        bg-base-100
+        rounded-lg
+        w-48
+        p-2
+        text-center
+        ">
         <a
           href="mailto:contact@jgantts.com"
           class="text-primary"
         >
-          <span class="line">
             <div
-              class="link-icon text-neutral"
-              :class="{ mellow: runningSecondary }" 
+              class="
+                flex
+                gap-1
+                justify-center
+              "
             >
-              <EnvelopeIcon class="fa-icon" />
+              <div
+                class="link-icon text-neutral-content"
+                :class="{ mellow: runningSecondary }" 
+              >
+                <EnvelopeIcon class="fa-icon" />
+              </div>
+              <p class="">contact@jgantts.com</p>
             </div>
-            <span class="link-space">&nbsp;&nbsp;</span>
-            <span class="">contact@jgantts.com</span>
-          </span>
-        </a>
+          </a>
 
-        <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
+          <p class="text-subtitle-1">© 2024 Jacob Gantt</p>
+        </div>
+
       </div>
       <Background ref="backgroundRef" @first-run-done="firstRunDone"/>
     </div>

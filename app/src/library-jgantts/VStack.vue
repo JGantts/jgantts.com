@@ -18,8 +18,8 @@ const props = defineProps({
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: v-bind(spacing);
-  padding: v-bind(padding);
+  gap: v-bind(spacing)rem;
+  padding: v-bind(padding)rem;
 }
 </style>
 -
