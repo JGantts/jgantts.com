@@ -2,17 +2,11 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 
-import Island from "./components/Island.vue"
-import DStack from "./library-jgantts/DStack.vue";
-import HStack from "./library-jgantts/HStack.vue";
-import VStack from "./library-jgantts/VStack.vue";
 import ReplayButton from "./components/ReplayButton.vue"
 import Links from "./components/Links.vue"
 import Background from "./components/Background.vue"
-import NavBar from './components/NavBar.vue';
 
 import { setCSSColors } from './Curtain/ThemeHandler'
-import { Breakpoint } from "./common/Breakpoint"
 import { Rounded } from "./tailwindEnums/Rounded"
 import {
   theme_dark,
@@ -23,6 +17,8 @@ import { BackgroundState } from './Curtain/Types';
 import EnvelopeIcon from './assets/icons/envelope.svg'
 
 import { useTheme } from 'vuetify'
+
+import { useBreakpoint } from './common/Breakpoint';
 
 const sleep = (ms: number|undefined) => {
   return new Promise(resolve => setTimeout(resolve, ms || 2000));
@@ -70,13 +66,24 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
 });
 
+const breakpoint = useBreakpoint();
+
+console.log(breakpoint)
 </script>
 
 <template>
     <div id="box">
-      <div class="navbar bg-base-100">
-        <div class="flex-1">
-          <a class="btn btn-ghost text-xl gap-0">
+      <div
+        v-if="!breakpoint.greaterThanSm.value"
+        class="
+          navbar bg-base-100
+        ">
+        <div class="
+          flex-1
+          flex
+          justify-center
+        ">
+          <a class="btn btn-ghost text-4xl gap-0">
             <span
               class="text-primary"
               :class="{ mellow: runningSecondary }"
@@ -99,14 +106,21 @@ onUnmounted(() => {
           items-center
           gap-3
           p-3
+          text-lg
         "
       >
-        <div>
+        <div
+          v-if="breakpoint.greaterThanSm.value"
+        >
           <p
             class="
               bg-base-100
               rounded-xl
+              text-4xl
               p-2
+              flex-1
+              flex
+              justify-center
             "
           >
             <span
@@ -143,7 +157,7 @@ onUnmounted(() => {
         
         bg-base-100
         rounded-lg
-        w-48
+        w-56
         p-2
         text-center
         ">
@@ -156,6 +170,7 @@ onUnmounted(() => {
                 flex
                 gap-1
                 justify-center
+                items-center
               "
             >
               <div

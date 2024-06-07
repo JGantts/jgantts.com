@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import { Breakpoint } from '@/common/Breakpoint';
+import { useBreakpoint } from '@/common/Breakpoint';
 
-import Island from "../../components/Island.vue"
-import DStack from "../../library-jgantts/DStack.vue";
-import HStack from "../../library-jgantts/HStack.vue";
-import VStack from "../../library-jgantts/VStack.vue";
 import ReplayButton from "../../components/ReplayButton.vue"
 import Links from "../../components/Links.vue"
 import Background from "../../components/Background.vue"
-import NavBar from '../../components/NavBar.vue';
 
 import chuOld from './chuOld.png'
 import chuNew from './chuNew.png'

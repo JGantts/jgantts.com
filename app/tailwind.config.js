@@ -25,6 +25,7 @@ function flattenRadixColors(colors) {
   return convertedObject
 }
 
+console.log(radix)
 
 const colors = flattenRadixColors(radix)
 

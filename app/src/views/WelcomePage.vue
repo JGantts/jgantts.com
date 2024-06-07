@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { Breakpoint } from '@/common/Breakpoint';
-
-import Island from "../components/Island.vue"
-import DStack from "../library-jgantts/DStack.vue";
-import HStack from "../library-jgantts/HStack.vue";
-import VStack from "../library-jgantts/VStack.vue";
+import { useBreakpoint } from '@/common/Breakpoint';
 import ReplayButton from "../components/ReplayButton.vue"
 import Links from "../components/Links.vue"
 import Background from "../components/Background.vue"
-import NavBar from '../components/NavBar.vue';
-import DIsland from '../components/DIsland.vue'
 
 import { ref, onMounted, computed, type StyleValue, type CSSProperties, onUnmounted, } from 'vue';
 
@@ -24,6 +17,7 @@ import colors from 'vuetify/util/colors'
   class="
     flex
     flex-col
+    md:flex-row
     justify-center
     items-center
     gap-3
@@ -33,7 +27,8 @@ import colors from 'vuetify/util/colors'
     class="
       bg-base-100
       rounded-lg
-      w-32
+      p-2
+      w-44
       text-center
     "
   >
@@ -42,16 +37,28 @@ import colors from 'vuetify/util/colors'
     professional<br />
     <span class="text-primary">web</span> developer.
   </div>
-  <p
-    class=""
-  >
-    I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
-  </p>
-  <p
-    class=""
-  >
-    Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
-  </p>
+  <div
+  class="
+    bg-base-100
+    rounded-lg
+    p-2
+    w-72
+    text-center
+    flex
+    flex-col
+    gap-2
+  ">
+    <p
+      class=""
+    >
+      I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
+    </p>
+    <p
+      class=""
+    >
+      Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
+    </p>
+  </div>
 </div>
 </template>
 
