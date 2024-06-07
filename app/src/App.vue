@@ -106,7 +106,7 @@ console.log(breakpoint)
           items-center
           gap-3
           p-3
-          text-xl
+          text-3xl
         "
       >
         <div
@@ -116,7 +116,7 @@ console.log(breakpoint)
             class="
               bg-base-100
               rounded-xl
-              text-4xl
+              text-5xl
               p-2
               flex-1
               flex
@@ -154,12 +154,15 @@ console.log(breakpoint)
         </router-view>
         <div 
         class="
-        
-        bg-base-100
-        rounded-lg
-        w-64
-        p-2
-        text-center
+          bg-base-100
+          rounded-lg
+          wmin-11/12
+          sm:wmax-9/12
+          md:w-96
+          p-2
+          text-center
+          text-2xl
+          md:text-3xl
         ">
         <a
           href="mailto:contact@jgantts.com"

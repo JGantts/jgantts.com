@@ -8,7 +8,7 @@ import { ref, onMounted, computed, type StyleValue, type CSSProperties, onUnmoun
 
 import colors from 'vuetify/util/colors'
 
-
+const breakpoint = useBreakpoint();
 
 </script>
 
@@ -24,13 +24,14 @@ import colors from 'vuetify/util/colors'
   "
 >
   <div
+    v-if="breakpoint.greaterThanSm.value"
     class="
       bg-base-100
       rounded-lg
       p-2
-      w-48
+      w-72
       text-center
-      text-2xl
+      text-4xl
     "
   >
     Hi, I'm<br />
@@ -40,22 +41,32 @@ import colors from 'vuetify/util/colors'
   </div>
   <div
   class="
-    bg-base-100
+    sm:bg-base-100
     rounded-lg
-    p-3
-    w-72
+    w-11/12
+    sm:w-9/12
+    md:w-96
     text-center
     flex
     flex-col
     gap-2
+    sm:gap-0
   ">
     <p
-      class=""
+      class="
+    p-3
+        bg-base-100
+        rounded-lg
+      "
     >
       I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
     </p>
     <p
-      class=""
+      class="
+    p-3
+        bg-base-100
+        rounded-lg
+      "
     >
       Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
     </p>
