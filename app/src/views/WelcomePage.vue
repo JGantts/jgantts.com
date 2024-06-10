@@ -17,7 +17,6 @@ const breakpoint = useBreakpoint();
   class="
     flex
     flex-col
-    md:flex-row
     justify-center
     items-center
     gap-3
