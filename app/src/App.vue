@@ -14,6 +14,7 @@ import {
 } from './Curtain/Themes'
 import { BackgroundState } from './Curtain/Types';
 
+import BarsSolid from './assets/icons/bars-solid.svg'
 import EnvelopeIcon from './assets/icons/envelope.svg'
 
 import { useTheme } from 'vuetify'
@@ -72,15 +73,20 @@ const breakpoint = useBreakpoint();
 <template>
     <div id="box">
       <div
-        v-if="!breakpoint.greaterThanSm.value"
         class="
           navbar bg-base-100
         ">
-        <div class="
-          flex-1
-          flex
-          justify-center
-        ">
+        <div
+          v-if="!breakpoint.greaterThanSm.value"
+          class="
+            flex-1
+            flex
+            justify-between
+          "
+        >
+          <div class="btn btn-ghost">
+            <BarsSolid class="text-3xl fa-icon" />
+          </div>
           <a class="btn btn-ghost text-4xl gap-0">
             <span
               class="text-primary"
@@ -90,7 +96,26 @@ const breakpoint = useBreakpoint();
             </span>
             <span>.com</span>
           </a>
+          <div
+            v-if="!breakpoint.greaterThanSm.value"
+            class="btn btn-ghost invisible"
+          >
+            <BarsSolid class="text-3xl fa-icon" />
+          </div>
         </div>
+        <div
+          v-else
+          class="
+            flex-1
+            flex
+            justify-left
+          "
+        >
+        <div class="btn btn-ghost">
+          <BarsSolid class="text-3xl fa-icon" />
+        </div>
+        </div>
+        
      </div>
 
 
