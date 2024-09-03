@@ -99,6 +99,7 @@ async function initializeBackground() {
   widthInSuperPixels = widthInLargePixels*PIXELATION_RATIO_LARGE_SUPER
   heightInSuperPixels = heightInLargePixels*PIXELATION_RATIO_LARGE_SUPER
   widthInFinePixels = widthInLargePixels*PIXELATION_RATIO_LARGE_FINE
+  console.log(widthInFinePixels)
   heightInFinePixels = heightInLargePixels*PIXELATION_RATIO_LARGE_FINE
 
   let gaussianSumsPixelsSuper: number[] = gaussians(
