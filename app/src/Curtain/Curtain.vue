@@ -84,6 +84,7 @@ async function resizedWindow() {
   //await pause()
   await initializeBackground()
   await initializeCurtain()
+  await play()
   //await playCurtain()
 }
 
@@ -851,11 +852,22 @@ const pausePlay = async (): Promise<BackgroundState> => {
   })
   //return BackgroundState.AfterFirstPaused
 }
-const pause = async (): Promise<BackgroundState> => {
+const play = async (): Promise<BackgroundState> => {
+  //@ts-expect-error
   return await pauseMutex.runExclusive(() => {
-    playStateInternal = BackgroundState.AfterFirstPaused
-    return BackgroundState.AfterFirstPaused
-      
+    switch (playStateInternal) {
+      case BackgroundState.First:
+        return BackgroundState.First
+      case BackgroundState.AfterFirstPlaying:
+        return BackgroundState.AfterFirstPlaying
+      case BackgroundState.Unset:
+        // eslint-disable-next-line no-fallthrough
+      case BackgroundState.AfterFirstPaused:
+        playStateInternal = BackgroundState.AfterFirstPlaying
+        doneAnimatingCurtain = false
+        window.requestAnimationFrame(renderLoop)
+        return BackgroundState.AfterFirstPlaying
+    }
   })
 }
 
