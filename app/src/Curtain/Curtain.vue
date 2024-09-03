@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Mutex } from 'async-mutex';
 
 
@@ -79,6 +79,14 @@ let gaussianObjects: GaussianObject[]
 let canvasContext: CanvasRenderingContext2D
 let canvasElement: HTMLCanvasElement
 
+
+async function resizedWindow() {
+  //await pause()
+  await initializeBackground()
+  await initializeCurtain()
+  //await playCurtain()
+}
+
 /*
   Rendering functions
 */
@@ -99,7 +107,6 @@ async function initializeBackground() {
   widthInSuperPixels = widthInLargePixels*PIXELATION_RATIO_LARGE_SUPER
   heightInSuperPixels = heightInLargePixels*PIXELATION_RATIO_LARGE_SUPER
   widthInFinePixels = widthInLargePixels*PIXELATION_RATIO_LARGE_FINE
-  console.log(widthInFinePixels)
   heightInFinePixels = heightInLargePixels*PIXELATION_RATIO_LARGE_FINE
 
   let gaussianSumsPixelsSuper: number[] = gaussians(
@@ -797,11 +804,11 @@ onMounted(async () => {
   canvasContext = canvasElement.getContext("2d")! 
 })
 
-/*onUnmounted(() => {
+onUnmounted(() => {
   window.removeEventListener("resize", resizedWindow)
 })
 
-window.addEventListener("resize", resizedWindow)*/
+window.addEventListener("resize", resizedWindow)
 
 const canvasRef = ref(null)
 
@@ -831,18 +838,25 @@ const pausePlay = async (): Promise<BackgroundState> => {
       case BackgroundState.First:
         return BackgroundState.First
       case BackgroundState.AfterFirstPlaying:
-      playStateInternal = BackgroundState.AfterFirstPaused
+        playStateInternal = BackgroundState.AfterFirstPaused
         return BackgroundState.AfterFirstPaused
       case BackgroundState.Unset:
         // eslint-disable-next-line no-fallthrough
       case BackgroundState.AfterFirstPaused:
         playStateInternal = BackgroundState.AfterFirstPlaying
-          doneAnimatingCurtain = false
-          window.requestAnimationFrame(renderLoop)
-          return BackgroundState.AfterFirstPlaying
+        doneAnimatingCurtain = false
+        window.requestAnimationFrame(renderLoop)
+        return BackgroundState.AfterFirstPlaying
     }
   })
   //return BackgroundState.AfterFirstPaused
+}
+const pause = async (): Promise<BackgroundState> => {
+  return await pauseMutex.runExclusive(() => {
+    playStateInternal = BackgroundState.AfterFirstPaused
+    return BackgroundState.AfterFirstPaused
+      
+  })
 }
 
 const emit = defineEmits([
