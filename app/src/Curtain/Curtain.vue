@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Mutex } from 'async-mutex';
 
 
@@ -78,6 +78,15 @@ let gaussianObjects: GaussianObject[]
 
 let canvasContext: CanvasRenderingContext2D
 let canvasElement: HTMLCanvasElement
+
+
+async function resizedWindow() {
+  //await pause()
+  await initializeBackground()
+  await initializeCurtain()
+  await play()
+  //await playCurtain()
+}
 
 /*
   Rendering functions
@@ -796,11 +805,11 @@ onMounted(async () => {
   canvasContext = canvasElement.getContext("2d")! 
 })
 
-/*onUnmounted(() => {
+onUnmounted(() => {
   window.removeEventListener("resize", resizedWindow)
 })
 
-window.addEventListener("resize", resizedWindow)*/
+window.addEventListener("resize", resizedWindow)
 
 const canvasRef = ref(null)
 
@@ -830,18 +839,36 @@ const pausePlay = async (): Promise<BackgroundState> => {
       case BackgroundState.First:
         return BackgroundState.First
       case BackgroundState.AfterFirstPlaying:
-      playStateInternal = BackgroundState.AfterFirstPaused
+        playStateInternal = BackgroundState.AfterFirstPaused
         return BackgroundState.AfterFirstPaused
       case BackgroundState.Unset:
         // eslint-disable-next-line no-fallthrough
       case BackgroundState.AfterFirstPaused:
         playStateInternal = BackgroundState.AfterFirstPlaying
-          doneAnimatingCurtain = false
-          window.requestAnimationFrame(renderLoop)
-          return BackgroundState.AfterFirstPlaying
+        doneAnimatingCurtain = false
+        window.requestAnimationFrame(renderLoop)
+        return BackgroundState.AfterFirstPlaying
     }
   })
   //return BackgroundState.AfterFirstPaused
+}
+const play = async (): Promise<BackgroundState> => {
+  //@ts-expect-error
+  return await pauseMutex.runExclusive(() => {
+    switch (playStateInternal) {
+      case BackgroundState.First:
+        return BackgroundState.First
+      case BackgroundState.AfterFirstPlaying:
+        return BackgroundState.AfterFirstPlaying
+      case BackgroundState.Unset:
+        // eslint-disable-next-line no-fallthrough
+      case BackgroundState.AfterFirstPaused:
+        playStateInternal = BackgroundState.AfterFirstPlaying
+        doneAnimatingCurtain = false
+        window.requestAnimationFrame(renderLoop)
+        return BackgroundState.AfterFirstPlaying
+    }
+  })
 }
 
 const emit = defineEmits([
