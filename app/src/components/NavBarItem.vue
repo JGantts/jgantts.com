@@ -65,10 +65,10 @@ const props = defineProps({
   --flex-alignment: center;
   --indent-left: 1;
   --indent-right: 1;
-  --border-radius-tl: 1.75rem;
-  --border-radius-tr: 1.75rem;
-  --border-radius-br: 1.75rem;
-  --border-radius-bl: 1.75rem;
+  --border-radius-tl: 1.25rem;
+  --border-radius-tr: 1.25rem;
+  --border-radius-br: 1.25rem;
+  --border-radius-bl: 1.25rem;
   align-items: center;
   display: flex;
   flex-grow: 0;
@@ -85,7 +85,7 @@ const props = defineProps({
   border-radius: var(--border-radius-tl) var(--border-radius-tr) var(--border-radius-br) var(--border-radius-bl);
   max-width: 100%;
   position: relative;
-  width: var(--width);
+  min-width: var(--width);
   z-index: 1;
   padding: var(--padding-vertical) var(--padding-horizontal);
   border-width: 10px;
@@ -134,9 +134,9 @@ const props = defineProps({
 }
 
 .main-nav > .inner {
-  --padding-horizontal: 1rem;
-  --padding-vertical: 1rem;
+  --padding-horizontal: 0.75rem;
+  --padding-vertical: 0.75rem;
   --spacing: 1rem;
-  --width: 12rem;
+  --width: 8rem;
 }
 </style>
