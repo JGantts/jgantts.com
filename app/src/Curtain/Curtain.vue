@@ -88,7 +88,7 @@ async function resizedWindow() {
   //await playCurtain()
 }
 
-function wait(ms) {
+function wait(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
