@@ -13,9 +13,12 @@ import VStack from '@/library-jgantts/VStack.vue';
             <NavBarItem :name="'welcome'" :title="'Welcome'" />
           </li>
           <li>
-            <NavBarItem :name="'getting-started'" :title="'Getting Started'" />
+            <NavBarItem :name="'web'" :title="'Getting Started'" />
           </li>
           <!--<li>
+            <NavBarItem :name="'apps'" :title="'iOS Apps'" />
+          </li>
+          <li>
             <NavBarItem :name="'about-me'" :title="'Who am I?'" />
           </li>
           <li>
