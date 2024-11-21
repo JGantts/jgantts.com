@@ -88,10 +88,16 @@ async function resizedWindow() {
   //await playCurtain()
 }
 
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /*
   Rendering functions
 */
 async function initializeBackground() {
+  await wait(10)
+  
   if (canvasElement.width != canvasElement.clientWidth) {
     canvasElement.width = canvasElement.clientWidth;
     canvasElement.height = canvasElement.clientHeight;
