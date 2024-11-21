@@ -96,8 +96,6 @@ function wait(ms) {
   Rendering functions
 */
 async function initializeBackground() {
-  await wait(10)
-  
   if (canvasElement.width != canvasElement.clientWidth) {
     canvasElement.width = canvasElement.clientWidth;
     canvasElement.height = canvasElement.clientHeight;
@@ -823,6 +821,7 @@ let rainbow: Rainbow
 
 const loadCurtain = async (rainbowIn: Rainbow) => {
   rainbow = rainbowIn
+  await wait(10)
   await initializeBackground()
   await initializeCurtain()
 }
