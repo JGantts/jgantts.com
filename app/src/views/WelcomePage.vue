@@ -30,10 +30,10 @@ import NavBar from '../components/NavBar.vue';
       </p>
       <VStack class="text-h5" id="text06" spacing="0.5rem">
         <p>
-          I create websites tailored just for you, helping you form connections with your <span class="highlight">online community</span>.
+          I craft websites tailored to <span class="highlight">your unique needs</span>, capable of doing anything you envision.
         </p>
         <p>
-          Handling the <span class="highlight">technical details</span> is what I do, ensuring your site improves interactions.
+          From handling technical complexities to ensuring <span>seamless interactions</span>, I make your site work flawlessly so you can <span class="highlight">focus on what matters</span> most.
         </p>
       </VStack>
     </DStack>
