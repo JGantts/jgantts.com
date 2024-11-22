@@ -18,6 +18,17 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.LINODE_SSH_KEY }}
 
-      - name: Deploy to Linode
+      - name: build
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.LINODE_USER }}@${{ secrets.LINODE_IP }} 'bash -s' < deploy.sh
+          npm run build
+
+      - name: Deploy to Ubuntu server via SSH
+        uses: appleboy/scp-action@v0.1.2
+        with:
+          host: ${{ secrets.LINODE_IP }}
+          username: ${{ secrets.LINODE_USER }}
+          key: ${{ secrets.LINODE_SSH_KEY }}
+          port: 22  # Default is 22
+          source: 'dist/*'
+          target: '/opt/nodejs/'
+          
