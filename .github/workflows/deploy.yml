@@ -21,6 +21,7 @@ jobs:
       - name: build
         run: |
           npm run build
+        working-directory: ./app/
 
       - name: Deploy to Ubuntu server via SSH
         uses: appleboy/scp-action@v0.1.2
@@ -31,4 +32,3 @@ jobs:
           port: 22  # Default is 22
           source: 'dist/*'
           target: '/opt/nodejs/'
-          
