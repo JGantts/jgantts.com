@@ -202,16 +202,22 @@ let clientHeightInitial = 0
 
 async function renderLoop() {
   let state: AnimationState|null = null
+  console.log("yfsdioyf")
   await pauseMutex.runExclusive(async () => {
+    console.log("543554")
     if (playStateInternal == BackgroundState.AfterFirstPaused) {
       return
     }
+    console.log("gfdgfrw")
     state = await renderScene(state);
     if (state == AnimationState.Inside) {
+      console.log("bxcbvnxb")
       window.requestAnimationFrame(renderLoop)
     }
   })
+  console.log("qewqewq")
   if (state == AnimationState.AboveTop) {
+      console.log("iupoiupou")
       renderLoop()
   }
 }
@@ -263,8 +269,6 @@ async function renderScene(state: AnimationState|null): Promise<AnimationState> 
       previousTime = currentTime
     }
   }
-
-  console.log(deltaTime)
 
   for (let index=0; index < gaussianObjects.length; index++) {
     gaussianObjects[index].acceleration += gaussianObjects[index].jolt * deltaTime
