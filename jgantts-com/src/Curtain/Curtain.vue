@@ -192,8 +192,8 @@ async function initializeCurtain() {
   const height = window.visualViewport?.height || canvasElement.clientHeight
 
   if (clientWidthInitial != width) {
-    clientWidthInitial = width * ratio
-    clientHeightInitial = height * ratio
+    clientWidthInitial = width
+    clientHeightInitial = height
   }
 }
 
@@ -202,22 +202,16 @@ let clientHeightInitial = 0
 
 async function renderLoop() {
   let state: AnimationState|null = null
-  console.log("yfsdioyf")
   await pauseMutex.runExclusive(async () => {
-    console.log("543554")
     if (playStateInternal == BackgroundState.AfterFirstPaused) {
       return
     }
-    console.log("gfdgfrw")
     state = await renderScene(state);
     if (state == AnimationState.Inside) {
-      console.log("bxcbvnxb")
       window.requestAnimationFrame(renderLoop)
     }
   })
-  console.log("qewqewq")
   if (state == AnimationState.AboveTop) {
-      console.log("iupoiupou")
       renderLoop()
   }
 }
@@ -257,7 +251,7 @@ async function renderScene(state: AnimationState|null): Promise<AnimationState> 
   }
 
   let deltaTime: number
-  if (state == AnimationState.AboveTop) {
+  if (state != AnimationState.Inside) {
     deltaTime = 1;
   } else {
     if (!previousTime) {
