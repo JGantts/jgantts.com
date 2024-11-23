@@ -79,6 +79,16 @@ let gaussianObjects: GaussianObject[]
 let canvasContext: CanvasRenderingContext2D
 let canvasElement: HTMLCanvasElement
 
+let resizeTimeout: null|number;
+
+function throttledResizeHandler() {
+  if (resizeTimeout) return;
+
+  resizeTimeout = setTimeout(async () => {
+    resizeTimeout = null;
+    await resizedWindow();
+  }, 200);
+}
 
 async function resizedWindow() {
   //await pause()
@@ -813,10 +823,12 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener("resize", resizedWindow)
+  window.removeEventListener("resize", throttledResizeHandler)
 })
 
-window.addEventListener("resize", resizedWindow)
+window.addEventListener("resize", throttledResizeHandler)
+window.visualViewport?.addEventListener("resize", throttledResizeHandler)
+
 
 const canvasRef = ref(null)
 
