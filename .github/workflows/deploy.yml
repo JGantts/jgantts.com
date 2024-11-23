@@ -15,12 +15,12 @@ jobs:
 
       - name: Install dependencies
         run: npm i
-        working-directory: ./app/
+        working-directory: ./jgantts-com/
 
       - name: build
         run: |
           npm run build
-        working-directory: ./app/
+        working-directory: ./jgantts-com/
 
       - name: Deploy JGantts Server
         uses: appleboy/scp-action@v0.1.2
