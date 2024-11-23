@@ -206,7 +206,7 @@ async function renderLoop() {
     if (playStateInternal == BackgroundState.AfterFirstPaused) {
       return
     }
-    state = await renderScene();
+    state = await renderScene(state);
     if (state == AnimationState.Inside) {
       window.requestAnimationFrame(renderLoop)
     }
@@ -245,19 +245,23 @@ enum AnimationState {
 let previousTime: number|null = null
 
 let doneAnimatingCurtain = false
-async function renderScene(): Promise<AnimationState> {
+async function renderScene(state: AnimationState|null): Promise<AnimationState> {
   if (doneAnimatingCurtain) {
     return AnimationState.BelowBottom
   }
 
   let deltaTime: number
-  if (!previousTime) {
-    previousTime = performance.now()
-    deltaTime = 1
+  if (state == AnimationState.AboveTop) {
+    deltaTime = 1;
   } else {
-    let currentTime = performance.now()
-    deltaTime = (currentTime - previousTime) / 20
-    previousTime = currentTime
+    if (!previousTime) {
+      previousTime = performance.now()
+      deltaTime = 1
+    } else {
+      let currentTime = performance.now()
+      deltaTime = (currentTime - previousTime) / 20
+      previousTime = currentTime
+    }
   }
 
   console.log(deltaTime)
