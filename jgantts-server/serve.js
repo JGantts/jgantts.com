@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 3000;
 const jgantts_com_Path = path.join(__dirname, '../jgantts-com')
 
 // Serve static files from the dist directory
-app.use('/public', express.static(path.join(jgantts_com_Path, 'dist', 'assets')));
-app.use('/assets', express.static(path.join(jgantts_com_Path, 'PUBLIC')));
+app.use('/assets', express.static(path.join(jgantts_com_Path, 'dist', 'assets')));
+app.use(express.static(path.join(jgantts_com_Path, 'PUBLIC')));
 
 
 // Serve the index.html file for any other route
