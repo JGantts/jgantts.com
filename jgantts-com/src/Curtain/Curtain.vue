@@ -107,41 +107,63 @@ async function initializeBackground() {
   
   const worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' });
 
+  let messageQueue: MessageEvent[] = [];
+  let processingAllowed: boolean = false;
+  let queueLock: Mutex = new Mutex()
+
+  async function handleWorkerMessage(event: MessageEvent) {
+      pixelColumnsSuper = event.data.pixelColumnsSuper
+      pixelColumnsLarge = event.data.pixelColumnsLarge
+      pixelColumnsFine = event.data.pixelColumnsFine
+
+      widthInLargePixels = event.data.widthInLargePixels
+      heightInLargePixels = event.data.heightInLargePixels
+      widthInSuperPixels = event.data.widthInSuperPixels
+      heightInSuperPixels = event.data.heightInSuperPixels
+      widthInFinePixels = event.data.widthInFinePixels
+      heightInFinePixels = event.data.heightInFinePixels
+      
+      const playCurtain = async () => {
+        if (playStateInternal != BackgroundState.First) {
+          playStateInternal = BackgroundState.AfterFirstPlaying
+        }
+        await paintPixelsFine()
+        window.requestAnimationFrame(renderLoop)
+      }
+      await initializeCurtain()
+      emit('stageEntrance')
+      playCurtain()
+    }
+
+  setTimeout(() => {
+    queueLock.runExclusive(async () => {
+        processingAllowed = true;
+        // Process any messages that arrived during the delay
+        for (const event of messageQueue) {
+          handleWorkerMessage(event);
+        }
+        // Clear the message queue
+        messageQueue = [];
+      }
+    )
+  }, 3000);
+
+  worker.onmessage = (event: MessageEvent): void => {
+    queueLock.runExclusive(async () => {
+      if (processingAllowed) {
+        // If processing is allowed, handle the message immediately
+        handleWorkerMessage(event);
+      } else {
+        // If not allowed yet, store the message in the queue
+        messageQueue.push(event);
+      }
+    })
+  }
+
   worker.postMessage({
     width: canvasElement.width,
     height: canvasElement.height,
-    
   });
-
-  worker.onmessage = async (event) => {
-
-
-    pixelColumnsSuper = event.data.pixelColumnsSuper
-    pixelColumnsLarge = event.data.pixelColumnsLarge
-    pixelColumnsFine = event.data.pixelColumnsFine
-
-    widthInLargePixels = event.data.widthInLargePixels
-    heightInLargePixels = event.data.heightInLargePixels
-    widthInSuperPixels = event.data.widthInSuperPixels
-    heightInSuperPixels = event.data.heightInSuperPixels
-    widthInFinePixels = event.data.widthInFinePixels
-    heightInFinePixels = event.data.heightInFinePixels
-    
-    const playCurtain = async () => {
-      
-      //canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height)
-      if (playStateInternal != BackgroundState.First) {
-        playStateInternal = BackgroundState.AfterFirstPlaying
-      }
-      await paintPixelsFine()
-      window.requestAnimationFrame(renderLoop)
-    }
-    await initializeCurtain()
-    emit('stageEntrance')
-    playCurtain()
-  };
-
-
 }
 
 
