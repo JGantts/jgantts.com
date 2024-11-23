@@ -29,25 +29,5 @@ jobs:
           username: ${{ secrets.LINODE_USER }}
           key: ${{ secrets.LINODE_SSH_KEY }}
           port: 22
-          source: './jgantts-server/*'
-          target: '/opt/nodejs/jgantts-server'
-
-      - name: Deploy Static Site
-        uses: appleboy/scp-action@v0.1.2
-        with:
-          host: ${{ secrets.LINODE_IP }}
-          username: ${{ secrets.LINODE_USER }}
-          key: ${{ secrets.LINODE_SSH_KEY }}
-          port: 22
-          source: './jgantts-com/dist/*'
-          target: '/opt/nodejs/jgantts-com/dist'
-
-      - name: Deploy Static Site
-        uses: appleboy/scp-action@v0.1.2
-        with:
-          host: ${{ secrets.LINODE_IP }}
-          username: ${{ secrets.LINODE_USER }}
-          key: ${{ secrets.LINODE_SSH_KEY }}
-          port: 22
-          source: './jgantts-com/PUBLIC/*'
-          target: '/opt/nodejs/jgantts-com/PUBLIC'
+          source: './jgantts-server/*,./jgantts-com/dist/*,./jgantts-com/PUBLIC/*'
+          target: '/opt/nodejs/'
