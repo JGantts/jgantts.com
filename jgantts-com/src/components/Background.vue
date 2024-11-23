@@ -319,16 +319,18 @@ async function loadNext(
   if (colorsCycleIndex >= colorsCycle.length) {
     colorsCycleIndex = 0
   }
-  curtain.playCurtain()
+  //curtain.playCurtain()
   curtain.loadCurtain(colorsCycle[colorsCycleIndex])
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 onMounted(async () => {
   //@ts-expect-error
-  curtainRef.value?.loadCurtain(colorsCycle[0]).then(() => {
-    reload();
-  });
-});
+  curtainRef.value?.loadCurtain(colorsCycle[0])
+})
 
 async function pausePlay(): Promise<BackgroundState> {
   //@ts-expect-error

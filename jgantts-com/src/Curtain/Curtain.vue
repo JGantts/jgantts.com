@@ -9,6 +9,8 @@ import{ Smooth } from '../assets/Smooth'
 import type { Color, Rainbow } from './Types';
 import { BackgroundState, RainbowDirection } from './Types';
 
+import { gaussians } from './gausians';
+
 /*backgroundColors: [
   { stop: 0/6, color: hslToComponents(red.red9) },
   { stop: 1/6, color: hslToComponents(orange.orange9) },
@@ -26,29 +28,11 @@ let PIXELATION_RATIO_SUPER_LARGE = Math.floor(PIXELATED_SUPER_BOX_SIZE/PIXELATED
 let PIXELATION_RATIO_LARGE_FINE = Math.floor(PIXELATED_LARGE_BOX_SIZE/PIXELATED_FINE_BOX_SIZE)
 let PIXELATION_RATIO_LARGE_SUPER = Math.ceil(PIXELATED_LARGE_BOX_SIZE/PIXELATED_LARGE_BOX_SIZE)
 
-let MULT_SUPER_SELF = 1
-let MULT_SUPER_FAMILY = 10
 
-let MULT_LARGE_TRANSDIM = 4
-let MULT_LARGE_SELF = 1
-let MULT_LARGE_FAMILY = 10
-
-let MULT_PIXEL_TANSDIM = 4
-let MULT_PIXEL_SELF = 1
-let MULT_PIXEL_FAMILY = 20
 
 let SMOOTHED_BOX_SIZE = 6
 
 let TOP_BUFFER_PIXEL = 34
-
-let widthInSuperPixels = 0
-let heightInSuperPixels = 0
-
-let widthInLargePixels = 0
-let heightInLargePixels = 0
-
-let widthInFinePixels = 0
-let heightInFinePixels = 0
 
 type Position = {
   x: number,
@@ -70,9 +54,6 @@ type GaussianObject = {
 /*
   Initialize variables
 */
-let pixelColumnsSuper: ColorOffset[][] = []
-let pixelColumnsLarge: ColorOffset[][] = []
-let pixelColumnsFine: ColorOffset[][] = []
 
 let gaussianObjects: GaussianObject[]
 
@@ -91,78 +72,72 @@ function throttledResizeHandler() {
 }
 
 async function resizedWindow() {
-  //await pause()
   await initializeBackground()
-  await initializeCurtain()
-  await play()
-  //await playCurtain()
 }
 
-function wait(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+let widthInSuperPixels = 0
+let heightInSuperPixels = 0
+
+let widthInLargePixels = 0
+let heightInLargePixels = 0
+
+let widthInFinePixels = 0
+let heightInFinePixels = 0
+
+
+let pixelColumnsSuper: {saturation: number, lightness: number}[] = []
+let pixelColumnsLarge: {saturation: number, lightness: number}[] = []
+let pixelColumnsFine: {saturation: number, lightness: number}[] = []
 
 /*
   Rendering functions
 */
 async function initializeBackground() {
+  doneAnimatingCurtain = false
+
   const ratio = window.devicePixelRatio || 1;
   if (canvasElement.width != canvasElement.clientWidth) {
     canvasElement.width = canvasElement.clientWidth * ratio;
     canvasElement.height = canvasElement.clientHeight * ratio;
     //canvasContext.scale(ratio, ratio);
   }
+  
+  const worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' });
+
+  worker.postMessage({
+    width: canvasElement.width,
+    height: canvasElement.height,
+    
+  });
+
+  worker.onmessage = async (event) => {
 
 
-  pixelColumnsSuper = []
-  pixelColumnsLarge = []
-  pixelColumnsFine = []
-  doneAnimatingCurtain = false
+    pixelColumnsSuper = event.data.pixelColumnsSuper
+    pixelColumnsLarge = event.data.pixelColumnsLarge
+    pixelColumnsFine = event.data.pixelColumnsFine
 
-  widthInLargePixels = Math.ceil(canvasElement.width/PIXELATED_LARGE_BOX_SIZE) + 1
-  heightInLargePixels = Math.ceil(canvasElement.height/PIXELATED_LARGE_BOX_SIZE) + 1
-  widthInSuperPixels = widthInLargePixels*PIXELATION_RATIO_LARGE_SUPER
-  heightInSuperPixels = heightInLargePixels*PIXELATION_RATIO_LARGE_SUPER
-  widthInFinePixels = widthInLargePixels*PIXELATION_RATIO_LARGE_FINE
-  heightInFinePixels = heightInLargePixels*PIXELATION_RATIO_LARGE_FINE
+    widthInLargePixels = event.data.widthInLargePixels
+    heightInLargePixels = event.data.heightInLargePixels
+    widthInSuperPixels = event.data.widthInSuperPixels
+    heightInSuperPixels = event.data.heightInSuperPixels
+    widthInFinePixels = event.data.widthInFinePixels
+    heightInFinePixels = event.data.heightInFinePixels
+    
+    const playCurtain = async () => {
+      
+      //canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height)
+      if (playStateInternal != BackgroundState.First) {
+        playStateInternal = BackgroundState.AfterFirstPlaying
+      }
+      await paintPixelsFine()
+      window.requestAnimationFrame(renderLoop)
+    }
+    await initializeCurtain()
+    playCurtain()
+  };
 
-  let gaussianSumsPixelsSuper: number[] = gaussians(
-    widthInSuperPixels,
-    () => {return Math.random()*90 + 10},
-    0, 1
-  )
-  let gaussianSumsPixelsLarge: number[] = gaussians(
-    widthInLargePixels,
-    () => {return Math.random()*90 + 10},
-    0, 1
-  )
-  let gaussianSumsPixelsFine: number[] = gaussians(
-    widthInFinePixels,
-    () => {return Math.random()*90 + 10},
-    0, 1
-  )  
 
-  /*
-    Take the begining offsets and initialize the columns
-  */
-  for (let i=0; i < widthInSuperPixels; i++) {
-    pixelColumnsSuper.push(
-      new Array(Math.floor(gaussianSumsPixelsSuper[i]*30)).fill(base9Gradient()),
-    )
-  }
-  await reconPixelsSuper()
-  for (let i=0; i < widthInLargePixels; i++) {
-    pixelColumnsLarge.push(
-      new Array(Math.floor(gaussianSumsPixelsLarge[i]*30)).fill(base9Gradient()),
-    )
-  }
-  await reconPixelsLarge()
-  for (let i=0; i < widthInFinePixels; i++) {
-    pixelColumnsFine.push(
-      new Array(Math.floor(gaussianSumsPixelsFine[i]*30)).fill(base9Gradient()),
-    )
-  }
-  await reconPixelsFine()
 }
 
 
@@ -235,30 +210,6 @@ async function renderLoop() {
   }
 }
 
-async function reconPixelsSuper() {
-  while ((pixelColumnsSuper[0].length-TOP_BUFFER_PIXEL*2) < heightInSuperPixels) {
-    for (let key in pixelColumnsSuper) {
-      calculateColumnSuper(Number(key))
-    }
-  }
-}
-
-async function reconPixelsLarge() {
-  while ((pixelColumnsLarge[0].length-TOP_BUFFER_PIXEL*2) < heightInLargePixels) {
-    for (let key in pixelColumnsLarge) {
-      calculateColumnLarge(Number(key))
-    }
-  }
-}
-
-async function reconPixelsFine() {
-  while ((pixelColumnsFine[0].length-TOP_BUFFER_PIXEL*2) < heightInFinePixels) {
-    for (let key in pixelColumnsFine) {
-      calculateColumnFine(Number(key))
-    }
-  }
-}
-
   //@ts-expect-error
 let renderedPixelsFine = null
   //@ts-expect-error
@@ -277,229 +228,7 @@ async function paintPixelsFine() {
 let backgroundPattern: CanvasPattern|null = null
 let backgroundPatternAlpha: CanvasPattern|null = null
 
-async function calculateColumnSuper(index: number) { 
-  let column = pixelColumnsSuper[index]
 
-  /*
-    Add new box
-  */
-
-  /* random color */
-  let color = base9Gradient()
-
-  /* smooth out color with existing neighbors */
-  let parent = null
-  let leftCousin = null
-  let rightCousin = null
-
-  parent = column[column.length-1]
-  let leftLineage = pixelColumnsSuper[index - 1]
-  if (leftLineage) {
-    leftCousin = leftLineage[column.length - 1]
-  }
-  let rightLineage = pixelColumnsSuper[index + 1]
-  if (rightLineage) {
-    rightCousin = rightLineage[column.length - 1]
-  }
-  let colorToTint: ColorOffset = {
-    saturation: 0,
-    lightness: 0
-  }
-  let colorsAdded = 0
-  if (parent) {
-    colorToTint.saturation += parent.saturation
-    colorToTint.lightness += parent.lightness
-    colorsAdded += 1
-  }
-  if (leftCousin) {
-    colorToTint.saturation += leftCousin.saturation
-    colorToTint.lightness += leftCousin.lightness
-    colorsAdded += 1
-  }
-  if (rightCousin) {
-    colorToTint.saturation += rightCousin.saturation
-    colorToTint.lightness += rightCousin.lightness
-    colorsAdded += 1
-  }
-  if(colorsAdded != 0) {
-    colorToTint.saturation /= colorsAdded
-    colorToTint.lightness /= colorsAdded
-
-    let multiplierSum = MULT_SUPER_SELF + MULT_SUPER_FAMILY
-
-    let saturation =
-      MULT_SUPER_SELF * color.saturation
-      + MULT_SUPER_FAMILY * colorToTint.saturation
-    let lightness =
-      MULT_SUPER_SELF * color.lightness
-      + MULT_SUPER_FAMILY * colorToTint.lightness
-
-    saturation = Math.floor(saturation/multiplierSum)
-    lightness = Math.floor(lightness/multiplierSum)
-
-    color.saturation = saturation*0
-    color.lightness = lightness*0
-  }
-
-  column.push(
-    color
-  )
-}
-
-async function calculateColumnLarge(index: number) {
-  let column = pixelColumnsLarge[index]
-
-  /*
-    Add new box
-  */
-
-  /* random color */
-  let transdimensionalAncestorColumn = pixelColumnsSuper[Math.floor(index/PIXELATION_RATIO_SUPER_LARGE)]
-
-  let transdimensionalAncestorColor: ColorOffset = transdimensionalAncestorColumn[Math.floor(column.length/PIXELATION_RATIO_SUPER_LARGE)+TOP_BUFFER_PIXEL]
-  let color = base9Gradient()
-
-  /* smooth out color with existing neighbors */
-  let parent = null
-  let leftCousin = null
-  let rightCousin = null
-
-  parent = column[column.length-1]
-  let leftLineage = pixelColumnsLarge[index - 1]
-  if (leftLineage) {
-    leftCousin = leftLineage[column.length - 1]
-  }
-  let rightLineage = pixelColumnsLarge[index + 1]
-  if (rightLineage) {
-    rightCousin = rightLineage[column.length - 1]
-  }
-  let colorToTint: ColorOffset = {
-    saturation: 0,
-    lightness: 0
-  }
-  let colorsAdded = 0
-  if (parent) {
-    colorToTint.saturation += parent.saturation
-    colorToTint.lightness += parent.lightness
-    colorsAdded += 1
-  }
-  if (leftCousin) {
-    colorToTint.saturation += leftCousin.saturation
-    colorToTint.lightness += leftCousin.lightness
-    colorsAdded += 1
-  }
-  if (rightCousin) {
-    colorToTint.saturation += rightCousin.saturation
-    colorToTint.lightness += rightCousin.lightness
-    colorsAdded += 1
-  }
-  if(colorsAdded != 0) {
-    colorToTint.saturation /= colorsAdded
-    colorToTint.lightness /= colorsAdded
-
-    let multiplierSum = MULT_LARGE_TRANSDIM + MULT_LARGE_SELF + MULT_LARGE_FAMILY
-
-    let saturation =
-      MULT_LARGE_TRANSDIM * transdimensionalAncestorColor.saturation
-      + MULT_LARGE_SELF * color.saturation
-      + MULT_LARGE_FAMILY * colorToTint.saturation
-    let lightness =
-      MULT_LARGE_TRANSDIM * transdimensionalAncestorColor.lightness
-      + MULT_LARGE_SELF * color.lightness
-      + MULT_LARGE_FAMILY * colorToTint.lightness
-
-    saturation = Math.floor(saturation/multiplierSum)
-    lightness = Math.floor(lightness/multiplierSum)
-
-    color.saturation = saturation
-    color.lightness = lightness
-  }
-
-  column.push(
-    color
-  )
-}
-
-async function calculateColumnFine(index: number) {
-  let column = pixelColumnsFine[index]
-
-  /*
-    Add new box
-  */
-
-  /* random color */
-  let transdimensionalAncestorColumn = pixelColumnsLarge[Math.floor(index/PIXELATION_RATIO_LARGE_FINE)]
-
-  let transdimensionalAncestorColor: ColorOffset = transdimensionalAncestorColumn[Math.floor(column.length/PIXELATION_RATIO_LARGE_FINE)+TOP_BUFFER_PIXEL]
-  let color = base9Gradient()
-
-  if (!transdimensionalAncestorColor) {
-    transdimensionalAncestorColor = {
-      saturation: 50,
-      lightness: 80,
-    }
-  }
-
-  /* smooth out color with existing neighbors */
-  let parent = null
-  let leftCousin = null
-  let rightCousin = null
-
-  parent = column[column.length-1]
-  let leftLineage = pixelColumnsFine[index - 1]
-  if (leftLineage) {
-    leftCousin = leftLineage[column.length - 1]
-  }
-  let rightLineage = pixelColumnsFine[index + 1]
-  if (rightLineage) {
-    rightCousin = rightLineage[column.length - 1]
-  }
-  let colorToTint: ColorOffset = {
-    saturation: 0,
-    lightness: 0
-  }
-  let colorsAdded = 0
-  if (parent) {
-    colorToTint.saturation += parent.saturation
-    colorToTint.lightness += parent.lightness
-    colorsAdded += 1
-  }
-  if (leftCousin) {
-    colorToTint.saturation += leftCousin.saturation
-    colorToTint.lightness += leftCousin.lightness
-    colorsAdded += 1
-  }
-  if (rightCousin) {
-    colorToTint.saturation += rightCousin.saturation
-    colorToTint.lightness += rightCousin.lightness
-    colorsAdded += 1
-  }
-  if(colorsAdded != 0) {
-    colorToTint.saturation /= colorsAdded
-    colorToTint.lightness /= colorsAdded
-
-    let multiplierSum = MULT_PIXEL_TANSDIM + MULT_PIXEL_SELF + MULT_PIXEL_FAMILY
-
-    let saturation =
-      MULT_PIXEL_TANSDIM * transdimensionalAncestorColor.saturation
-      + MULT_PIXEL_SELF * color.saturation
-      + MULT_PIXEL_FAMILY * colorToTint.saturation
-    let lightness =
-      MULT_PIXEL_TANSDIM * transdimensionalAncestorColor.lightness
-      + MULT_PIXEL_SELF * color.lightness
-      + MULT_PIXEL_FAMILY * colorToTint.lightness
-
-    saturation = Math.floor(saturation/multiplierSum)
-    lightness = Math.floor(lightness/multiplierSum)
-
-    color.saturation = saturation
-    color.lightness = lightness
-  }
-
-  column.push(
-    color
-  )
-}
 
 enum AnimationState {
   AboveTop,
@@ -643,17 +372,6 @@ const HSLToRGB = (h, s, l) => {
   return [255 * f(0), 255 * f(8), 255 * f(4)];
 };
 
-function base9Gradient(): ColorOffset {
-    return {
-      saturation: Math.random()*80 + 40,
-      lightness: Math.random()*100 - 50,
-      /*
-      saturation: Math.random()*10 + 90,
-      lightness: Math.random()*30 - 50,
-      */
-    }
-  }
-
 function colorOffsetPlusThemePositionToHsl(offset: ColorOffset, position: Position): Color {
   let positionalPercentage: number
   if (rainbow.dir == RainbowDirection.Regular) {
@@ -753,66 +471,7 @@ function decToTwoDigitHex(dec: number) {
   return (hexRaw.length==1) ? "0"+hexRaw : hexRaw
 }
 
-const gaussianDistance = 20
-const MAGIC_NUMBER_A = 5.5
 
-function gaussians(count: number, variance: () => number, sumMin: number, sumMax: number) {
-  let sumRange = sumMax - sumMin
-  let sumMid = (sumMax + sumMin)/2
-
-  let gaussianDistsPos: number[][] = []
-  for (let i=0; i < count + gaussianDistance*2; i++) {
-    gaussianDistsPos.push(gaussianDistribution(variance()))
-  }
-  let gaussianSumsPos: number[] = 
-    gaussianSums(gaussianDistsPos, count, gaussianDistance, sum => {
-      let localizedToZero = sum/e-1
-      let scaledToOne = localizedToZero*MAGIC_NUMBER_A
-      let scaledToRange = (scaledToOne*sumRange/2) + sumMid
-      let clamppedToRange = 
-        scaledToRange > sumMax 
-          ? sumMax
-          : scaledToRange < sumMin
-            ? sumMin
-            : scaledToRange
-      return clamppedToRange
-    })
-  return gaussianSumsPos
-}
-
-function gaussianSums(
-  dists: number[][], 
-  length: number,
-  distance: number,
-  noramalizer: (x: number) => number
-): number[] {
-  let gaussianSums: number[] = []
-  for (let i=distance; i < length+distance; i++) {
-    let sum = 0
-    for (let j=0; j < distance*2; j++) {
-      sum += dists[i-(j-distance)][j]
-    }
-
-    gaussianSums.push(noramalizer(sum))
-  }
-  return gaussianSums
-}
-
-function gaussianDistribution(variance: number): number[] {
-  let lowres: number[] = []
-  let oneOverSqrtTwoPiVariance: number = 1/Math.sqrt(2*Math.PI*variance)
-  for (let i = -gaussianDistance; i <= gaussianDistance; i++) {
-    lowres.push(gaussianDistributionAt(variance, oneOverSqrtTwoPiVariance, i))
-  }
-  return lowres
-}
-
-let e = 2.7182812690734863
-function gaussianDistributionAt(variance: number, oneOverSqrtTwoPiVariance: number, x: number): number {
-    let negativeXSquaredOver2Variance: number = 1-(x*x)/(2*variance)
-    let output: number = oneOverSqrtTwoPiVariance*Math.pow(e, negativeXSquaredOver2Variance)
-    return output
-}
 
 //#endregion
 
@@ -837,17 +496,7 @@ let rainbow: Rainbow
 const loadCurtain = async (rainbowIn: Rainbow) => {
   rainbow = rainbowIn
   //await wait(100)
-  await initializeBackground()
-  await initializeCurtain()
-}
-
-const playCurtain = async () => {
-  //canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height)
-  if (playStateInternal != BackgroundState.First) {
-    playStateInternal = BackgroundState.AfterFirstPlaying
-  }
-  await paintPixelsFine()    
-  window.requestAnimationFrame(renderLoop)
+  initializeBackground()
 }
 
 let playStateInternal = BackgroundState.Unset
@@ -896,7 +545,6 @@ const emit = defineEmits([
 ]);
 defineExpose({ 
   loadCurtain,
-  playCurtain,
   pausePlay,
  })
  const props = defineProps({
