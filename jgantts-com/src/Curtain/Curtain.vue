@@ -206,14 +206,11 @@ async function renderLoop() {
     if (playStateInternal == BackgroundState.AfterFirstPaused) {
       return
     }
-    state = await renderScene(state);
+    while((state = await renderScene(state)) == AnimationState.AboveTop);
     if (state == AnimationState.Inside) {
       window.requestAnimationFrame(renderLoop)
     }
   })
-  if (state == AnimationState.AboveTop) {
-      renderLoop()
-  }
 }
 
   //@ts-expect-error
