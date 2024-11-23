@@ -501,11 +501,13 @@ function jganttsHue(offset: number, positionalPercentage: number, colorBase: Col
 }
 function jganttsSaturation(offset: number, positionalPercentage: number, colorBase: Color): number {
   const toreturn = colorBase.saturation/1.2 + offset
+  if (toreturn < 1)
   console.log(`sat: ${toreturn}`)
   return toreturn
 }
 function jganttsLightness(offset: number, positionalPercentage: number, colorBase: Color): number {
   const toreturn = (colorBase.lightness + offset)// * positionalLightness
+  if (toreturn < 1)
   console.log(`light: ${toreturn}`)
   return toreturn
 }
