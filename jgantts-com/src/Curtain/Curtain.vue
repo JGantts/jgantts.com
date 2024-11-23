@@ -215,8 +215,8 @@ async function initializeCurtain() {
   const height = window.visualViewport?.height || canvasElement.clientHeight
 
   if (clientWidthInitial != width) {
-    clientWidthInitial = width
-    clientHeightInitial = height
+    clientWidthInitial = width * ratio
+    clientHeightInitial = height * ratio
   }
 }
 
