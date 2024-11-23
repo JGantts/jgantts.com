@@ -93,6 +93,8 @@ let pixelColumnsFine: {saturation: number, lightness: number}[][] = []
   Rendering functions
 */
 async function initializeBackground() {
+  console.log(canvasElement.clientWidth)
+
   doneAnimatingCurtain = false
 
   const ratio = /*window.devicePixelRatio ||*/ 1;
