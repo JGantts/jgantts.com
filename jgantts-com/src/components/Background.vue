@@ -361,14 +361,18 @@ defineExpose({ pausePlay })
 
 <style>
 .curtain {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;  
 }
 .curtain-holder{
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;  
   z-index: -20;
 }
 .prev-curtain {

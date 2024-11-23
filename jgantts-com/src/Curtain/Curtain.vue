@@ -821,7 +821,7 @@ let rainbow: Rainbow
 
 const loadCurtain = async (rainbowIn: Rainbow) => {
   rainbow = rainbowIn
-  await wait(100)
+  //await wait(100)
   await initializeBackground()
   await initializeCurtain()
 }
