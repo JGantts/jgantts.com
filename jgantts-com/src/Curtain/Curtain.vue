@@ -242,6 +242,7 @@ enum AnimationState {
   BelowBottom,
 }
 
+let previousTime: number|null = null
 
 let doneAnimatingCurtain = false
 async function renderScene(): Promise<AnimationState> {
@@ -249,12 +250,24 @@ async function renderScene(): Promise<AnimationState> {
     return AnimationState.BelowBottom
   }
 
+  let deltaTime: number
+  if (!previousTime) {
+    previousTime = performance.now()
+    deltaTime = 1
+  } else {
+    let currentTime = performance.now()
+    deltaTime = (currentTime - previousTime) / 20
+    previousTime = currentTime
+  }
+
+  console.log(deltaTime)
+
   for (let index=0; index < gaussianObjects.length; index++) {
-    gaussianObjects[index].acceleration += gaussianObjects[index].jolt
-    gaussianObjects[index].velocity += gaussianObjects[index].acceleration
+    gaussianObjects[index].acceleration += gaussianObjects[index].jolt * deltaTime
+    gaussianObjects[index].velocity += gaussianObjects[index].acceleration * deltaTime
     //friction
     gaussianObjects[index].velocity *= 0.999
-    gaussianObjects[index].position += gaussianObjects[index].velocity
+    gaussianObjects[index].position += gaussianObjects[index].velocity * deltaTime
   }
 
   //@ts-ignore
