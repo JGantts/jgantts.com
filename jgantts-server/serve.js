@@ -9,6 +9,9 @@ const jgantts_com_Path = path.join(__dirname, '../jgantts-com')
 // Serve static files from the dist directory
 app.use(express.static(path.join(jgantts_com_Path, 'PUBLIC')));
 
+// Serve static files from the dist directory
+app.use(express.static(path.join(jgantts_com_Path, 'dist', 'assets')));
+
 // Serve the index.html file for any other route
 app.get('*', (req, res) => {
   res.sendFile(path.join(jgantts_com_Path, 'dist', 'index.html'));
