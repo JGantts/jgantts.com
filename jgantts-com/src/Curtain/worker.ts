@@ -202,8 +202,8 @@ async function calculateColumnSuper(index: number) {
     saturation = Math.floor(saturation/multiplierSum)
     lightness = Math.floor(lightness/multiplierSum)
 
-    color.saturation = saturation*0
-    color.lightness = lightness*0
+    color.saturation = saturation
+    color.lightness = lightness
   }
 
   column.push(
