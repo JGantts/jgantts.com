@@ -13,11 +13,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up SSH Agent
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.LINODE_SSH_KEY }}
-
       - name: Install dependencies
         run: npm i
         working-directory: ./app/
@@ -27,12 +22,32 @@ jobs:
           npm run build
         working-directory: ./app/
 
-      - name: Deploy to Ubuntu server via SSH
+      - name: Deploy JGantts Server
         uses: appleboy/scp-action@v0.1.2
         with:
           host: ${{ secrets.LINODE_IP }}
           username: ${{ secrets.LINODE_USER }}
           key: ${{ secrets.LINODE_SSH_KEY }}
-          port: 22  # Default is 22
-          source: 'dist/*'
-          target: '/opt/nodejs/'
+          port: 22
+          source: './jgantts-server/*'
+          target: '/opt/nodejs/jgantts-server'
+
+      - name: Deploy Static Site
+        uses: appleboy/scp-action@v0.1.2
+        with:
+          host: ${{ secrets.LINODE_IP }}
+          username: ${{ secrets.LINODE_USER }}
+          key: ${{ secrets.LINODE_SSH_KEY }}
+          port: 22
+          source: './jgantts-com/dist/*'
+          target: '/opt/nodejs/jgantts-com/dist'
+
+      - name: Deploy Static Site
+        uses: appleboy/scp-action@v0.1.2
+        with:
+          host: ${{ secrets.LINODE_IP }}
+          username: ${{ secrets.LINODE_USER }}
+          key: ${{ secrets.LINODE_SSH_KEY }}
+          port: 22
+          source: './jgantts-com/PUBLIC/*'
+          target: '/opt/nodejs/jgantts-com/PUBLIC'

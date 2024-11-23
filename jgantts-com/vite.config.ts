@@ -31,6 +31,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   outDir = './dist/'
 
   return {
+    publicDir: false,
     server,
     build: {
       emptyOutDir: true,

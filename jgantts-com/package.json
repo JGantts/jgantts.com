@@ -1,7 +1,10 @@
 {
-  "name": "jgantts-com-app",
+  "name": "jgantts-com",
   "version": "1.0.0",
+  "description": "JGantts.com",
   "private": true,
+  "author": "JGantts",
+  "license": "none",
   "scripts": {
     "dev": "vite",
     "build": "npm run build-only",
