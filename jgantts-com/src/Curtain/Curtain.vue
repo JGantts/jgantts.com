@@ -96,11 +96,11 @@ function wait(ms: number): Promise<void> {
   Rendering functions
 */
 async function initializeBackground() {
+  const ratio = window.devicePixelRatio || 1;
   if (canvasElement.width != canvasElement.clientWidth) {
-    const ratio = window.devicePixelRatio || 1;
     canvasElement.width = canvasElement.clientWidth * ratio;
     canvasElement.height = canvasElement.clientHeight * ratio;
-    canvasContext.scale(ratio, ratio);
+    //canvasContext.scale(ratio, ratio);
   }
 
 
@@ -159,7 +159,8 @@ async function initializeBackground() {
 
 async function initializeCurtain() {
   doneAnimatingCurtain = false
-  let countToAddSmoothed = widthInLargePixels*PIXELATED_LARGE_BOX_SIZE/SMOOTHED_BOX_SIZE
+  const ratio = window.devicePixelRatio || 1;
+  let countToAddSmoothed = ratio*widthInLargePixels*PIXELATED_LARGE_BOX_SIZE/SMOOTHED_BOX_SIZE
 
   let curve = {
       pos: { low: -300, high: 0 },
@@ -200,8 +201,8 @@ async function initializeCurtain() {
   }
 
   if (clientWidthInitial != canvasElement.clientWidth) {
-    clientWidthInitial = canvasElement.clientWidth
-    clientHeightInitial = canvasElement.clientHeight
+    clientWidthInitial = canvasElement.clientWidth * ratio
+    clientHeightInitial = canvasElement.clientHeight * ratio
   }
 }
 
@@ -905,8 +906,8 @@ defineExpose({
   position: absolute;
   left: -25px;
   top: -25px;
-  width: calc(100vw + 50px);
-  height: calc(100vh + 50px);
+  width: calc(100% + 50px);
+  height: calc(100% + 50px);
   clip-path: inset(0);
 }
 </style>

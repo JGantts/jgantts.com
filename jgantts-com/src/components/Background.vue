@@ -325,9 +325,10 @@ async function loadNext(
 
 onMounted(async () => {
   //@ts-expect-error
-  await curtainRef.value?.loadCurtain(colorsCycle[0])
-  reload()
-})
+  curtainRef.value?.loadCurtain(colorsCycle[0]).then(() => {
+    reload();
+  });
+});
 
 async function pausePlay(): Promise<BackgroundState> {
   //@ts-expect-error
@@ -367,12 +368,12 @@ defineExpose({ pausePlay })
   right: 0;
   bottom: 0;  
 }
-.curtain-holder{
-  position: absolute;
+.curtain-holder {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;  
+  bottom: 0;
   z-index: -20;
 }
 .prev-curtain {
