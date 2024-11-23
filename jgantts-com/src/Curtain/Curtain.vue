@@ -223,13 +223,15 @@ async function initializeCurtain() {
 let clientWidthInitial = 0
 let clientHeightInitial = 0
 
+let state: AnimationState|null = null
 async function renderLoop() {
-  let state: AnimationState|null = null
   await pauseMutex.runExclusive(async () => {
     if (playStateInternal == BackgroundState.AfterFirstPaused) {
       return
     }
-    while((state = await renderScene(state)) == AnimationState.AboveTop);
+    do {
+      state = await renderScene(state)
+    } while(state == null || state == AnimationState.AboveTop)
     if (state == AnimationState.Inside) {
       window.requestAnimationFrame(renderLoop)
     }
@@ -279,11 +281,11 @@ async function renderScene(state: AnimationState|null): Promise<AnimationState> 
       deltaTime = 1
     } else {
       let currentTime = performance.now()
-      deltaTime = (currentTime - previousTime) / 40
+      deltaTime = (currentTime - previousTime) / 20
       previousTime = currentTime
     }
   }
-
+  
   console.log(deltaTime)
 
   for (let index=0; index < gaussianObjects.length; index++) {
