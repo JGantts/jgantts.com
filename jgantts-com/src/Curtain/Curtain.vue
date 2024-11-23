@@ -500,10 +500,14 @@ function jganttsHue(offset: number, positionalPercentage: number, colorBase: Col
   return hue
 }
 function jganttsSaturation(offset: number, positionalPercentage: number, colorBase: Color): number {
-  return colorBase.saturation/1.2 + offset
+  const toreturn = colorBase.saturation/1.2 + offset
+  console.log(`sat: ${toreturn}`)
+  return toreturn
 }
 function jganttsLightness(offset: number, positionalPercentage: number, colorBase: Color): number {
-  return (colorBase.lightness + offset)// * positionalLightness
+  const toreturn = (colorBase.lightness + offset)// * positionalLightness
+  console.log(`light: ${toreturn}`)
+  return toreturn
 }
 
 function boxToHex(color: Color, alphaMultiplier: number) {
