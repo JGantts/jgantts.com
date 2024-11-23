@@ -350,8 +350,8 @@ defineExpose({ pausePlay })
 <template>
   <div>
     <div
-        class="curtain-holder"
-        ref="curtainHolderRef">
+      class="curtain-holder"
+      ref="curtainHolderRef">
       <Curtain
         class="curtain"
         ref="curtainRef"

@@ -95,7 +95,7 @@ let pixelColumnsFine: {saturation: number, lightness: number}[][] = []
 async function initializeBackground() {
   doneAnimatingCurtain = false
 
-  const ratio = window.devicePixelRatio || 1;
+  const ratio = /*window.devicePixelRatio ||*/ 1;
   if (canvasElement.width != canvasElement.clientWidth) {
     canvasElement.width = canvasElement.clientWidth * ratio;
     canvasElement.height = canvasElement.clientHeight * ratio;
