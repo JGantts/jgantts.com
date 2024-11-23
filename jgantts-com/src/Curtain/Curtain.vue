@@ -60,17 +60,17 @@ let gaussianObjects: GaussianObject[]
 let canvasContext: CanvasRenderingContext2D
 let canvasElement: HTMLCanvasElement
 
-let resizeTimeout: null|number;
+let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 
 function throttledResizeHandler() {
-  if (resizeTimeout) return;
-
-  resizeTimeout = setTimeout(async () => {
-    resizeTimeout = null;
-    await resizedWindow();
+  if (resizeTimeout) {
+    return
+  }
+  resizedWindow();
+  resizeTimeout = setTimeout(() => {
+    clearTimeout(resizeTimeout);
   }, 200);
 }
-
 async function resizedWindow() {
   await initializeBackground()
 }
