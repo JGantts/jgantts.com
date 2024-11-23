@@ -286,6 +286,13 @@ enum BackgroundState {
   Subseqrun,
 }
 let backgroundState = BackgroundState.Prerun
+async function startRun() {
+  switch (backgroundState) {
+    case BackgroundState.Prerun:
+      backgroundState = BackgroundState.Firstrun
+  }
+}
+
 async function loadNext(
   element: Element|null,
   //@ts-expect-error
@@ -357,6 +364,7 @@ defineExpose({ pausePlay })
         ref="curtainRef"
         :playState="1"
         @curtainCall="reload"
+        @stageEntrance="startRun"
       />
     </div>
   </div>

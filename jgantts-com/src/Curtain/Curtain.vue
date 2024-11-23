@@ -137,6 +137,7 @@ async function initializeBackground() {
       window.requestAnimationFrame(renderLoop)
     }
     await initializeCurtain()
+    emit('stageEntrance')
     playCurtain()
   };
 
@@ -560,6 +561,7 @@ const play = async (): Promise<BackgroundState> => {
 
 const emit = defineEmits([
   'curtainCall',
+  'stageEntrance',
 ]);
 defineExpose({ 
   loadCurtain,
