@@ -93,7 +93,8 @@ let pixelColumnsFine: {saturation: number, lightness: number}[][] = []
   Rendering functions
 */
 async function initializeBackground() {
-  console.log(canvasElement.clientWidth)
+  console.log(window.visualViewport?.width )
+  console.log( canvasElement.clientWidth)
 
   doneAnimatingCurtain = false
 
