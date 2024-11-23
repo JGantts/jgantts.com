@@ -97,8 +97,10 @@ function wait(ms: number): Promise<void> {
 */
 async function initializeBackground() {
   if (canvasElement.width != canvasElement.clientWidth) {
-    canvasElement.width = canvasElement.clientWidth;
-    canvasElement.height = canvasElement.clientHeight;
+    const ratio = window.devicePixelRatio || 1;
+    canvasElement.width = canvasElement.clientWidth * ratio;
+    canvasElement.height = canvasElement.clientHeight * ratio;
+    canvasContext.scale(ratio, ratio);
   }
 
 
