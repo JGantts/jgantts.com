@@ -93,15 +93,15 @@ let pixelColumnsFine: {saturation: number, lightness: number}[][] = []
   Rendering functions
 */
 async function initializeBackground() {
-  console.log(window.visualViewport?.width )
-  console.log( canvasElement.clientWidth)
+  const width = window.visualViewport?.width || canvasElement.clientWidth
+  const height = window.visualViewport?.height || canvasElement.clientHeight
 
   doneAnimatingCurtain = false
 
   const ratio = /*window.devicePixelRatio ||*/ 1;
-  if (canvasElement.width != canvasElement.clientWidth) {
-    canvasElement.width = canvasElement.clientWidth * ratio;
-    canvasElement.height = canvasElement.clientHeight * ratio;
+  if (canvasElement.width != width) {
+    canvasElement.width = width * ratio;
+    canvasElement.height = height * ratio;
     //canvasContext.scale(ratio, ratio);
   }
   
@@ -188,9 +188,12 @@ async function initializeCurtain() {
       })
   }
 
-  if (clientWidthInitial != canvasElement.clientWidth) {
-    clientWidthInitial = canvasElement.clientWidth * ratio
-    clientHeightInitial = canvasElement.clientHeight * ratio
+  const width = window.visualViewport?.width || canvasElement.clientWidth
+  const height = window.visualViewport?.height || canvasElement.clientHeight
+
+  if (clientWidthInitial != width) {
+    clientWidthInitial = width * ratio
+    clientHeightInitial = height * ratio
   }
 }
 
@@ -549,6 +552,7 @@ const emit = defineEmits([
 defineExpose({ 
   loadCurtain,
   pausePlay,
+  play,
  })
  const props = defineProps({
   playState: {
