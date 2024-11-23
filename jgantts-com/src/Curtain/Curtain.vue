@@ -85,9 +85,9 @@ let widthInFinePixels = 0
 let heightInFinePixels = 0
 
 
-let pixelColumnsSuper: {saturation: number, lightness: number}[] = []
-let pixelColumnsLarge: {saturation: number, lightness: number}[] = []
-let pixelColumnsFine: {saturation: number, lightness: number}[] = []
+let pixelColumnsSuper: {saturation: number, lightness: number}[][] = []
+let pixelColumnsLarge: {saturation: number, lightness: number}[][] = []
+let pixelColumnsFine: {saturation: number, lightness: number}[][] = []
 
 /*
   Rendering functions
