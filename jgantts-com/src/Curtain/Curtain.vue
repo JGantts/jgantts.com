@@ -281,7 +281,7 @@ async function renderScene(state: AnimationState|null): Promise<AnimationState> 
       deltaTime = 1
     } else {
       let currentTime = performance.now()
-      deltaTime = (currentTime - previousTime) / 20
+      deltaTime = (currentTime - previousTime) / 16
       previousTime = currentTime
     }
   }
