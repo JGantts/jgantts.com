@@ -284,6 +284,8 @@ async function renderScene(state: AnimationState|null): Promise<AnimationState> 
     }
   }
 
+  console.log(deltaTime)
+
   for (let index=0; index < gaussianObjects.length; index++) {
     gaussianObjects[index].acceleration += gaussianObjects[index].jolt * deltaTime
     gaussianObjects[index].velocity += gaussianObjects[index].acceleration * deltaTime
