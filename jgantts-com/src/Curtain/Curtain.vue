@@ -135,7 +135,7 @@ async function initializeBackground() {
       // Clear the message queue
       messageQueue = []
     })
-  }, 3000)
+  }, 3)
 
   worker.onmessage = (event: MessageEvent): void => {
     console.log("message")
@@ -232,20 +232,7 @@ async function renderLoop() {
   })
 }
 
-let renderedPixelsFine: ImageData | null = null
-let renderedPixelsFineAlpha: ImageData | null = null
 
-async function paintPixelsFine() {
-  renderedPixelsFine = canvasContext.createImageData(widthInFinePixels, heightInFinePixels)
-  renderedPixelsFineAlpha = canvasContext.createImageData(widthInFinePixels, heightInFinePixels)
-  for (let columnIndex = 0; columnIndex < pixelColumnsFine.length; columnIndex++) {
-    renderColumn(columnIndex)
-  }
-  backgroundPattern = canvasContext.createPattern(await createImageBitmap(renderedPixelsFine), "no-repeat")
-  backgroundPatternAlpha = canvasContext.createPattern(await createImageBitmap(renderedPixelsFineAlpha), "no-repeat")
-  // Optionally, directly put the ImageData to the canvas
-  // canvasContext.putImageData(renderedPixelsFine, 0, 0)
-}
 let backgroundPattern: CanvasPattern | null = null
 let backgroundPatternAlpha: CanvasPattern | null = null
 
@@ -328,91 +315,126 @@ async function renderScene(state: AnimationState | null): Promise<AnimationState
   return AnimationState.Inside
 }
 
-async function renderColumn(columnIndex: number) {
-  let column = pixelColumnsFine[columnIndex]
-  let totalPixels = column.length / 2 // Each pixel has two values
+// Define constants and types at the top for clarity
+const BORDER_MULTI = 1;
 
-  for (let boxIndex = TOP_BUFFER_PIXEL; boxIndex < totalPixels; boxIndex++) {
-    tryRenderBox(columnIndex, boxIndex)
-  }
+// Predefine ImageData objects to reuse
+let renderedPixelsFine: ImageData;
+let renderedPixelsFineAlpha: ImageData;
+
+// Initialize ImageData once to avoid recreating it every time
+function initializeImageData(width: number, height: number) {
+  renderedPixelsFine = new ImageData(width, height);
+  renderedPixelsFineAlpha = new ImageData(width, height);
 }
 
-function tryRenderBox(columnIndex: number, boxIndex: number): boolean {
-  let column = pixelColumnsFine[columnIndex]
-  let saturation = column[boxIndex * 2]
-  let lightness = column[boxIndex * 2 + 1]
-
-  if (saturation == null || lightness == null) {
-    console.warn(`Invalid data at column ${columnIndex}, box ${boxIndex}`)
-    return false
+// Optimized `paintPixelsFine` function
+async function paintPixelsFine() {
+  // Initialize ImageData if not already done
+  if (!renderedPixelsFine || !renderedPixelsFineAlpha) {
+    initializeImageData(widthInFinePixels, heightInFinePixels);
+  } else {
+    // Reset ImageData by setting all data to 0
+    renderedPixelsFine.data.fill(0);
+    renderedPixelsFineAlpha.data.fill(0);
   }
 
-  if (isNaN(saturation) || isNaN(lightness)) {
-    console.warn(`NaN detected at column ${columnIndex}, box ${boxIndex}:`, { saturation, lightness })
-    return false
-  }
+  const dataFine = renderedPixelsFine.data;
+  const dataFineAlpha = renderedPixelsFineAlpha.data;
 
-  renderPixel({
-    position: { x: columnIndex - 1, y: boxIndex - 1 - TOP_BUFFER_PIXEL },
-    color: { saturation, lightness },
-  })
-  return true
-}
+  // Loop through each column and process all pixels within
+  for (let columnIndex = 0; columnIndex < pixelColumnsFine.length; columnIndex++) {
+    const column = pixelColumnsFine[columnIndex];
+    const totalPixels = column.length / 2; // Each pixel has two values: saturation and lightness
 
-function renderPixel(
-  pixelData: {
-    position: Position,
-    color: ColorOffset
-  }
-) {
-  let left = (pixelData.position.x) * PIXELATED_FINE_BOX_SIZE
-  let top = (pixelData.position.y) * PIXELATED_FINE_BOX_SIZE
+    // Iterate through each pixel in the column starting from TOP_BUFFER_PIXEL
+    for (let boxIndex = TOP_BUFFER_PIXEL; boxIndex < totalPixels; boxIndex++) {
+      const saturation = column[boxIndex * 2];
+      const lightness = column[boxIndex * 2 + 1];
 
-  // Calculate HSL to RGB
-  let pixelColor = colorOffsetPlusThemePositionToHsl(
-    pixelData.color,
-    {
-      x: pixelData.position.x / canvasElement.width,
-      y: pixelData.position.y / canvasElement.height
+      // Validate saturation and lightness
+      if (
+        saturation == null ||
+        lightness == null ||
+        isNaN(saturation) ||
+        isNaN(lightness)
+      ) {
+        // Optionally, implement a throttled warning system to avoid flooding the console
+        continue;
+      }
+
+      // Calculate the pixel's position
+      const posX = columnIndex - 1;
+      const posY = boxIndex - 1 - TOP_BUFFER_PIXEL;
+
+      // Convert color offset and position to HSL
+      const pixelColor = colorOffsetPlusThemePositionToHsl(
+        { saturation, lightness },
+        {
+          x: posX / canvasElement.width,
+          y: posY / canvasElement.height,
+        }
+      );
+
+      // Validate HSL values
+      if (
+        isNaN(pixelColor.hue) ||
+        isNaN(pixelColor.saturation) ||
+        isNaN(pixelColor.lightness)
+      ) {
+        continue;
+      }
+
+      // Convert HSL to RGB
+      const rgb = HSLToRGB(pixelColor.hue, pixelColor.saturation, pixelColor.lightness);
+
+      // Validate RGB values
+      if (rgb.some((channel) => isNaN(channel) || channel < 0 || channel > 255)) {
+        continue;
+      }
+
+      // Calculate the index in the ImageData arrays
+      const x = posX * PIXELATED_FINE_BOX_SIZE;
+      const y = posY * PIXELATED_FINE_BOX_SIZE;
+
+      // Ensure coordinates are within bounds
+      if (
+        x < 0 ||
+        y < 0 ||
+        x >= widthInFinePixels * PIXELATED_FINE_BOX_SIZE ||
+        y >= heightInFinePixels * PIXELATED_FINE_BOX_SIZE
+      ) {
+        continue;
+      }
+
+      const index = (y * widthInFinePixels + x) * 4;
+
+      // Assign RGB and Alpha values directly to ImageData
+      dataFine[index] = rgb[0]; // Red
+      dataFine[index + 1] = rgb[1]; // Green
+      dataFine[index + 2] = rgb[2]; // Blue
+      dataFine[index + 3] = 255; // Full opacity
+
+      // Assign to alpha ImageData with BORDER_MULTI
+      dataFineAlpha[index] = rgb[0] * BORDER_MULTI;
+      dataFineAlpha[index + 1] = rgb[1] * BORDER_MULTI;
+      dataFineAlpha[index + 2] = rgb[2] * BORDER_MULTI;
+      dataFineAlpha[index + 3] = 32; // Lower opacity for alpha
     }
-  )
-
-  // Validate HSL values
-  if (
-    isNaN(pixelColor.hue) ||
-    isNaN(pixelColor.saturation) ||
-    isNaN(pixelColor.lightness)
-  ) {
-    console.warn(`Invalid HSL values at position (${pixelData.position.x}, ${pixelData.position.y}):`, pixelColor)
-    return
   }
 
-  let rgb = HSLToRGB(pixelColor.hue, pixelColor.saturation, pixelColor.lightness)
+  // Render the ImageData onto the canvas in a single call
+  canvasContext.putImageData(renderedPixelsFine, 0, 0);
+  canvasContext.putImageData(renderedPixelsFineAlpha, 0, 0);
 
-  // Validate RGB values
-  if (
-    rgb.some(channel => isNaN(channel) || channel < 0 || channel > 255)
-  ) {
-    console.warn(`Invalid RGB values at position (${pixelData.position.x}, ${pixelData.position.y}):`, rgb)
-    return
-  }
-
-  let i = left + top * widthInFinePixels
-  i *= 4
-
-  renderedPixelsFine.data[i + 0] = rgb[0]
-  renderedPixelsFineAlpha.data[i + 0] = rgb[0] * BORDER_MULTI
-  renderedPixelsFine.data[i + 1] = rgb[1]
-  renderedPixelsFineAlpha.data[i + 1] = rgb[1] * BORDER_MULTI
-  renderedPixelsFine.data[i + 2] = rgb[2]
-  renderedPixelsFineAlpha.data[i + 2] = rgb[2] * BORDER_MULTI
-  renderedPixelsFine.data[i + 3] = 255 // Full opacity
-  renderedPixelsFineAlpha.data[i + 3] = 32 // Lower opacity for alpha
+  // Optionally, create patterns if they are essential elsewhere
+  // To further optimize, consider caching the patterns or only updating them when necessary
+  backgroundPattern = canvasContext.createPattern(await createImageBitmap(renderedPixelsFine), "no-repeat");
+  backgroundPatternAlpha = canvasContext.createPattern(await createImageBitmap(renderedPixelsFineAlpha), "no-repeat");
 }
 
-const BORDER_MULTI = 1
+// Remove `renderColumn` and `tryRenderBox` as their functionality is now integrated into `paintPixelsFine`
 
-//#region Helper Functions
 /**
  * Converts an HSL color value to RGB.
  * 
@@ -421,7 +443,7 @@ const BORDER_MULTI = 1
  * @param l - Lightness component, in percentage [0, 100]
  * @returns A tuple containing the RGB components as [r, g, b], each in the range [0, 255]
  */
- const HSLToRGB = (h: number, s: number, l: number): [number, number, number] => {
+const HSLToRGB = (h: number, s: number, l: number): [number, number, number] => {
   // Ensure h is within [0, 360)
   h = h % 360;
   if (h < 0) h += 360;
@@ -438,7 +460,9 @@ const BORDER_MULTI = 1
   const hPrime = h / 60;
   const x = c * (1 - Math.abs((hPrime % 2) - 1));
 
-  let r1 = 0, g1 = 0, b1 = 0;
+  let r1 = 0,
+    g1 = 0,
+    b1 = 0;
 
   if (0 <= hPrime && hPrime < 1) {
     r1 = c;
@@ -472,117 +496,117 @@ const BORDER_MULTI = 1
   const b = Math.round((b1 + m) * 255);
 
   // Clamp RGB values to [0, 255]
-  return [
-    Math.max(0, Math.min(255, r)),
-    Math.max(0, Math.min(255, g)),
-    Math.max(0, Math.min(255, b))
-  ];
-}
-
+  return [Math.max(0, Math.min(255, r)), Math.max(0, Math.min(255, g)), Math.max(0, Math.min(255, b))];
+};
 
 function colorOffsetPlusThemePositionToHsl(offset: ColorOffset, position: Position): Color {
-  let positionalPercentage: number
-  if (rainbow.dir == RainbowDirection.Regular) {
-    positionalPercentage = (position.x + position.y) / 2
+  let positionalPercentage: number;
+  if (rainbow.dir === RainbowDirection.Regular) {
+    positionalPercentage = (position.x + position.y) / 2;
   } else {
-    positionalPercentage = (1 - position.x + position.y) / 2
+    positionalPercentage = (1 - position.x + position.y) / 2;
   }
-  if (positionalPercentage < 0) {
-    positionalPercentage = 0
-  }
-  let colorBase = gradientAtPercentage(positionalPercentage)
+  positionalPercentage = Math.max(0, positionalPercentage); // Clamp to [0, ∞)
+
+  let colorBase = gradientAtPercentage(positionalPercentage);
   let color: Color = {
     hue: jganttsHue(offset.lightness, positionalPercentage, colorBase),
     saturation: jganttsSaturation(offset.saturation, positionalPercentage, colorBase),
-    lightness: jganttsLightness(offset.lightness, positionalPercentage, colorBase)
-  }
-  return color
+    lightness: jganttsLightness(offset.lightness, positionalPercentage, colorBase),
+  };
+  return color;
 }
 
 function gradientAtPercentage(percentage: number): Color {
-  let colorA: Color | null = null
-  let colorB: Color | null = null
-  let percentageAlongSection: number | null = null
+  let colorA: Color | null = null;
+  let colorB: Color | null = null;
+  let percentageAlongSection: number | null = null;
 
   for (let index = 0; index < rainbow.stops.length; index++) {
     if (rainbow.stops[index].stop > percentage) {
-      let stopA = rainbow.stops[index - 1]
-      let stopB = rainbow.stops[index]
+      let stopA = rainbow.stops[index - 1];
+      let stopB = rainbow.stops[index];
 
-      let lengthBetweenStops = stopB.stop - stopA.stop
-      let lengthSinceStopA = percentage - stopA.stop
-      percentageAlongSection = lengthSinceStopA / lengthBetweenStops
-      colorA = stopA.color
-      colorB = stopB.color
-      break
+      let lengthBetweenStops = stopB.stop - stopA.stop;
+      let lengthSinceStopA = percentage - stopA.stop;
+      percentageAlongSection = lengthSinceStopA / lengthBetweenStops;
+      colorA = stopA.color;
+      colorB = stopB.color;
+      break;
     }
   }
-  if (!colorA || !colorB || percentageAlongSection === null) { 
-    return rainbow.stops[0].color
+  if (!colorA || !colorB || percentageAlongSection === null) {
+    return rainbow.stops[0].color;
   }
-  let hue: number
-  let saturation: number
-  let lightness: number
-  if (Math.abs(colorA.hue - colorB.hue) < 180) { // 360/2
+  let hue: number;
+  let saturation: number;
+  let lightness: number;
+  if (Math.abs(colorA.hue - colorB.hue) < 180) {
     // Linear interpolation
-    hue = colorA.hue * (1 - percentageAlongSection) + colorB.hue * percentageAlongSection
-    saturation = colorA.saturation * (1 - percentageAlongSection) + colorB.saturation * percentageAlongSection
-    lightness = colorA.lightness * (1 - percentageAlongSection) + colorB.lightness * percentageAlongSection
+    hue = colorA.hue * (1 - percentageAlongSection) + colorB.hue * percentageAlongSection;
+    saturation = colorA.saturation * (1 - percentageAlongSection) + colorB.saturation * percentageAlongSection;
+    lightness = colorA.lightness * (1 - percentageAlongSection) + colorB.lightness * percentageAlongSection;
   } else {
     // Interpolate through 0/360
-    let colorHigh: Color
-    let colorLow: Color
+    let colorHigh: Color;
+    let colorLow: Color;
     if (colorA.hue > colorB.hue) {
-      colorHigh = colorA
-      colorLow = colorB
+      colorHigh = colorA;
+      colorLow = colorB;
     } else {
-      colorHigh = colorB
-      colorLow = colorA
-      percentageAlongSection = 1 - percentageAlongSection
+      colorHigh = colorB;
+      colorLow = colorA;
+      percentageAlongSection = 1 - percentageAlongSection;
     }
-    saturation = colorHigh.saturation * (1 - percentageAlongSection) + colorLow.saturation * percentageAlongSection
-    lightness = colorHigh.lightness * (1 - percentageAlongSection) + colorLow.lightness * percentageAlongSection
-    let targetHue: number = 360 + colorLow.hue
-    let hueUnsliced = colorHigh.hue * (1 - percentageAlongSection) + targetHue * percentageAlongSection
-    hue = hueUnsliced < 360 ? hueUnsliced : hueUnsliced - 360
+    saturation =
+      colorHigh.saturation * (1 - percentageAlongSection) +
+      colorLow.saturation * percentageAlongSection;
+    lightness =
+      colorHigh.lightness * (1 - percentageAlongSection) +
+      colorLow.lightness * percentageAlongSection;
+    let targetHue: number = 360 + colorLow.hue;
+    let hueUnsliced =
+      colorHigh.hue * (1 - percentageAlongSection) +
+      targetHue * percentageAlongSection;
+    hue = hueUnsliced < 360 ? hueUnsliced : hueUnsliced - 360;
   }
 
   return {
     hue,
     saturation,
-    lightness
-  }
+    lightness,
+  };
 }
 
-function jganttsHue(offset: number, positionalPercentage: number, colorBase: Color): number {
-  let hue = colorBase.hue
-  return hue
+function jganttsHue(
+  offset: number,
+  positionalPercentage: number,
+  colorBase: Color
+): number {
+  let hue = colorBase.hue;
+  return hue;
 }
 
-function jganttsSaturation(offset: number, positionalPercentage: number, colorBase: Color): number {
-  const toreturn = colorBase.saturation / 1.2 + offset
-  if (toreturn < 1)
-    console.log(`sat: ${toreturn}`)
-  return toreturn
+function jganttsSaturation(
+  offset: number,
+  positionalPercentage: number,
+  colorBase: Color
+): number {
+  const toreturn = colorBase.saturation / 1.2 + offset;
+  if (toreturn < 1) console.log(`sat: ${toreturn}`);
+  return toreturn;
 }
 
-function jganttsLightness(offset: number, positionalPercentage: number, colorBase: Color): number {
-  const toreturn = (colorBase.lightness + offset) // * positionalLightness
-  if (toreturn < 1)
-    console.log(`light: ${toreturn}`)
-  return toreturn
+function jganttsLightness(
+  offset: number,
+  positionalPercentage: number,
+  colorBase: Color
+): number {
+  const toreturn = colorBase.lightness + offset; // * positionalLightness
+  if (toreturn < 1) console.log(`light: ${toreturn}`);
+  return toreturn;
 }
 
-function boxToHex(color: Color, alphaMultiplier: number) {
-  return `hsla(${color.hue}, ${color.saturation}%, ${color.lightness}%, ${alphaMultiplier})`
-}
-
-function decToTwoDigitHex(dec: number) {
-  let hexRaw = Math.floor(dec).toString(16)
-  return (hexRaw.length == 1) ? "0" + hexRaw : hexRaw
-}
-
-//#endregion
 
 onMounted(async () => {
   //@ts-expect-error
