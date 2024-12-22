@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 3000;
 const jgantts_com_Path = path.join(__dirname, '../jgantts-com')
 const jgantts_conlangiii_Path = path.join(__dirname, '../conlangiii')
 
+app.get('*', (req, res) => {
+  res.sendStatus(500)
+});
 
 app.use('/conlangiii/assets', express.static(path.join(jgantts_conlangiii_Path, 'dist', 'assets')));
 app.get('/conlangiii/*', (req, res) => {
