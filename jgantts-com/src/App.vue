@@ -102,7 +102,9 @@ onMounted(() => {
               </VStack>
             </Island>
             <div style="width: 2rem">
+              <!--
               <ReplayButton class="text-h4 replay-button" @click="pausePlay" :state="BackgroundState.First" ref="replayButtonRef"/>
+              -->
             </div>
           </DStack>
         </VStack>
