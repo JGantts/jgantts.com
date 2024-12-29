@@ -9,6 +9,7 @@ const jgantts_conlangiii_Path = path.join(__dirname, '../conlangiii')
 
 
 app.use('/conlangiii/assets', express.static(path.join(jgantts_conlangiii_Path, 'dist', 'assets')));
+app.use('/conlangiii/', express.static(path.join(jgantts_conlangiii_Path, 'dist')));
 app.get('/conlangiii*', (req, res) => {
   res.sendFile(path.join(jgantts_conlangiii_Path, 'dist', 'index.html'));
 });
